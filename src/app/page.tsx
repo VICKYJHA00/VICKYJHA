@@ -17,6 +17,7 @@ import { FAQ } from '@/components/portfolio/FAQ';
 import { Contact } from '@/components/portfolio/Contact';
 import { Footer } from '@/components/portfolio/Footer';
 import { BackToTop } from '@/components/portfolio/BackToTop';
+import { CommandPalette } from '@/components/portfolio/CommandPalette';
 
 export default function Home() {
   return (
@@ -44,6 +45,7 @@ export default function Home() {
       </main>
       <Footer />
       <BackToTop />
+      <CommandPalette />
     </div>
   );
 }

@@ -2,8 +2,9 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
 import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
+import { openCommandPalette } from '@/components/portfolio/CommandPalette';
 
 const links = [
   { href: '#home', label: 'Home' },
@@ -98,6 +99,15 @@ export function Navbar() {
           >
             Get in touch
           </a>
+          <button
+            onClick={openCommandPalette}
+            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border bg-secondary/50 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            aria-label="Open command palette"
+          >
+            <Search size={12} />
+            <span>Search</span>
+            <kbd className="ml-1 px-1 py-0.5 rounded bg-background border border-border text-[10px] font-mono">⌘K</kbd>
+          </button>
           <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}

@@ -30,8 +30,17 @@ export function Timeline() {
         </motion.div>
 
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-[19px] top-3 bottom-3 w-px bg-border" />
+          {/* Vertical line — animated */}
+          <div className="absolute left-[19px] top-3 bottom-3 w-px">
+            <motion.div
+              className="w-full bg-border origin-top"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              style={{ height: '100%' }}
+            />
+          </div>
 
           <div className="space-y-8">
             {timeline.map((item, i) => {

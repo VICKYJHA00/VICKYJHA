@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Database, BrainCircuit, Rocket, ArrowRight } from 'lucide-react';
 
@@ -32,6 +33,19 @@ const services = [
 ];
 
 export function Services() {
+  const [tilt, setTilt] = useState({ x: 0, y: 0, card: -1 });
+
+  const handleMouseMove = (e: React.MouseEvent, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: y * -3, y: x * 3, card: index });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0, card: -1 });
+  };
+
   return (
     <section className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
@@ -57,6 +71,9 @@ export function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
+                onMouseMove={(e) => handleMouseMove(e, i)}
+                onMouseLeave={handleMouseLeave}
+                style={tilt.card === i ? { transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 150ms ease-out' } : { transform: 'perspective(800px) rotateX(0deg) rotateY(0deg)', transition: 'transform 500ms ease-out' }}
                 className={`rounded-2xl border p-6 sm:p-8 transition-all duration-300 group hover:border-primary/20 relative overflow-hidden ${
                   s.highlight
                     ? 'border-primary/20 bg-primary/[0.03]'

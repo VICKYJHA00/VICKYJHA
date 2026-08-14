@@ -40,9 +40,12 @@ export function BackToTop() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 w-10 h-10 rounded-full bg-secondary/80 backdrop-blur-sm border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-secondary transition-colors"
+          className="group/btt relative fixed bottom-8 right-8 z-40 w-10 h-10 rounded-full bg-secondary/80 backdrop-blur-sm border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-secondary transition-colors"
           aria-label="Back to top"
         >
+          <span className="absolute right-full mr-2.5 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md bg-foreground text-background text-[11px] font-medium whitespace-nowrap opacity-0 group-hover/btt:opacity-100 transition-opacity pointer-events-none">
+            Back to top
+          </span>
           <svg
             className="absolute inset-0 w-full h-full -rotate-90"
             viewBox="0 0 40 40"

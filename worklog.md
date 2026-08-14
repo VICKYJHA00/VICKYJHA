@@ -461,3 +461,109 @@ Task: Styling polish, testimonial auto-advance, CSS enhancements, comprehensive 
 5. Add section entrance animations with staggered children
 6. Consider adding a contact form backend API route
 7. Add a 404 page with matching design
+
+---
+Task ID: 4-a
+Agent: OG + Command Palette + 404 Agent
+Task: Add OG meta tags, command palette, and custom 404 page
+
+Work Log:
+- Generated OG image (1344x768, dark minimal card with "Vicky" in white + ".dev" in orange) and saved to public/og-image.png
+- Updated layout.tsx metadata: full Open Graph (title, description, url, siteName, images, locale, type), Twitter card (summary_large_image), metadataBase
+- Created CommandPalette.tsx with Cmd+K/Ctrl+K global trigger, real-time search filter, 7 navigation items + 3 actions (toggle theme, copy email, visit GitHub), keyboard navigation (↑↓/Enter/Escape), framer-motion AnimatePresence animations, module-level openCommandPalette() export for Navbar integration
+- Added search button to Navbar (desktop only, lg breakpoint) with ⌘K kbd hint between ThemeToggle and hamburger
+- Imported and rendered CommandPalette in page.tsx after BackToTop
+- Created not-found.tsx custom 404 page with framer-motion staggered entry animations, Back to home + Go back buttons, theme initialization
+
+Stage Summary:
+- Full OG + Twitter card meta tags with AI-generated social sharing image
+- Command palette with 7 nav items + 3 actions, keyboard shortcut ⌘K, real-time filtering, smooth scroll navigation
+- Custom 404 page matching warm dark theme design with entrance animations
+- ESLint: 0 errors
+
+---
+Task ID: 4-b
+Agent: Styling & Micro-interactions Agent
+Task: Enhanced animations, tilt effects, and polish
+
+Work Log:
+- Created FadeIn.tsx reusable animation component with 5 direction support, delay, duration, and reduced motion handling
+- Animated Timeline vertical line from scaleY 0 to 1 with origin-top and smooth cubic-bezier easing
+- Added 3D tilt hover effect (±3°) to Service cards with mouse position tracking via useState
+- Added hover ArrowRight icon to Writing section articles with opacity and translate-x transitions
+- Added "Back to top" tooltip to BackToTop button using group/btt hover pattern
+
+Stage Summary:
+- FadeIn component supports up/down/left/right/none directions, configurable delay/duration, respects prefers-reduced-motion
+- Timeline connecting line animates on scroll (1.2s ease-out) for visual polish
+- Service cards track mouse position and apply perspective(800px) tilt, smooth 500ms reset on leave
+- Writing articles show ArrowRight icon on hover with slide-in animation
+- BackToTop button shows tooltip label on hover via CSS group hover
+- ESLint: 0 errors
+---
+Task ID: 4-c
+Agent: Main
+Task: Final QA, verification, and comprehensive round summary
+
+## Current Project Status / Assessment
+- Portfolio site fully functional on desktop (1920x1080) and mobile (375x812)
+- All 14 sections rendering correctly with zero JS errors
+- ESLint passes clean (zero errors, zero warnings)
+- Server: 200 status code
+- 21 interactive buttons, 11 section headings
+- All interactive elements verified: nav links, mobile menu, tag filtering, testimonial carousel (auto-advance), FAQ accordion, contact form, back-to-top (with tooltip), theme toggle, project modals, keyboard shortcut (T), command palette (Cmd+K), 404 page
+
+## Completed This Round
+
+### New Features
+- **Command Palette (Cmd+K / Ctrl+K)**: VS Code/Raycast-style search overlay with 7 navigation items + 3 actions (toggle theme, copy email, visit GitHub). Real-time filtering, full keyboard navigation (arrows + Enter + Escape), navbar search button with kbd hint. Module-level openCommandPalette() export for cross-component triggering.
+- **Custom 404 Page**: Animated entry (staggered motion), large 404 text in primary/20, "Back to home" and "Go back" buttons, theme-aware initialization.
+- **Open Graph Meta Tags**: Generated OG image (dark theme with orange accent), full OG + Twitter card metadata (title, description, image, locale, type). metadataBase set.
+
+### Styling & Micro-Interactions
+- **FadeIn Component**: Reusable animation wrapper (FadeIn.tsx) supporting 5 directions (up/down/left/right/none), configurable delay & duration, prefers-reduced-motion support.
+- **Timeline Line Animation**: Static vertical line replaced with motion.div that scales from 0 to 1 (scaleY, origin-top) on scroll, 1.2s ease-out.
+- **Service Card 3D Tilt**: Mouse-tracking perspective tilt (±3 degrees) on service cards. 150ms tracking on hover, 500ms smooth reset on leave.
+- **Writing Hover Arrows**: Each article row reveals an ArrowRight icon on hover with slide-in animation (opacity + translateX).
+- **BackToTop Tooltip**: "Back to top" label appears on hover (left of button), using group/btt CSS pattern.
+
+### Files Created
+- src/components/portfolio/CommandPalette.tsx
+- src/components/portfolio/FadeIn.tsx
+- src/app/not-found.tsx
+- public/og-image.png
+
+### Files Modified
+- src/app/layout.tsx (full OG + Twitter meta)
+- src/app/page.tsx (CommandPalette import)
+- src/components/portfolio/Navbar.tsx (Search button with kbd hint, openCommandPalette import)
+- src/components/portfolio/Services.tsx (3D tilt effect)
+- src/components/portfolio/Timeline.tsx (animated line)
+- src/components/portfolio/Writing.tsx (hover arrows)
+- src/components/portfolio/BackToTop.tsx (tooltip)
+
+## Verification Results
+- agent-browser desktop: 14 sections, 21 buttons, 0 JS errors, 200 status
+- agent-browser mobile: 14 sections, 11 headings, 0 JS errors, 200 status
+- 404 page: renders correctly with animated entry
+- Theme toggle: works via button, T key, and command palette
+- Project modal: opens on click, closes on Escape/backdrop
+- FAQ accordion: expands/collapses correctly
+- ESLint: 0 errors, 0 warnings
+- Note: agent-browser cannot click through grain-overlay (pointer-events:none) — this is a testing tool limitation, not a user-facing bug
+
+## Unresolved / Risks
+1. LOW: Resume PDF not present at /resume/Vicky_Resume.pdf
+2. LOW: Portrait image could be optimized to WebP format
+3. LOW: Writing section articles link to # (placeholder URLs)
+4. LOW: OG image is AI-generated and could be replaced with a custom design
+
+## Priority Recommendations for Next Phase
+1. Add a real blog/writing system with markdown-based posts
+2. Add a contact form backend API route (currently mailto: only)
+3. Optimize portrait image to WebP
+4. Add resume PDF to public/resume/
+5. Add a loading/skeleton screen for initial page load
+6. Add smooth page transition animations between route changes
+7. Consider adding a mini dashboard widget (live clock, local weather)
+8. Add more timeline entries (currently only 3)

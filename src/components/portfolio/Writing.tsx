@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Clock } from 'lucide-react';
+import { Clock, ArrowRight } from 'lucide-react';
 
 const writings = [
   {
@@ -75,7 +75,7 @@ export function Writing() {
             <a
               key={article.title}
               href={article.url}
-              className={`flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-6 py-5 hover:bg-secondary/30 transition-colors ${
+              className={`flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-6 py-5 hover:bg-secondary/30 transition-colors group ${
                 i < writings.length - 1 ? 'border-b border-border' : ''
               }`}
             >
@@ -90,7 +90,7 @@ export function Writing() {
 
               {/* Title + description */}
               <div className="flex-1 min-w-0">
-                <p className="font-semibold leading-snug hover:text-primary transition-colors">
+                <p className="font-semibold leading-snug group-hover:text-primary transition-colors">
                   {article.title}
                 </p>
                 <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
@@ -106,6 +106,9 @@ export function Writing() {
                   {article.readTime}
                 </span>
               </div>
+
+              {/* Hover arrow */}
+              <ArrowRight size={14} className="shrink-0 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all text-primary" />
             </a>
           ))}
         </motion.div>

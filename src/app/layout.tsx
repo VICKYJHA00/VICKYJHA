@@ -24,7 +24,26 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vicky — Backend Engineer & AI Product Builder",
     description: "Production-grade backends. AI products that ship. Available for internships.",
+    url: "https://vicky.dev",
+    siteName: "Vicky's Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Vicky — Backend Engineer & AI Product Builder",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
+  twitter: {
+    card: "summary_large_image" as const,
+    title: "Vicky — Backend Engineer & AI Product Builder",
+    description: "Production-grade backends. AI products that ship.",
+    images: ["/og-image.png"],
+  },
+  metadataBase: new URL("https://vicky.dev"),
 };
 
 export default function RootLayout({
