@@ -30,6 +30,9 @@ export function Resume() {
               A comprehensive overview of my technical background, engineering projects, and
               architectural philosophy. Last updated October 2024.
             </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              PDF · Last updated October 2024
+            </p>
           </div>
 
           <div className="flex gap-3 shrink-0">

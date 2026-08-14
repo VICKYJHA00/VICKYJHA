@@ -75,7 +75,7 @@ export function Navbar() {
                 href={l.href}
                 className={`relative px-3 py-1.5 rounded-lg text-sm transition-colors ${
                   active === l.href
-                    ? 'text-foreground font-medium'
+                    ? 'text-primary font-medium'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -83,7 +83,7 @@ export function Navbar() {
                 {active === l.href && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 -z-10 rounded-lg bg-secondary"
+                    className="absolute inset-0 -z-10 rounded-lg bg-secondary border-l-2 border-l-primary shadow-sm shadow-primary/10"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}

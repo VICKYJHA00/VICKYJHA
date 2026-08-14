@@ -263,3 +263,53 @@ a:focus-visible, button:focus-visible {
 img {
   content-visibility: auto;
 }
+
+.light .shadow-lg {
+  --tw-shadow-color: rgba(0, 0, 0, 0.08);
+}
+.light .shadow-primary\/10 {
+  --tw-shadow-color: rgba(234, 88, 12, 0.08);
+}
+
+@media print {
+  /* Hide non-essential elements */
+  .grain-overlay,
+  .scroll-progress,
+  .back-to-top,
+  [aria-modal="true"],
+  nav,
+  button,
+  .animate-marquee,
+  .animate-spin-slow {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for print */
+  body, section, main, footer {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure text is readable */
+  p, h1, h2, h3, h4, li, span, a {
+    color: black !important;
+  }
+
+  /* Remove borders and shadows */
+  * {
+    border-color: #e5e7eb !important;
+    box-shadow: none !important;
+  }
+
+  /* Prevent page breaks inside cards */
+  article, .rounded-2xl, .rounded-xl {
+    break-inside: avoid;
+  }
+
+  /* Show link URLs */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75rem;
+    color: #666;
+  }
+}

@@ -60,7 +60,13 @@ export function Now() {
                 className="rounded-xl border border-border/50 bg-card/20 p-5 hover:border-primary/20 transition-colors group"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <Icon size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                  <div className="flex items-center">
+                    <Icon size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                    <span className="relative flex h-2 w-2 ml-1">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-40" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                    </span>
+                  </div>
                   <span className="text-xs text-muted-foreground font-medium">
                     {item.label}
                   </span>

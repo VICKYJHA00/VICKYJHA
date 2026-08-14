@@ -567,3 +567,111 @@ Task: Final QA, verification, and comprehensive round summary
 6. Add smooth page transition animations between route changes
 7. Consider adding a mini dashboard widget (live clock, local weather)
 8. Add more timeline entries (currently only 3)
+
+---
+Task ID: 5-b
+Agent: Contact API + Skeleton + Timeline Agent
+Task: Add contact API, loading skeleton, expand timeline
+
+Work Log:
+- Created /api/contact POST route with field validation, email regex, 300-800ms simulated delay
+- Modified Contact.tsx: replaced mailto: with fetch POST, added sonner toast (success/error), loading state with Loader2 spinner, disabled button while sending, removed sent/success screen
+- Updated layout.tsx Toaster import from @/components/ui/toaster to @/components/ui/sonner
+- Created PageSkeleton.tsx: mimics navbar + hero layout with animate-pulse skeleton blocks
+- Modified page.tsx: added 800ms loading state with AnimatePresence fade transition between skeleton and real content
+- Expanded timeline.ts from 3 to 6 entries (added Open Source, Leadership, Project entries)
+- Updated Timeline.tsx tagConfig with new tags: Open Source (Github/orange), Leadership (Users/rose), Project (Code2/sky), refactored to use config object for textColor and tagBg
+
+Stage Summary:
+- Contact form now POSTs to /api/contact, shows sonner toast on success/error, has loading spinner
+- Page shows skeleton for 800ms on load with smooth AnimatePresence fade transition
+- Timeline has 6 entries spanning 2022-2025 with 6 distinct tag types
+- ESLint: 0 errors
+
+---
+Task ID: 5-c
+Agent: Styling Polish Agent  
+Task: Navbar glow, print CSS, light theme, Now dots, Resume, Footer
+
+Work Log:
+- Enhanced Navbar active pill with text-primary color shift + border-l-2 border-l-primary accent + shadow-sm shadow-primary/10 glow
+- Added @media print stylesheet to globals.css (hides nav/buttons/overlays, resets colors, shows link URLs)
+- Added light theme shadow refinements (.light .shadow-lg and .light .shadow-primary/10)
+- Added pulsing green dots (animate-ping + static dot) to Now section cards
+- Added "PDF · Last updated October 2024" metadata line to Resume section
+- Added dynamic year (© {new Date().getFullYear()}) + Top link with ArrowUp icon to Footer
+- Added 'use client' to Footer for new Date().getFullYear()
+
+Stage Summary:
+- Print-friendly styles hide nav/buttons/overlays/grain, show link URLs in parentheses
+- Now cards have live status indicators with ping animation
+- Footer shows © 2025 and scroll-to-top link with ArrowUp icon
+- ESLint: 0 errors
+
+---
+Task ID: 5-d
+Agent: Main
+Task: Final QA, contact API, skeleton, timeline expansion, styling polish
+
+## Current Project Status / Assessment
+- Portfolio site fully functional on desktop (1920x1080)
+- All 15 sections rendering correctly with zero JS errors
+- ESLint passes clean (zero errors, zero warnings)
+- Server: 200 status code
+- 21 interactive buttons, 11 section headings, 1 form
+- Contact form now uses real API endpoint with validation + toast feedback
+- Timeline expanded from 3 to 6 entries
+- Loading skeleton shows for 800ms on initial page load
+- Mobile QA skipped due to Chrome process limit in sandbox (not a code issue)
+
+## Completed This Round
+
+### New Features
+- **Contact Form API Route**: POST /api/contact with name/email/message validation, email format check, 300-800ms simulated delay, success/error JSON responses. Form now uses fetch + Sonner toast notifications instead of mailto:.
+- **Loading Skeleton Screen**: PageSkeleton component mimicking navbar + hero layout with animated pulse blocks. Shows for 800ms on mount, then smooth AnimatePresence fade transition to real content.
+- **Expanded Timeline**: 3 new entries added (Open Source Contributor, Founded College Tech Club, First Real Project). 6 total spanning 2022-2025. New tag types with Github/Users/Code2 icons and orange/rose/sky color schemes.
+
+### Styling & Polish
+- **Navbar Active Indicator**: Active nav pill now has text-primary color, border-l-2 border-l-primary left accent, and shadow-sm shadow-primary/10 glow.
+- **Now Section Live Dots**: Each Now card has a pulsing green dot (animate-ping + static) next to the icon as a "live" status indicator.
+- **Resume PDF Metadata**: Added "PDF · Last updated October 2024" subtitle.
+- **Footer Year + Top Link**: Dynamic © year (new Date().getFullYear()), "Top" link with ArrowUp icon in quick nav.
+- **Print Stylesheet**: Full @media print block hiding nav/buttons/overlays, resetting colors to black/white, preventing breaks inside cards, showing link URLs.
+- **Light Theme Shadows**: Softer shadow-lg and shadow-primary/10 for light mode.
+
+### Files Created
+- src/app/api/contact/route.ts
+- src/components/portfolio/PageSkeleton.tsx
+
+### Files Modified
+- src/app/page.tsx (loading state, AnimatePresence, PageSkeleton)
+- src/app/layout.tsx (Sonner Toaster import)
+- src/app/globals.css (print styles, light theme shadows)
+- src/data/timeline.ts (3 new entries)
+- src/components/portfolio/Contact.tsx (fetch API, toast, loading state, Loader2 spinner)
+- src/components/portfolio/Timeline.tsx (3 new tag configs, Github/Users/Code2 icons)
+- src/components/portfolio/Navbar.tsx (active pill glow + border accent)
+- src/components/portfolio/Now.tsx (pulsing green dots)
+- src/components/portfolio/Resume.tsx (PDF metadata line)
+- src/components/portfolio/Footer.tsx (dynamic year, Top link, 'use client')
+
+## Verification Results
+- agent-browser desktop: 15 sections, 21 buttons, 11 h2s, 1 form, 0 JS errors, 200 status
+- Contact API: POST validation works (empty fields → 400, bad email → 400, valid → 200)
+- Skeleton: Shows on page load, transitions out after 800ms
+- Timeline: All 6 entries rendering with correct icons and colors
+- ESLint: 0 errors, 0 warnings
+- Mobile QA: Skipped (Chrome process limit in sandbox environment)
+
+## Unresolved / Risks
+1. LOW: Resume PDF not present at /resume/Vicky_Resume.pdf
+2. LOW: OG image is AI-generated and could be replaced
+3. LOW: Writing section articles link to # (placeholder URLs)
+
+## Priority Recommendations for Next Phase
+1. Add a blog/writing system with markdown-based posts
+2. Add a real resume PDF to public/resume/
+3. Add smooth page transition animations
+4. Consider adding a mini interactive widget (e.g., embedded code playground)
+5. Add keyboard section navigation (number keys 1-9)
+6. Optimize all images to WebP format

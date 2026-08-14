@@ -1,4 +1,6 @@
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+'use client';
+
+import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react';
 import { CONTACT } from '@/data/contact';
 
 const footerLinks = [
@@ -6,6 +8,7 @@ const footerLinks = [
   { href: '#projects', label: 'Projects' },
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
+  { href: '#home', label: 'Top', icon: ArrowUp },
 ];
 
 export function Footer() {
@@ -18,8 +21,9 @@ export function Footer() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
             >
+              {'icon' in l && l.icon ? <l.icon size={12} /> : null}
               {l.label}
             </a>
           ))}
@@ -30,6 +34,7 @@ export function Footer() {
             <span className="font-semibold">vicky</span>
             <span className="text-primary">.</span>
             <span className="text-muted-foreground">dev</span>
+            <span className="text-muted-foreground/60 ml-1">© {new Date().getFullYear()}</span>
           </div>
 
           <p className="text-xs text-muted-foreground flex items-center gap-1">

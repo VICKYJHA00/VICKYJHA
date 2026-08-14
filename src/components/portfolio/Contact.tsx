@@ -2,28 +2,38 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, Check, MapPin, Clock } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, Loader2, MapPin, Clock } from 'lucide-react';
+import { toast } from 'sonner';
 import { CONTACT } from '@/data/contact';
 
 export function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
-    const subject = encodeURIComponent(`Portfolio contact from ${formData.name}`);
-    const body = encodeURIComponent(
-      `${formData.message}\n\n—\n${formData.name}\n${formData.email}`,
-    );
-    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
-    setSent(true);
-  };
+    setLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
 
-  const resetForm = () => {
-    setFormData({ name: '', email: '', message: '' });
-    setSent(false);
+      if (res.ok && data.success) {
+        toast.success(data.message);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        toast.error(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      toast.error('Network error. Please check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -123,85 +133,72 @@ export function Contact() {
 
           {/* Form */}
           <div className="lg:col-span-3">
-            {sent ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center py-16 text-center space-y-4 rounded-2xl border border-border bg-card/20"
-              >
-                <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-400">
-                  <Check size={24} />
-                </div>
-                <h3 className="text-lg font-semibold">Message ready to send</h3>
-                <p className="text-sm text-muted-foreground max-w-sm">
-                  Your email client should have opened with the message pre-filled. Hit
-                  send there to deliver it.
-                </p>
-                <button
-                  onClick={resetForm}
-                  className="text-sm text-primary hover:underline"
-                >
-                  Send another message
-                </button>
-              </motion.div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-5 rounded-2xl border border-border bg-card/20 p-6 sm:p-8"
-              >
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      required
-                      type="text"
-                      placeholder="Your name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      required
-                      type="email"
-                      placeholder="you@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
-                    />
-                  </div>
-                </div>
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-5 rounded-2xl border border-border bg-card/20 p-6 sm:p-8"
+            >
+              <div className="grid sm:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
-                    Message
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Name
                   </label>
-                  <textarea
-                    id="message"
+                  <input
+                    id="name"
                     required
-                    rows={5}
-                    placeholder="What's on your mind?"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all resize-none"
+                    type="text"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 active:scale-[0.98] transition-all shadow-lg shadow-primary/10"
-                >
-                  <Send size={14} />
-                  Send message
-                </button>
-              </form>
-            )}
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    required
+                    type="email"
+                    placeholder="you@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-medium">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  required
+                  rows={5}
+                  placeholder="What's on your mind?"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all resize-none"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 active:scale-[0.98] transition-all shadow-lg shadow-primary/10 disabled:opacity-60 disabled:pointer-events-none"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 size={14} className="animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={14} />
+                    Send message
+                  </>
+                )}
+              </button>
+            </form>
           </div>
         </div>
       </div>

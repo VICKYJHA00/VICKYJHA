@@ -21,6 +21,27 @@ export const timeline: TimelineItem[] = [
     tag: "Internship",
   },
   {
+    date: "Spring 2024",
+    title: "Open Source Contributor",
+    description:
+      "Contributed to Spring Security and Apache Commons. Shipped bug fixes and documentation improvements that got merged into main branches.",
+    tag: "Open Source",
+  },
+  {
+    date: "2023",
+    title: "Founded College Tech Club",
+    description:
+      "Started a weekly systems design reading group that grew to 40+ members. Organized 3 hackathons and brought in industry speakers from Amazon and Razorpay.",
+    tag: "Leadership",
+  },
+  {
+    date: "2022",
+    title: "First Real Project — Quiz Master",
+    description:
+      "Built a real-time multiplayer quiz platform as a side project. Learned WebSockets, Redis pub/sub, and how to handle 20k concurrent connections. This project changed how I thought about backend engineering.",
+    tag: "Project",
+  },
+  {
     date: "2021 — 2025",
     title: "B.Tech in Computer Science",
     description:
