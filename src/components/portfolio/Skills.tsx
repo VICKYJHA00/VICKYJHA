@@ -22,7 +22,7 @@ const categoryColors: Record<string, string> = {
 /** 4 axes: top, right, bottom, left */
 const ANGLE_OFFSET = -Math.PI / 2;
 const ANGLE_STEP = (2 * Math.PI) / 4;
-const CENTER = 100;
+const CENTER = 120;
 const MAX_RADIUS = 80;
 
 function polarToCartesian(index: number, value: number): string {
@@ -64,7 +64,7 @@ export function Skills() {
     const labelPositions: { x: number; y: number; anchor: string }[] = [];
     for (let i = 0; i < 4; i++) {
       const angle = ANGLE_OFFSET + i * ANGLE_STEP;
-      const r = MAX_RADIUS + 14;
+      const r = MAX_RADIUS + 22;
       const x = CENTER + r * Math.cos(angle);
       const y = CENTER + r * Math.sin(angle);
       let anchor = 'middle';
@@ -94,9 +94,9 @@ export function Skills() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <svg
-              viewBox="0 0 200 200"
+              viewBox="0 0 240 240"
               className="w-full"
-              style={{ width: 250, height: 250, margin: '0 auto', display: 'block' }}
+              style={{ width: 280, height: 280, margin: '0 auto', display: 'block' }}
               role="img"
               aria-label="Skills radar chart"
             >
@@ -119,9 +119,20 @@ export function Skills() {
               <motion.polygon
                 points={inView ? dataPoints : centerPoints}
                 fill="var(--color-primary)"
-                fillOpacity={0.15}
+                fillOpacity={0.25}
                 stroke="var(--color-primary)"
-                strokeWidth={1.5}
+                strokeWidth={2}
+                strokeLinejoin="round"
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              />
+              <motion.polygon
+                points={inView ? dataPoints : centerPoints}
+                fill="none"
+                stroke="var(--color-primary)"
+                strokeOpacity={0.4}
+                strokeWidth={6}
+                strokeLinejoin="round"
+                filter="blur(6px)"
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               />
 
@@ -150,11 +161,15 @@ export function Skills() {
                   y={lbl.y}
                   textAnchor={lbl.anchor}
                   dominantBaseline="central"
-                  className="fill-muted-foreground text-[10px]"
+                  className="fill-muted-foreground"
+                  style={{ fontSize: 11, fontWeight: 500 }}
                 >
                   {skillGroups[i].category}
                 </text>
               ))}
+              <text x={CENTER} y={CENTER + MAX_RADIUS + 36} textAnchor="middle" className="fill-muted-foreground/40" style={{ fontSize: 9 }}>
+                avg. proficiency
+              </text>
             </svg>
           </motion.div>
         </div>

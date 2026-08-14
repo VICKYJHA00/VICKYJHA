@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Download, FileText, ExternalLink } from 'lucide-react';
+import { Download, FileText, ExternalLink, Clock } from 'lucide-react';
 
 export function Resume() {
   return (
@@ -28,10 +28,21 @@ export function Resume() {
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               A comprehensive overview of my technical background, engineering projects, and
-              architectural philosophy. Last updated October 2024.
+              architectural philosophy.
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              PDF · Last updated October 2024
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {['Java 21', 'Spring Boot', 'PostgreSQL', 'Docker', 'React', 'AWS'].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 text-[11px] rounded-md bg-secondary/80 text-muted-foreground border border-border/40"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground/60 mt-3 flex items-center gap-1.5">
+              <Clock size={11} />
+              Last updated: Oct 2024
             </p>
           </div>
 

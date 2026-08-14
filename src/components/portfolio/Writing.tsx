@@ -160,6 +160,17 @@ export function Writing() {
             </motion.p>
           )}
         </motion.div>
+
+        {/* View all link */}
+        <div className="text-center mt-6">
+          <a
+            href="#"
+            className="text-sm text-primary hover:underline underline-offset-4 inline-flex items-center gap-1.5"
+          >
+            View all articles
+            <ArrowRight size={14} />
+          </a>
+        </div>
       </div>
     </section>
   );

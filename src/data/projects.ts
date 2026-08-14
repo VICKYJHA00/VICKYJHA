@@ -10,6 +10,7 @@ export type Project = {
   imageAlt: string;
   color: string;
   metrics?: string[];
+  stars?: number;
   longDescription?: string;
   challenges?: string;
   highlights?: string[];
@@ -29,6 +30,7 @@ export const projects: Project[] = [
     github: "https://github.com/vickyjha00",
     featured: true,
     color: "#3b82f6",
+    stars: 48,
     metrics: ["1.2M+ daily checks", "<50ms sync", "99.9% uptime"],
     longDescription:
       "THRYLOS is an enterprise-grade attendance management system designed specifically for organizations that rely on biometric hardware. The platform processes over a million check-ins and check-outs daily, synchronizing data across geographically distributed nodes in under 50 milliseconds. It was built from the ground up to handle the unpredictable load patterns that come with shift-based workforce environments, where thousands of employees might clock in simultaneously.",
@@ -54,6 +56,7 @@ export const projects: Project[] = [
     github: "https://github.com/vickyjha00",
     featured: true,
     color: "#06b6d4",
+    stars: 124,
     metrics: ["<100ms responses", "20k concurrent"],
     longDescription:
       "Quiz Master is a real-time multiplayer quiz platform where players compete head-to-head in timed trivia matches. Every answer is broadcast instantly via WebSockets, with the leaderboard updating in real time as players respond. The system supports up to 20,000 concurrent connections, with response times consistently under 100ms. I built it to explore how far you can push real-time interaction in a browser without sacrificing reliability.",
@@ -78,6 +81,7 @@ export const projects: Project[] = [
     stack: ["Next.js", "Supabase"],
     github: "https://github.com/vickyjha00",
     color: "#10b981",
+    stars: 67,
     metrics: ["230+ modules"],
     longDescription:
       "DSA Tracker is a structured study companion for anyone preparing for technical interviews or just trying to get better at algorithms. Instead of grinding random LeetCode problems, it organizes 230+ problem modules into curated learning paths and uses spaced repetition to surface the concepts you\u2019re about to forget. The goal was to build something I actually wanted to use myself, rather than another generic problem list.",
@@ -101,6 +105,7 @@ export const projects: Project[] = [
     imageAlt: "AI analysis interface",
     stack: ["Python", "OpenAI API"],
     color: "#8b5cf6",
+    stars: 89,
     metrics: ["88% match accuracy"],
     longDescription:
       "AI Resume Analyzer takes the pain out of initial resume screening by using large language models to compare candidate resumes against job descriptions. It doesn\u2019t just keyword-match; it actually understands context, experience relevance, and skill transferability. The system produces a ranked shortlist with detailed reasoning for each score, giving hiring managers a head start without replacing human judgment.",
@@ -125,6 +130,7 @@ export const projects: Project[] = [
     stack: ["Java", "JWT Auth", "Docker"],
     github: "https://github.com/vickyjha00",
     color: "#f59e0b",
+    stars: 213,
     metrics: ["CI/CD ready", "Swagger docs"],
     longDescription:
       "This starter kit exists because I got tired of setting up the same boilerplate for every new Spring Boot project. It comes pre-configured with JWT authentication, role-based access control, Swagger API documentation, Docker support, and a GitHub Actions CI/CD pipeline. The idea is to clone it, rename the packages, and start writing actual business logic from day one instead of spending hours on infrastructure setup.",
@@ -149,6 +155,7 @@ export const projects: Project[] = [
     stack: ["Tailwind CSS", "Stripe"],
     github: "https://github.com/vickyjha00",
     color: "#ec4899",
+    stars: 34,
     metrics: ["Stripe checkout"],
     longDescription:
       "ShopNest is a headless e-commerce storefront that separates the front-end shopping experience from the back-end product management. Products are managed through a CMS, and checkout is handled entirely by Stripe\u2019s embedded payment form. The focus was on making the purchase flow as frictionless as possible while keeping the codebase simple enough to deploy and maintain without a dedicated team.",

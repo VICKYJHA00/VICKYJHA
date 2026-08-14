@@ -59,40 +59,42 @@ export function Footer() {
     <footer className="border-t border-border py-12 px-6 pb-16 md:pb-12">
       <div className="max-w-6xl mx-auto">
         {/* Newsletter Subscribe */}
-        <div className="max-w-md mx-auto text-center mb-10">
-          <p className="text-sm text-muted-foreground mb-1">
-            Stay in the loop
-          </p>
-          <p className="text-xs text-muted-foreground/70 mb-4">
-            Get notified when I write something new. No spam, ever.
-          </p>
-          <form onSubmit={handleSubmit} className="flex items-center gap-2">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (subscribed) setSubscribed(false);
-              }}
-              placeholder="you@example.com"
-              disabled={loading}
-              required
-              aria-label="Email address"
-              className="border border-border rounded-lg bg-secondary/50 px-3 py-2 text-sm flex-1 min-w-0 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 disabled:opacity-50 transition-colors"
-            />
-            <button
-              type="submit"
-              disabled={loading || subscribed}
-              className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium shrink-0 hover:bg-primary/90 focus:outline-none focus:ring-1 focus:ring-primary/50 disabled:opacity-60 transition-all flex items-center gap-1.5"
-            >
-              {loading ? (
-                <Loader2 size={14} className="animate-spin" />
-              ) : subscribed ? (
-                <CheckCircle2 size={14} />
-              ) : null}
-              {subscribed ? 'Subscribed!' : 'Subscribe'}
-            </button>
-          </form>
+        <div className="max-w-md mx-auto mb-10">
+          <div className="border border-border/50 rounded-2xl p-6 sm:p-8 bg-card/20 text-center">
+            <p className="text-sm text-muted-foreground mb-1">
+              Stay in the loop
+            </p>
+            <p className="text-xs text-muted-foreground/70 mb-4">
+              Get notified when I write something new. No spam, ever.
+            </p>
+            <form onSubmit={handleSubmit} className="flex items-center gap-2">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (subscribed) setSubscribed(false);
+                }}
+                placeholder="you@example.com"
+                disabled={loading}
+                required
+                aria-label="Email address"
+                className="border border-border rounded-lg bg-secondary/50 px-3 py-2 text-sm flex-1 min-w-0 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 disabled:opacity-50 transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={loading || subscribed}
+                className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium shrink-0 hover:bg-primary/90 focus:outline-none focus:ring-1 focus:ring-primary/50 disabled:opacity-60 transition-all flex items-center gap-1.5"
+              >
+                {loading ? (
+                  <Loader2 size={14} className="animate-spin" />
+                ) : subscribed ? (
+                  <CheckCircle2 size={14} />
+                ) : null}
+                {subscribed ? 'Subscribed!' : 'Subscribe'}
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* Separator */}
@@ -154,16 +156,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-6">
-          <p className="text-[10px] text-muted-foreground/40 flex items-center gap-1">
+        <div className="w-8 h-px bg-border mx-auto mb-3 mt-6" />
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+          <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1">
             Press{' '}
             <kbd className="px-1.5 py-0.5 rounded border border-border/60 bg-secondary/50 text-[9px]">
               T
             </kbd>{' '}
             to toggle theme
           </p>
-          <span className="text-[10px] text-muted-foreground/20">·</span>
-          <p className="text-[10px] text-muted-foreground/40 flex items-center gap-1">
+          <span className="text-[10px] text-muted-foreground/40">·</span>
+          <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1">
             Press{' '}
             <kbd className="px-1.5 py-0.5 rounded border border-border/60 bg-secondary/50 text-[9px]">
               1-7

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { timeline } from '@/data/timeline';
-import { GraduationCap, Briefcase, Award, Github, Users, Code2 } from 'lucide-react';
+import { GraduationCap, Briefcase, Award, Github, Users, Code2, ChevronRight } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 
 const tagConfig: Record<string, { color: string; icon: typeof Briefcase; textColor: string; tagBg: string }> = {
@@ -50,14 +50,17 @@ export function Timeline() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="relative pl-12"
+                  className="relative pl-12 group"
                 >
                   {/* Dot / Icon */}
-                  <div className={`absolute left-0 top-1 w-10 h-10 rounded-xl border flex items-center justify-center ${config.color}`}>
+                  <div className={`absolute left-0 top-1 w-10 h-10 rounded-xl border flex items-center justify-center transition-all duration-300 ${config.color} group-hover:shadow-lg group-hover:shadow-primary/10 group-hover:bg-primary/20`}>
                     <Icon size={16} className={config.textColor} />
                   </div>
 
-                  <div className="rounded-xl border border-border/60 bg-card/30 p-5 hover:border-border transition-colors">
+                  <motion.div
+                    whileHover={{ borderLeftColor: 'var(--color-primary-40, rgba(249,115,22,0.4))' }}
+                    className="rounded-xl border border-border/60 bg-card/30 p-5 hover:border-border transition-colors border-l-2 border-l-border relative overflow-hidden"
+                  >
                     <div className="flex flex-wrap items-center gap-3 mb-2">
                       <span className="text-xs text-muted-foreground font-medium">
                         {item.date}
@@ -73,7 +76,11 @@ export function Timeline() {
                     <p className="text-sm text-muted-foreground leading-relaxed mt-2">
                       {item.description}
                     </p>
-                  </div>
+                    <ChevronRight
+                      size={16}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/0 group-hover:text-primary/50 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                    />
+                  </motion.div>
                 </motion.div>
               );
             })}

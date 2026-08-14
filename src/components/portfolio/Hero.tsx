@@ -119,7 +119,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="space-y-6"
+          className="space-y-5"
         >
           {/* Status badge */}
           <motion.div
@@ -172,7 +172,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed"
+                className="text-lg sm:text-xl text-foreground/75 max-w-xl mx-auto leading-relaxed"
               >
                 {taglines[taglineIndex]}
                 <motion.span
@@ -189,7 +189,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-4 pt-4"
+            className="flex flex-wrap items-center justify-center gap-4 pt-2"
           >
             <a
               href="#projects"
@@ -214,7 +214,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="flex items-center justify-center gap-3 sm:gap-4 pt-10 flex-wrap"
+            className="flex items-center justify-center gap-2.5 sm:gap-3 pt-8 flex-wrap"
           >
             {techBadges.map((tech, i) => (
               <motion.span
@@ -222,9 +222,9 @@ export function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9 + i * 0.08, duration: 0.4 }}
-                className="group/tech inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/50 bg-card/30 text-xs text-muted-foreground/70 hover:border-primary/30 hover:text-foreground/80 hover:bg-card/60 transition-all duration-200"
+                className="group/tech inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-border/60 bg-card/40 text-xs text-muted-foreground/80 hover:border-primary/30 hover:text-foreground hover:bg-card/60 transition-all duration-200"
               >
-                <span className="text-sm">{tech.icon}</span>
+                <span className="text-[15px]">{tech.icon}</span>
                 <span>{tech.name}</span>
               </motion.span>
             ))}

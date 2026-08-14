@@ -146,7 +146,15 @@ export function Projects() {
                             onClick={(e) => e.stopPropagation()}
                           >
                             <Github size={15} />
-                            Source
+                            <span>Source</span>
+                            {project.stars != null && (
+                              <span className="flex items-center gap-1 text-xs text-muted-foreground/60">
+                                <svg viewBox="0 0 16 16" width="12" height="12" className="fill-current">
+                                  <path d="M8 .25a.75.75 0 0 1 .673.418l-.528.89-1.017 1.718a.75.75 0 0 1-.634 1.115l-.957 1.532-.634-.893L7.636 6.1l-1.017-1.718a.75.75 0 0 1 .231-1.057l1.017 1.718L5.25 6.75l-1.766 2.327a.75.75 0 0 1-1.094-.025L.25 8.25l2.55 1.869a.75.75 0 0 1-.963.086l-2.55-1.87-.017.06-.017.12V15.25a.75.75 0 0 1-.75.75Z" />
+                                </svg>
+                                {project.stars}
+                              </span>
+                            )}
                           </a>
                         )}
                         {project.demo && (
@@ -214,18 +222,26 @@ export function Projects() {
                       <span className="text-[11px] font-medium text-primary">
                         {project.tag}
                       </span>
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-muted-foreground hover:text-foreground transition-colors"
-                          aria-label={`${project.name} GitHub`}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Github size={14} />
-                        </a>
-                      )}
+                      <div className="flex items-center gap-1.5">
+                        {project.stars != null && (
+                          <span className="flex items-center gap-0.5 text-[10px] text-muted-foreground/50">
+                            <svg viewBox="0 0 16 16" width="10" height="10" className="fill-current"><path d="M8 .25a.75.75 0 0 1 .673.418l-.528.89-1.017 1.718a.75.75 0 0 1-.634 1.115l-.957 1.532-.634-.893L7.636 6.1l-1.017-1.718a.75.75 0 0 1 .231-1.057l1.017 1.718L5.25 6.75l-1.766 2.327a.75.75 0 0 1-1.094-.025L.25 8.25l2.55 1.869a.75.75 0 0 1-.963.086l-2.55-1.87-.017.06-.017.12V15.25a.75.75 0 0 1-.75.75Z"/></svg>
+                            {project.stars}
+                          </span>
+                        )}
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                            aria-label={`${project.name} GitHub`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Github size={14} />
+                          </a>
+                        )}
+                      </div>
                     </div>
                     <h3 className="text-base font-semibold group-hover:text-primary transition-colors duration-300">
                       {project.name}

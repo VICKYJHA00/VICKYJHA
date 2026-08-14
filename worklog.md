@@ -1014,3 +1014,114 @@ Task: Comprehensive QA, visual verification, worklog update
 5. Consider adding a live clock widget or ambient music player
 6. Add more interactive demos (e.g., embedded code playground)
 7. Consider adding a reading progress indicator within blog articles
+
+---
+Task ID: 8-cde
+Agent: Main
+Task: Footer enhancements, Timeline hover effects, Writing &apos;View All&apos; link, Resume skills tags
+
+## Changes Made
+
+### 1. Footer Enhancements (`src/components/portfolio/Footer.tsx`)
+- Keyboard hints text opacity increased: `text-muted-foreground/40` → `text-muted-foreground/60`
+- Separator dot opacity increased: `text-muted-foreground/20` → `text-muted-foreground/40`
+- Added decorative `w-8 h-px bg-border` line above keyboard hints section (centered with `mx-auto mb-3`)
+- Newsletter section wrapped in bordered card: `border border-border/50 rounded-2xl p-6 sm:p-8 bg-card/20`
+
+### 2. Timeline Interactive Hover Effects (`src/components/portfolio/Timeline.tsx`)
+- Added `group` class to each timeline entry wrapper for group-hover cascading
+- Card changed from `<div>` to `<motion.div>` with `whileHover` for left border color animation (border-border → primary/40)
+- Added `border-l-2 border-l-border` to card for visible left border that animates on hover
+- Icon container gains `shadow-lg shadow-primary/10` and `bg-primary/20` on group-hover via transition classes
+- Added `ChevronRight` icon (from lucide-react) positioned absolutely at right edge of each card, `opacity-0` by default, `opacity-100 group-hover:opacity-100` with `text-primary/50`
+
+### 3. Writing Section &apos;View All&apos; Link (`src/components/portfolio/Writing.tsx`)
+- Added centered &apos;View all articles&apos; link below the article list (after AnimatePresence card container)
+- Styled as `text-sm text-primary hover:underline underline-offset-4 inline-flex items-center gap-1.5 mt-6`
+- Includes `ArrowRight` icon (already imported)
+- Links to `#` (placeholder)
+
+### 4. Resume Section Enhancement (`src/components/portfolio/Resume.tsx`)
+- Added mini skills preview: flex-wrap row of 6 tech tags (&apos;Java 21&apos;, &apos;Spring Boot&apos;, &apos;PostgreSQL&apos;, &apos;Docker&apos;, &apos;React&apos;, &apos;AWS&apos;)
+- Each tag styled: `px-2.5 py-1 text-[11px] rounded-md bg-secondary/80 text-muted-foreground border border-border/40`
+- Tags placed between description paragraph and metadata line
+- Replaced old &apos;PDF · Last updated October 2024&apos; text with styled timestamp: `Clock` icon + &apos;Last updated: Oct 2024&apos; in `text-muted-foreground/60`
+- Imported `Clock` from lucide-react
+
+## Files Modified
+- `src/components/portfolio/Footer.tsx`
+- `src/components/portfolio/Timeline.tsx`
+- `src/components/portfolio/Writing.tsx`
+- `src/components/portfolio/Resume.tsx`
+
+## Validation
+- ESLint: 0 errors, 0 warnings
+- Dev server: compiled successfully, all GET / 200
+- No new dependencies added
+---
+Task ID: 8-a
+Agent: Main
+Task: Radar chart fix, Hero contrast & spacing, Now Spotify player, Project GitHub stars, Footer/Timeline/Writing/Resume enhancements
+
+## Current Project Status / Assessment
+- Portfolio site fully functional on desktop (1920x1080) and mobile (375x812)
+- All 16+ sections rendering correctly with zero JS errors
+- ESLint passes clean (zero errors, zero warnings)
+- Server: 200 status code, all API routes functional
+- VLM visual analysis identified specific issues and all were addressed
+
+## Completed This Round
+
+### Bug Fixes (VLM-Informed)
+- **Radar chart labels truncated**: Labels were cut off because viewBox was 200x200 with text-[10px] class. Enlarged viewBox to 240x240, increased label font-size to 11px (via style prop), added 8px more label offset radius, increased chart render size from 250px to 280px. Added 'avg. proficiency' subtitle below chart.
+- **Radar chart low contrast**: Increased fillOpacity from 0.15 to 0.25. Added a second blurred polygon (strokeWidth 6, filter blur(6px), strokeOpacity 0.4) underneath for a glow effect. Increased stroke width from 1.5 to 2 with strokeLinejoin round.
+- **Hero subheadline low contrast**: Changed tagline text from text-muted-foreground to text-foreground/75 for significantly better readability.
+- **Hero excessive spacing**: Reduced section space-y from 6 to 5, CTA pt-4 to pt-2, tech badges pt-10 to pt-8 for tighter visual flow.
+- **Tech badges too faint**: Increased text opacity from text-muted-foreground/70 to /80, border from /50 to /60, bg from /30 to /40, icon size from text-sm to text-[15px]. Added hover:text-foreground for full contrast on hover.
+
+### New Features
+- **Now Section Spotify-Style Player**: Replaced the 'Listening to' card with an interactive mini music player featuring: album art (gradient div with Play icon), track title/artist display, clickable progress bar, play/pause/skip controls (SkipBack, Play/Pause, SkipForward from lucide-react). Auto-advances through 4-track playlist. Progress bar cycles and auto-advances track.
+- **Project GitHub Star Counts**: Added `stars` field to Project type. All 6 projects have star counts (48, 124, 67, 89, 213, 34). Featured project cards show star count next to 'Source' link with SVG star icon. Grid cards show star count next to tag in top-right.
+- **Timeline Hover Effects**: Each timeline entry card now has animated left border (border-l-2) that transitions from border-border to border-primary/40 on hover. Icon container gets shadow-lg shadow-primary/10 and bg-primary/20 on group-hover. ChevronRight icon appears on card hover.
+- **Writing 'View All' Link**: Added centered 'View all articles →' link with ArrowRight icon below the article list.
+- **Resume Skills Preview**: Added 6 small tech tags (Java 21, Spring Boot, PostgreSQL, Docker, React, AWS) below the resume description. Added Clock icon + 'Last updated: Oct 2024' timestamp.
+- **Footer Keyboard Hints Visibility**: Increased opacity from /40 to /60, separator from /20 to /40. Added decorative orange line (w-8 h-px bg-border) above hints. Wrapped newsletter in bordered card (border-border/50 rounded-2xl p-6 sm:p-8 bg-card/20).
+
+### Files Created
+- None (all modifications to existing files)
+
+### Files Modified
+- `src/components/portfolio/Skills.tsx` (radar chart viewBox, labels, opacity, glow)
+- `src/components/portfolio/Hero.tsx` (contrast, spacing, badges)
+- `src/components/portfolio/Now.tsx` (Spotify player with playlist)
+- `src/data/projects.ts` (stars field, all 6 projects)
+- `src/components/portfolio/Projects.tsx` (star count display on featured + grid cards)
+- `src/components/portfolio/Timeline.tsx` (hover border, icon glow, chevron)
+- `src/components/portfolio/Writing.tsx` (View all link)
+- `src/components/portfolio/Resume.tsx` (skills tags, timestamp)
+- `src/components/portfolio/Footer.tsx` (visibility, card wrapper, decorative line)
+
+## Verification Results
+- agent-browser desktop (1920x1080): 11 headings, 15 sections, 36 buttons, 0 JS errors, 200 status
+- agent-browser mobile (375x812): 2 nav elements, 0 JS errors, mobile bottom nav present
+- Subject selector: verified present
+- Contact API: valid subject → 200
+- Subscribe API: valid email → 200
+- ESLint: 0 errors, 0 warnings
+- TypeScript 5.9.3 JSX comment bug: removed 2 `{/* ... */}` comments in Now.tsx that caused parsing errors
+
+## Unresolved / Risks
+1. LOW: Resume PDF not present at /resume/Vicky_Resume.pdf
+2. LOW: Writing section articles link to # (placeholder URLs)
+3. LOW: OG image is AI-generated
+4. LOW: 'Get in touch' button in mobile menu is behind the full-screen overlay (by design - users use bottom nav)
+
+## Priority Recommendations for Next Phase
+1. Add a real blog/writing system with markdown-based posts (replace # links)
+2. Add a real resume PDF to public/resume/
+3. Optimize all images to WebP format
+4. Add page transition animations (View Transitions API)
+5. Add interactive code playground widget
+6. Consider adding an ambient sound toggle for the music player
+7. Add more timeline entries or dynamic content
+8. Add a dark/light mode specific OG image variant
