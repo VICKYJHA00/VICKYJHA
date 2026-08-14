@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Database, BrainCircuit, Rocket } from 'lucide-react';
+import { Database, BrainCircuit, Rocket, ArrowRight } from 'lucide-react';
 
 const services = [
   {
@@ -10,6 +10,7 @@ const services = [
     num: '01',
     description:
       'REST and GraphQL APIs with Spring Boot or Node.js. I care about response times, error handling, and documentation that people actually read.',
+    cta: 'View THRYLOS case study',
   },
   {
     icon: BrainCircuit,
@@ -18,6 +19,7 @@ const services = [
     description:
       'Adding intelligence to products with LLMs, embeddings, and RAG pipelines. Not just wrapping OpenAI — building actual useful AI features.',
     highlight: true,
+    cta: 'See Resume Analyzer',
   },
   {
     icon: Rocket,
@@ -25,6 +27,7 @@ const services = [
     num: '03',
     description:
       'When you need something working end-to-end fast. Next.js frontend, solid backend, deployed and ready for users.',
+    cta: 'Browse all projects',
   },
 ];
 
@@ -60,18 +63,27 @@ export function Services() {
                     : 'border-border bg-card/20'
                 }`}
               >
-                {/* Background number */}
-                <span className="absolute -top-2 -right-1 text-7xl font-black text-foreground/[0.02] select-none">
+                {/* Watermark number */
+                <span className="absolute -top-3 -right-2 text-7xl font-black text-foreground/[0.02] select-none pointer-events-none">
                   {s.num}
                 </span>
 
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                   <Icon size={20} />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
                   {s.description}
                 </p>
+                {s.cta && (
+                  <a
+                    href="#projects"
+                    className="inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2 group-hover:gap-2.5 transition-all"
+                  >
+                    {s.cta}
+                    <ArrowRight size={13} />
+                  </a>
+                )}
               </motion.div>
             );
           })}

@@ -8,7 +8,9 @@ import { Skills } from '@/components/portfolio/Skills';
 import { Projects } from '@/components/portfolio/Projects';
 import { Timeline } from '@/components/portfolio/Timeline';
 import { Services } from '@/components/portfolio/Services';
+import { Testimonials } from '@/components/portfolio/Testimonials';
 import { Resume } from '@/components/portfolio/Resume';
+import { FAQ } from '@/components/portfolio/FAQ';
 import { Contact } from '@/components/portfolio/Contact';
 import { Footer } from '@/components/portfolio/Footer';
 import { BackToTop } from '@/components/portfolio/BackToTop';
@@ -26,7 +28,9 @@ export default function Home() {
         <Projects />
         <Timeline />
         <Services />
+        <Testimonials />
         <Resume />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
