@@ -71,13 +71,23 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="text-[10px] text-muted-foreground/40 mt-6 text-center">
-          Press{' '}
-          <kbd className="px-1.5 py-0.5 rounded border border-border/60 bg-secondary/50 text-[9px]">
-            T
-          </kbd>{' '}
-          to toggle theme
-        </p>
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-6">
+          <p className="text-[10px] text-muted-foreground/40 flex items-center gap-1">
+            Press{' '}
+            <kbd className="px-1.5 py-0.5 rounded border border-border/60 bg-secondary/50 text-[9px]">
+              T
+            </kbd>{' '}
+            to toggle theme
+          </p>
+          <span className="text-[10px] text-muted-foreground/20">·</span>
+          <p className="text-[10px] text-muted-foreground/40 flex items-center gap-1">
+            Press{' '}
+            <kbd className="px-1.5 py-0.5 rounded border border-border/60 bg-secondary/50 text-[9px]">
+              1-7
+            </kbd>{' '}
+            to navigate sections
+          </p>
+        </div>
       </div>
     </footer>
   );

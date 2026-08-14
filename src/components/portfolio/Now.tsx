@@ -57,7 +57,7 @@ export function Now() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.4 }}
-                className="rounded-xl border border-border/50 bg-card/20 p-5 hover:border-primary/20 transition-colors group"
+                className="rounded-xl border border-border/50 bg-card/20 p-5 hover:border-primary/20 hover:shadow-sm hover:shadow-primary/5 transition-all duration-300 group"
               >
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex items-center">

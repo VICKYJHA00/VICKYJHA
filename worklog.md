@@ -675,3 +675,87 @@ Task: Final QA, contact API, skeleton, timeline expansion, styling polish
 4. Consider adding a mini interactive widget (e.g., embedded code playground)
 5. Add keyboard section navigation (number keys 1-9)
 6. Optimize all images to WebP format
+
+---
+Task ID: 6
+Agent: Main
+Task: Round 6 - VLM-informed visual polish, new features (copy-email, keyboard nav), comprehensive styling improvements
+
+## Current Project Status / Assessment
+- Portfolio site fully functional on desktop (1920x1080) and mobile (375x812)
+- All 15 sections rendering correctly with zero JS errors
+- ESLint passes clean (zero errors, zero warnings)
+- Server: 200 status code
+- 22 buttons, 37 links, 1 form, 15 sections
+- VLM analysis rated hero section 8/10 for visual polish
+- All new features verified: copy-email, keyboard shortcuts (1-7, T), scroll progress glow
+
+## Completed This Round
+
+### New Features
+- **Copy Email Button**: Added a copy-to-clipboard button on the email card in Contact section. Shows Check icon (green) on success with Sonner toast "Email copied to clipboard". Includes try-catch for restricted environments (headless Chrome).
+- **Number Keyboard Shortcuts (1-7)**: Press 1-7 to instantly navigate to sections (1=Home, 2=About, 3=Skills, 4=Projects, 5=Experience, 6=Contact, 7=FAQ). Skips when input/textarea/select is focused or modifier keys held. Footer updated with hint.
+- **Scroll Progress Bar Glow**: Added box-shadow glow effect (orange, 8px blur) to the scroll progress bar. Bar now hides (opacity:0) when at top of page.
+
+### Styling Improvements (12+ changes)
+- **Hero CTA Buttons**: Primary button now has shadow-primary/20 → shadow-primary/30 + shadow-xl on hover, with active:scale-[0.98] press effect. Secondary (GitHub) button gains hover:border-primary/20 and active scale.
+- **Hero Tech Tags**: Increased hover interactivity (text transitions from 60% to full muted-foreground on hover). Dot separators use bg-border.
+- **Hero Scroll Indicator**: Mouse scroll dot now changes to primary/60 color on hover, border also transitions.
+- **Project Cards Lift**: Featured cards lift -0.5px with shadow-lg on hover. Grid cards lift -1px with shadow-lg. Both add hover:shadow-primary/5.
+- **Project Filter Tags**: Added border border-transparent (no layout shift when active). Active state adds border-primary. Inactive hover shows border-border.
+- **Contact Form Inputs**: Enhanced focus states with bg-background/80 → bg-background transition, softer focus ring (ring-primary/30), border-primary/50 on focus, 200ms transition.
+- **Contact Send Button**: Enhanced shadow from shadow-primary/10 to shadow-primary/20/30, added duration-200.
+- **Section Divider**: Added decorative orange dot (::after pseudo-element, 4px, primary color, 30% opacity) at center of gradient divider.
+- **Custom Scrollbar**: Increased width from 5px to 6px, added smooth transition on thumb hover.
+- **Global Input Transitions**: Added CSS rule for smooth border-color, box-shadow, and background-color transitions on all inputs/textareas.
+- **Services Cards**: Added hover:shadow-lg hover:shadow-primary/5 for depth on hover.
+- **Testimonial Card**: Added hover:shadow-lg hover:shadow-primary/5 (was just border color change).
+- **FAQ Card**: Added hover:shadow-lg hover:shadow-primary/5. FAQ items get hover:bg-secondary/30 with px-5 -mx-5 padding.
+- **Writing List Card**: Added hover:shadow-lg hover:shadow-primary/5.
+- **Now Cards**: Added hover:shadow-sm hover:shadow-primary/5, transition-all duration-300.
+- **About Tech Tags**: Added hover:border-primary/30 hover:text-foreground/80 transition.
+- **GitHub Activity Cells**: Added hover:scale-150 hover:ring-1 hover:ring-foreground/20 on contribution cells.
+- **FeaturedOn Section**: Reduced border opacity (border-border/50), reduced padding (py-14 vs py-16).
+- **Focus Ring**: Extended to input and textarea elements.
+
+### Files Modified
+- src/components/portfolio/Hero.tsx (CTA glow, active:scale, tech tag hover, scroll indicator hover)
+- src/components/portfolio/Projects.tsx (card lift, filter tag borders)
+- src/components/portfolio/Contact.tsx (copy-email button, input focus states, send button shadow, Copy/Check imports)
+- src/components/portfolio/ThemeProvider.tsx (number key shortcuts 1-7)
+- src/components/portfolio/Footer.tsx (keyboard shortcut hints)
+- src/components/portfolio/Navbar.tsx (scroll progress opacity at top)
+- src/components/portfolio/Services.tsx (hover shadow)
+- src/components/portfolio/Testimonials.tsx (hover shadow)
+- src/components/portfolio/FAQ.tsx (hover shadow, item hover bg)
+- src/components/portfolio/Writing.tsx (hover shadow)
+- src/components/portfolio/Now.tsx (hover shadow)
+- src/components/portfolio/About.tsx (tech tag hover)
+- src/components/portfolio/GitHubActivity.tsx (cell hover scale+ring)
+- src/components/portfolio/FeaturedOn.tsx (border opacity, padding)
+- src/app/globals.css (section divider dot, scrollbar width, progress glow, input transitions, focus ring)
+
+## Verification Results
+- agent-browser desktop (1920x1080): 15 sections, 22 buttons, 37 links, 1 form, 0 JS errors, 200 status
+- agent-browser mobile (375x812): All sections render, 0 JS errors
+- Keyboard shortcut 4 → scrolls to projects (3575px)
+- Keyboard shortcut 1 → scrolls to top (0px)
+- Contact API: POST validation works (empty → 400, valid → 200)
+- Copy email button: Present with correct aria-label, state toggles with try-catch fallback
+- VLM analysis: Hero rated 8/10 for visual polish
+- ESLint: 0 errors, 0 warnings
+
+## Unresolved / Risks
+1. LOW: Resume PDF not present at /resume/Vicky_Resume.pdf
+2. LOW: OG image is AI-generated and could be replaced
+3. LOW: Writing section articles link to # (placeholder URLs)
+4. LOW: Copy-email may not work in all browsers without HTTPS
+
+## Priority Recommendations for Next Phase
+1. Add a real blog/writing system with markdown-based posts (replace # links)
+2. Add a real resume PDF to public/resume/
+3. Add smooth page transition animations between routes
+4. Consider adding a mini interactive widget (live clock, music player)
+5. Optimize all images to WebP format
+6. Add more timeline entries or make them dynamic
+7. Consider adding a newsletter subscription in the footer

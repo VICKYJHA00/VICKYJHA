@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, Loader2, MapPin, Clock } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, Loader2, MapPin, Clock, Copy, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { CONTACT } from '@/data/contact';
 
 export function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [emailCopied, setEmailCopied] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -68,18 +69,36 @@ export function Contact() {
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Info panel */}
           <div className="lg:col-span-2 space-y-4">
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-300 group"
-            >
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                <Mail size={18} />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Email</p>
-                <p className="text-sm font-medium">{CONTACT.email}</p>
-              </div>
-            </a>
+            <div className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-300 group">
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="flex items-center gap-4 flex-1 min-w-0"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors shrink-0">
+                  <Mail size={18} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs text-muted-foreground">Email</p>
+                  <p className="text-sm font-medium truncate">{CONTACT.email}</p>
+                </div>
+              </a>
+              <button
+                onClick={() => {
+                  try {
+                    navigator.clipboard.writeText(CONTACT.email);
+                  } catch {
+                    // Fallback: no-op in restricted environments
+                  }
+                  setEmailCopied(true);
+                  toast.success('Email copied to clipboard');
+                  setTimeout(() => setEmailCopied(false), 2000);
+                }}
+                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors shrink-0"
+                aria-label="Copy email"
+              >
+                {emailCopied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+              </button>
+            </div>
 
             <a
               href={CONTACT.github}
@@ -149,7 +168,7 @@ export function Contact() {
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
+                    className="w-full rounded-lg border border-border bg-background/80 px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 focus:bg-background transition-all duration-200"
                   />
                 </div>
                 <div className="space-y-2">
@@ -163,7 +182,7 @@ export function Contact() {
                     placeholder="you@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
+                    className="w-full rounded-lg border border-border bg-background/80 px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 focus:bg-background transition-all duration-200"
                   />
                 </div>
               </div>
@@ -178,13 +197,13 @@ export function Contact() {
                   placeholder="What's on your mind?"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all resize-none"
+                    className="w-full rounded-lg border border-border bg-background/80 px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 focus:bg-background transition-all duration-200 resize-none"
                 />
               </div>
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 active:scale-[0.98] transition-all shadow-lg shadow-primary/10 disabled:opacity-60 disabled:pointer-events-none"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/20 hover:shadow-primary/30 disabled:opacity-60 disabled:pointer-events-none"
               >
                 {loading ? (
                   <>

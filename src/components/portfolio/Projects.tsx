@@ -58,10 +58,10 @@ export function Projects() {
             <button
               key={tag}
               onClick={() => setActiveTag(tag)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 border border-transparent ${
                 activeTag === tag
-                  ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/15'
-                  : 'bg-secondary/60 text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/15 border-primary'
+                  : 'bg-secondary/60 text-muted-foreground hover:text-foreground hover:bg-secondary hover:border-border'
               }`}
             >
               {tag}
@@ -87,7 +87,7 @@ export function Projects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/20 transition-all duration-300 cursor-pointer relative"
+                  className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer relative"
                   onClick={() => setSelected(project)}
                 >
                   <div className="grid lg:grid-cols-2">
@@ -201,7 +201,7 @@ export function Projects() {
                     duration: 0.5,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/20 transition-all duration-300 flex flex-col cursor-pointer relative"
+                  className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/20 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col cursor-pointer relative"
                   onClick={() => setSelected(project)}
                 >
                   <div className="relative aspect-video overflow-hidden">

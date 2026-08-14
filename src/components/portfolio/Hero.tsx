@@ -110,16 +110,16 @@ export function Hero() {
           >
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10"
+              className="group/btn inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-sm font-medium hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:shadow-xl"
             >
               See my work
-              <ArrowDown size={14} className="animate-bounce" />
+              <ArrowDown size={14} className="group-hover/btn:translate-y-0.5 transition-transform" />
             </a>
             <a
               href={CONTACT.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-border bg-secondary/50 px-6 py-3 rounded-xl text-sm font-medium text-foreground hover:bg-secondary transition-colors"
+              className="inline-flex items-center gap-2 border border-border bg-secondary/50 px-6 py-3 rounded-xl text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/20 active:scale-[0.98] transition-all duration-200"
             >
               <Github size={16} />
               GitHub
@@ -130,10 +130,10 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="flex items-center justify-center gap-3 sm:gap-6 pt-10 text-xs text-muted-foreground/70 flex-wrap"
+            className="flex items-center justify-center gap-3 sm:gap-5 pt-10 text-xs text-muted-foreground/60 flex-wrap"
           >
             {['Spring Boot', 'PostgreSQL', 'React', 'AI/ML'].map((tech, i) => (
-              <span key={tech} className="flex items-center gap-3">
+              <span key={tech} className="flex items-center gap-3 hover:text-muted-foreground transition-colors duration-200">
                 <span>{tech}</span>
                 {i < 3 && <span className="w-1 h-1 rounded-full bg-border" />}
               </span>
@@ -149,12 +149,12 @@ export function Hero() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <a href="#about" className="block">
-          <div className="w-5 h-8 rounded-full border-2 border-border/60 flex items-start justify-center p-1 hover:border-primary/40 transition-colors">
+        <a href="#about" className="group/scroll block">
+          <div className="w-5 h-8 rounded-full border-2 border-border/60 flex items-start justify-center p-1 group-hover/scroll:border-primary/40 transition-colors">
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-1 h-2 rounded-full bg-muted-foreground/60"
+              className="w-1 h-2 rounded-full bg-muted-foreground/60 group-hover/scroll:bg-primary/60 transition-colors"
             />
           </div>
         </a>

@@ -78,7 +78,7 @@ export function Testimonials() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="relative rounded-2xl border border-border bg-card/30 p-8 sm:p-10 min-h-[280px] flex flex-col justify-between hover:border-primary/15 transition-colors duration-300">
+          <div className="relative rounded-2xl border border-border bg-card/30 p-8 sm:p-10 min-h-[280px] flex flex-col justify-between hover:border-primary/15 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
             {/* Quote icon */}
             <Quote
               size={32}

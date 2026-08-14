@@ -144,7 +144,7 @@ export function GitHubActivity() {
                     {week.map((level, d) => (
                       <div
                         key={d}
-                        className={`w-[10px] h-[10px] rounded-[2px] ${activityClasses[level]}`}
+                        className={`w-[10px] h-[10px] rounded-[2px] ${activityClasses[level]} transition-transform duration-100 hover:scale-150 hover:ring-1 hover:ring-foreground/20 cursor-default`}
                       />
                     ))}
                   </div>

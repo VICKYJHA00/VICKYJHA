@@ -58,7 +58,7 @@ export function Navbar() {
 
   return (
     <header className={headerClass}>
-      <div className="scroll-progress" style={{ width: `${progress}%` }} />
+      <div className="scroll-progress" style={{ width: `${progress}%`, opacity: progress > 0 ? 1 : 0 }} />
 
       <nav className="max-w-6xl mx-auto h-16 flex items-center justify-between px-6">
         <a

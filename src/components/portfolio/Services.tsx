@@ -74,7 +74,7 @@ export function Services() {
                 onMouseMove={(e) => handleMouseMove(e, i)}
                 onMouseLeave={handleMouseLeave}
                 style={tilt.card === i ? { transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 150ms ease-out' } : { transform: 'perspective(800px) rotateX(0deg) rotateY(0deg)', transition: 'transform 500ms ease-out' }}
-                className={`rounded-2xl border p-6 sm:p-8 transition-all duration-300 group hover:border-primary/20 relative overflow-hidden ${
+                className={`rounded-2xl border p-6 sm:p-8 transition-all duration-300 group hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 relative overflow-hidden ${
                   s.highlight
                     ? 'border-primary/20 bg-primary/[0.03]'
                     : 'border-border bg-card/20'

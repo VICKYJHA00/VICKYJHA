@@ -69,7 +69,7 @@ export function Writing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl border border-border bg-card/20 overflow-hidden"
+          className="rounded-2xl border border-border bg-card/20 overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-shadow duration-300"
         >
           {writings.map((article, i) => (
             <a

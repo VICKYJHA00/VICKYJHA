@@ -13,7 +13,7 @@ const brands = [
 
 export function FeaturedOn() {
   return (
-    <section className='py-16 border-t border-border'>
+    <section className='py-14 border-t border-border/50'>
       <motion.div
         className='max-w-6xl mx-auto px-4 sm:px-6'
         initial={{ opacity: 0, y: 12 }}

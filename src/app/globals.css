@@ -128,7 +128,7 @@ html {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -136,6 +136,7 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #27272a;
   border-radius: 3px;
+  transition: background 0.2s;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f46;
@@ -197,6 +198,7 @@ html {
   z-index: 100;
   transform-origin: left;
   transition: none;
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
 }
 
 /* Marquee animation */
@@ -225,10 +227,23 @@ html {
   animation: spin-slow 8s linear infinite;
 }
 
-/* Section divider gradient */
+/* Section divider gradient with subtle dot center */
 .section-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 50%, var(--border) 80%, transparent);
+  position: relative;
+}
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.3;
 }
 
 /* Scrollbar hide utility */
@@ -241,10 +256,15 @@ html {
 }
 
 /* Custom focus ring for interactive elements */
-a:focus-visible, button:focus-visible {
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* Smooth transitions for all interactive elements */
+input, textarea, select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 /* Modal scrollbar */

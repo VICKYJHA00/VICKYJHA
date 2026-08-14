@@ -39,7 +39,7 @@ function FAQItem({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-border last:border-b-0">
+    <div className="border-b border-border last:border-b-0 hover:bg-secondary/30 transition-colors duration-200 px-5 -mx-5">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left group"
@@ -95,7 +95,7 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border border-border bg-card/30 overflow-hidden"
+          className="rounded-2xl border border-border bg-card/30 overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-shadow duration-300"
         >
           {faqs.map((faq, i) => (
             <FAQItem key={i} q={faq.q} a={faq.a} index={i} />

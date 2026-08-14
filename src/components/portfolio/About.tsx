@@ -127,7 +127,7 @@ export function About() {
               {['Spring Boot', 'Java 21', 'PostgreSQL', 'Docker', 'Linux', 'Git'].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1.5 text-xs rounded-lg border border-border bg-secondary/50 text-muted-foreground"
+                  className="px-3 py-1.5 text-xs rounded-lg border border-border bg-secondary/50 text-muted-foreground hover:border-primary/30 hover:text-foreground/80 transition-colors duration-200"
                 >
                   {tech}
                 </span>
