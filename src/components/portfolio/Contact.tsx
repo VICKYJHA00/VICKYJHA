@@ -49,8 +49,9 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-28 px-6 relative overflow-hidden">
-      {/* Decorative orange gradient glow */}
+      {/* Decorative gradient glows */}
       <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-orange-500/10 blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-primary/[0.04] blur-[120px] pointer-events-none" />
       <div className="max-w-6xl mx-auto relative">
         <div className="mb-14">
           <SectionHeading
@@ -161,7 +162,7 @@ export function Contact() {
           <div className="lg:col-span-3">
             <form
               onSubmit={handleSubmit}
-              className="space-y-5 rounded-2xl border border-border bg-card/20 p-6 sm:p-8"
+              className="space-y-5 rounded-2xl border border-border bg-card/20 p-6 sm:p-8 glass-card backdrop-blur-sm"
             >
               {/* Subject selector */}
               <div className="space-y-2">

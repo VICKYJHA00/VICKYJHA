@@ -12,7 +12,7 @@ export function Resume() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-border border-l-2 border-l-primary bg-card/30 p-8 sm:p-10 flex flex-col sm:flex-row items-center gap-8 group hover:border-primary/20 transition-all duration-300 relative overflow-hidden"
+          className="rounded-2xl border border-border border-l-2 border-l-primary bg-card/30 p-8 sm:p-10 flex flex-col sm:flex-row items-center gap-8 group hover:border-primary/20 transition-all duration-300 relative overflow-hidden glass-card backdrop-blur-sm animated-border"
         >
           {/* Hover accent glow */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

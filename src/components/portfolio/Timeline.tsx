@@ -18,7 +18,10 @@ const defaultConfig = { color: 'border-border bg-secondary', icon: Briefcase, te
 
 export function Timeline() {
   return (
-    <section id="experience" className="py-28 px-6 bg-secondary/20">
+    <section id="experience" className="py-28 px-6 bg-secondary/20 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-20 -right-32 w-64 h-64 bg-primary/[0.02] rounded-full blur-3xl pointer-events-none animate-float-subtle" aria-hidden />
+      <div className="absolute bottom-20 -left-32 w-48 h-48 bg-amber-500/[0.02] rounded-full blur-3xl pointer-events-none animate-float-subtle-delayed" aria-hidden />
       <div className="max-w-3xl mx-auto">
         <SectionHeading
           label="Experience"
@@ -59,7 +62,7 @@ export function Timeline() {
 
                   <motion.div
                     whileHover={{ borderLeftColor: 'var(--color-primary-40, rgba(249,115,22,0.4))' }}
-                    className="rounded-xl border border-border/60 bg-card/30 p-5 hover:border-border transition-colors border-l-2 border-l-border relative overflow-hidden"
+                    className="rounded-xl border border-border/60 bg-card/30 p-5 hover:border-border transition-all duration-300 border-l-2 border-l-border relative overflow-hidden hover:shadow-sm hover:shadow-primary/5"
                   >
                     <div className="flex flex-wrap items-center gap-3 mb-2">
                       <span className="text-xs text-muted-foreground font-medium">

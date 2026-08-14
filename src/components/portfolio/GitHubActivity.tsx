@@ -166,20 +166,20 @@ export function GitHubActivity() {
           <span className="text-[10px] text-muted-foreground/50 ml-1">More</span>
         </div>
 
-        {/* Stats row */}
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-6 text-sm text-muted-foreground">
-          <span>
-            <strong className="text-foreground font-semibold">1,247</strong>{' '}
-            contributions in the last year
-          </span>
-          <span>
-            Longest streak:{' '}
-            <strong className="text-foreground font-semibold">23 days</strong>
-          </span>
-          <span>
-            Current streak:{' '}
-            <strong className="text-foreground font-semibold">5 days</strong>
-          </span>
+        {/* Stats cards */}
+        <div className="grid grid-cols-3 gap-3 mt-6">
+          <div className="rounded-lg border border-border/50 bg-card/20 p-3 text-center hover:border-primary/15 transition-colors">
+            <p className="text-lg font-bold text-foreground tabular-nums">1,247</p>
+            <p className="text-[11px] text-muted-foreground">Contributions</p>
+          </div>
+          <div className="rounded-lg border border-border/50 bg-card/20 p-3 text-center hover:border-primary/15 transition-colors">
+            <p className="text-lg font-bold text-foreground tabular-nums">23d</p>
+            <p className="text-[11px] text-muted-foreground">Longest streak</p>
+          </div>
+          <div className="rounded-lg border border-border/50 bg-card/20 p-3 text-center hover:border-primary/15 transition-colors">
+            <p className="text-lg font-bold text-primary tabular-nums">5d</p>
+            <p className="text-[11px] text-muted-foreground">Current streak</p>
+          </div>
         </div>
       </div>
     </motion.section>

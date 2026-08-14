@@ -182,7 +182,7 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: gi * 0.1, duration: 0.5 }}
-              className="rounded-2xl border border-border bg-card/50 p-6 hover:border-primary/20 transition-all duration-300 group/skill relative overflow-hidden"
+              className="rounded-2xl border border-border bg-card/50 p-6 hover:border-primary/20 transition-all duration-300 group/skill relative overflow-hidden animated-border"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-transparent opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500 pointer-events-none" />
               <div className="relative">
@@ -203,7 +203,7 @@ export function Skills() {
                           {skill.level}%
                         </span>
                       </div>
-                      <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+                      <div className="h-1.5 rounded-full bg-secondary overflow-hidden relative">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${skill.level}%` }}
@@ -215,8 +215,7 @@ export function Skills() {
                           }}
                           className={`h-full rounded-full bg-gradient-to-r ${
                             categoryColors[group.category] ?? 'from-orange-500 to-amber-400'
-                          } opacity-90`}
-                        />
+                          } opacity-90 shimmer`} />
                       </div>
                     </div>
                   ))}

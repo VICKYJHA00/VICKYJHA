@@ -56,7 +56,9 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border py-12 px-6 pb-16 md:pb-12">
+    <footer className="relative py-12 px-6 pb-16 md:pb-12">
+      {/* Gradient line at top of footer */}
+      <div className="absolute top-0 inset-x-0 h-px footer-gradient-line" />
       <div className="max-w-6xl mx-auto">
         {/* Newsletter Subscribe */}
         <div className="max-w-md mx-auto mb-10">
@@ -98,7 +100,7 @@ export function Footer() {
         </div>
 
         {/* Separator */}
-        <div className="border-b border-border mb-8" />
+        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-8" />
 
         {/* Quick nav */}
         <div className="flex flex-wrap justify-center gap-6 mb-8">
@@ -116,9 +118,11 @@ export function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-1.5 text-sm">
-            <span className="font-semibold">vicky</span>
-            <span className="text-primary">.</span>
-            <span className="text-muted-foreground">dev</span>
+            <a href="#home" className="hover:text-primary transition-colors">
+              <span className="font-semibold">vicky</span>
+              <span className="text-primary">.</span>
+              <span className="text-muted-foreground">dev</span>
+            </a>
             <span className="text-muted-foreground/60 ml-1">© {new Date().getFullYear()}</span>
           </div>
 

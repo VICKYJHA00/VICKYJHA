@@ -78,7 +78,7 @@ export function Projects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer relative"
+                  className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer relative animated-border"
                   onClick={() => setSelected(project)}
                 >
                   <div className="grid lg:grid-cols-2">
@@ -200,7 +200,7 @@ export function Projects() {
                     duration: 0.5,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/20 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col cursor-pointer relative"
+                  className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/20 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col cursor-pointer relative shine-effect"
                   onClick={() => setSelected(project)}
                 >
                   <div className="relative aspect-video overflow-hidden">

@@ -98,7 +98,7 @@ export function Writing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl border border-border bg-card/20 overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-shadow duration-300"
+          className="rounded-2xl border border-border bg-card/20 overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-shadow duration-300 glass-card backdrop-blur-sm"
         >
           <AnimatePresence mode="popLayout">
             {filteredArticles.map((article) => (
@@ -110,7 +110,7 @@ export function Writing() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.3 }}
-                className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-6 py-5 hover:bg-secondary/30 transition-colors group border-b border-border last:border-b-0"
+                className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-6 py-5 hover:bg-secondary/30 transition-all duration-200 group border-b border-border last:border-b-0 hover:pl-7"
               >
                 {/* Tag badge */}
                 <span

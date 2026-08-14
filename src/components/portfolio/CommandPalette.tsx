@@ -37,6 +37,7 @@ type CommandItem = {
 const NAV_ITEMS: Omit<CommandItem, 'action'>[] = [
   { id: 'about', label: 'About', section: 'navigation', icon: <User size={16} /> },
   { id: 'skills', label: 'Skills', section: 'navigation', icon: <BarChart3 size={16} /> },
+  { id: 'tech-stack', label: 'Tech Stack Explorer', section: 'navigation', icon: <BarChart3 size={16} />, hint: 'detailed' },
   { id: 'projects', label: 'Projects', section: 'navigation', icon: <FolderOpen size={16} /> },
   { id: 'experience', label: 'Experience', section: 'navigation', icon: <Briefcase size={16} /> },
   { id: 'contact', label: 'Contact', section: 'navigation', icon: <Mail size={16} /> },
@@ -202,7 +203,7 @@ export function CommandPalette() {
 
           {/* Palette */}
           <motion.div
-            className="relative max-w-lg w-full mx-4 rounded-2xl border border-border bg-background shadow-2xl overflow-hidden"
+            className="relative max-w-lg w-full mx-4 rounded-2xl border border-border bg-background shadow-2xl overflow-hidden glass-card backdrop-blur-xl"
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}

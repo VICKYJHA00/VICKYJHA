@@ -18,11 +18,13 @@ export function SectionHeading({ label, title, description, className = '' }: Se
       transition={{ duration: 0.5 }}
       className={`mb-14 ${className}`}
     >
-      <div className="flex items-center gap-2 mb-3">
-        <span className="w-5 h-[2px] rounded-full bg-primary" />
-        <p className="text-sm text-primary font-medium">{label}</p>
+      <div className="flex items-center gap-3 mb-3">
+        <span className="relative w-5 h-[2px] rounded-full bg-primary">
+          <span className="absolute -left-1.5 -top-1 w-1.5 h-1.5 rounded-full bg-primary/40 animate-ping" />
+        </span>
+        <p className="text-sm text-primary font-medium tracking-wide">{label}</p>
       </div>
-      <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+      <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
         {title}
       </h2>
       {description && (

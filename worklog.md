@@ -1125,3 +1125,99 @@ Task: Radar chart fix, Hero contrast & spacing, Now Spotify player, Project GitH
 6. Consider adding an ambient sound toggle for the music player
 7. Add more timeline entries or dynamic content
 8. Add a dark/light mode specific OG image variant
+
+---
+Task ID: 9
+Agent: Main
+Task: Comprehensive styling improvements, new features (Tech Stack Explorer, PageMeta), glassmorphism effects, and QA
+
+## Current Project Status / Assessment
+- Portfolio site fully functional on desktop (1920x1080) and mobile (375x812)
+- All 17+ sections rendering correctly with zero JS errors (fresh browser sessions)
+- ESLint passes clean (zero errors, zero warnings)
+- Server: 200 status code, all API routes functional
+- Zero console errors on fresh page loads (both viewports)
+- 9 sections with IDs, 12 glass cards, 18 shimmer bars, 7 animated borders verified
+
+## Completed This Round
+
+### New Features
+- **Tech Stack Explorer**: Interactive grid of 12 technologies with SVG proficiency rings (animated on scroll), category filter tabs (All/Backend/Frontend/DevOps/AI), hover-to-expand detail cards with description + animated progress bars. Uses AnimatePresence for smooth filter transitions. Placed between Skills and Projects sections.
+- **Page Meta Widget**: Shows visit count (localStorage-persisted), estimated reading time, and "Built with Next.js" badge. Placed between Contact and Footer.
+- **Skip-to-Content Accessibility Link**: Hidden by default, appears on Tab focus. Links to `#main-content` on `<main>`. Uses `sr-only focus:not-sr-only` pattern.
+- **Command Palette: Tech Stack Entry**: Added "Tech Stack Explorer" navigation item with "detailed" hint. Links to `#tech-stack` section.
+
+### Styling & Visual Improvements
+
+#### CSS Utilities Added (globals.css)
+- **`.glass-card`**: Glassmorphism effect with `backdrop-filter: blur(12px)`, semi-transparent background, light/dark theme variants
+- **`.shimmer`**: Shimmer animation on progress bars (sliding gradient highlight)
+- **`.shine-effect`**: Card hover shine sweep (diagonal gradient skew animation)
+- **`.animated-border`**: Gradient border that animates on hover using mask-composite technique
+- **`.dot-pattern`**: Subtle dot grid background pattern (24px spacing)
+- **`.animate-float-subtle`**: Gentle vertical float animation (4s ease-in-out)
+- **`.animate-float-subtle-delayed`**: Same float with 1s delay offset
+- **`.animate-pulse-glow`**: Pulsing orange box-shadow glow (3s cycle)
+- **`.footer-gradient-line`**: Orange-to-transparent gradient line for footer accent
+- **`.text-balance`**: CSS `text-wrap: balance` for better heading typography
+
+#### Component Enhancements
+- **SectionHeading**: Added animated ping dot on the accent line, `tracking-wide` on label, `text-balance` on heading
+- **Services**: Glass card effect, shine sweep on hover, pulse-glow on icon containers, gradient text on hover titles
+- **Now**: All 4 cards + music player card now have glass card + shine effect
+- **FeaturedOn**: Subtle gradient orb background, increased letter-spacing, brand hover underline animation (scale-x)
+- **Timeline**: Two decorative floating gradient orbs (primary + amber), hover shadow on timeline entry cards
+- **Skills**: Animated gradient borders on skill group cards, shimmer effect on progress bars
+- **Projects**: Animated gradient border on featured cards, shine sweep on grid cards
+- **Testimonials**: Glass card effect on the testimonial container
+- **Writing**: Glass card on article list container, hover indent (pl-7) on article rows
+- **FAQ**: Glass card on FAQ container, hover indent on FAQ items
+- **Resume**: Glass card + animated gradient border
+- **Contact**: Additional decorative gradient orb (bottom-right), glass card on contact form
+- **Footer**: Gradient line replacing plain border, `vicky.dev` logo now clickable link to top, gradient separator replacing plain border
+- **GitHub Activity**: Stats redesigned from inline text to 3 bordered stat cards with hover effect. Current streak uses primary color.
+- **Command Palette**: Glass card + backdrop-blur on palette overlay
+
+### Files Created
+- `src/components/portfolio/TechStackExplorer.tsx` — Interactive tech stack grid with proficiency rings
+- `src/components/portfolio/PageMeta.tsx` — Visit counter + reading time widget
+
+### Files Modified
+- `src/app/page.tsx` — Skip-to-content link, TechStackExplorer import/placement, PageMeta import/placement, main-content ID
+- `src/app/globals.css` — 10 new CSS utility classes and animations
+- `src/components/portfolio/SectionHeading.tsx` — Ping dot, tracking-wide, text-balance
+- `src/components/portfolio/Services.tsx` — Glass card, shine, pulse-glow, gradient text
+- `src/components/portfolio/Now.tsx` — Glass card, shine on all 5 cards
+- `src/components/portfolio/FeaturedOn.tsx` — Gradient orb, hover underline, tighter spacing
+- `src/components/portfolio/Timeline.tsx` — Floating orbs, hover shadow
+- `src/components/portfolio/Skills.tsx` — Animated border, shimmer bars
+- `src/components/portfolio/Projects.tsx` — Animated border on featured, shine on grid
+- `src/components/portfolio/Testimonials.tsx` — Glass card
+- `src/components/portfolio/Writing.tsx` — Glass card, hover indent
+- `src/components/portfolio/FAQ.tsx` — Glass card, hover indent
+- `src/components/portfolio/Resume.tsx` — Glass card, animated border
+- `src/components/portfolio/Contact.tsx` — Additional gradient orb, glass card on form
+- `src/components/portfolio/Footer.tsx` — Gradient line, logo link, gradient separator
+- `src/components/portfolio/GitHubActivity.tsx` — Stat cards redesign
+- `src/components/portfolio/CommandPalette.tsx` — Tech Stack entry, glass card
+
+## Verification Results
+- agent-browser desktop (1920x1080): 9 sections, TechStack: true, SkipLink: true, 12 glass-cards, 18 shimmer bars, 7 animated-borders. Zero console errors on fresh load. Zero JS errors.
+- agent-browser mobile (iPhone 14, 375x812): 9 sections, TechStack: true. Zero console errors on fresh load. Zero JS errors.
+- ESLint: 0 errors, 0 warnings
+- Server: 200 status code, all compiles successful
+
+## Unresolved / Risks
+1. LOW: Resume PDF not present at /resume/Vicky_Resume.pdf (shows 404 in server logs)
+2. LOW: Writing section articles link to # (placeholder URLs)
+3. LOW: OG image is AI-generated and could be replaced with custom design
+
+## Priority Recommendations for Next Phase
+1. Add a real blog/writing system with markdown-based posts (replace # links)
+2. Add a real resume PDF to public/resume/
+3. Optimize all images to WebP format (especially portrait)
+4. Add page transition animations (View Transitions API)
+5. Consider adding an interactive code playground widget
+6. Consider adding an ambient sound toggle for the music player
+7. Add more timeline entries or dynamic content
+8. Add a dark/light mode specific OG image variant

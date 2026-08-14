@@ -68,10 +68,10 @@ export function Services() {
                 onMouseMove={(e) => handleMouseMove(e, i)}
                 onMouseLeave={handleMouseLeave}
                 style={tilt.card === i ? { transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 150ms ease-out' } : { transform: 'perspective(800px) rotateX(0deg) rotateY(0deg)', transition: 'transform 500ms ease-out' }}
-                className={`rounded-2xl border p-6 sm:p-8 transition-all duration-300 group hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 relative overflow-hidden ${
+                className={`rounded-2xl border p-6 sm:p-8 transition-all duration-300 group hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 relative overflow-hidden shine-effect backdrop-blur-sm ${
                   s.highlight
-                    ? 'border-primary/20 bg-primary/[0.03]'
-                    : 'border-border bg-card/20'
+                    ? 'border-primary/20 bg-primary/[0.03] glass-card'
+                    : 'border-border bg-card/20 glass-card'
                 }`}
               >
                 {/* Watermark number */}
@@ -79,10 +79,10 @@ export function Services() {
                   {s.num}
                 </span>
 
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/20 animate-pulse-glow">
                   <Icon size={20} />
                 </div>
-                <h3 className="text-lg font-semibold mb-3">{s.title}</h3>
+                <h3 className="text-lg font-semibold mb-3 group-hover:text-gradient transition-all duration-300">{s.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-5">
                   {s.description}
                 </p>
