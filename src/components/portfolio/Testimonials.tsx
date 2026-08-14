@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 
@@ -34,9 +34,9 @@ const testimonials = [
 export function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0); // -1 left, 0 idle, 1 right
+  const [isPaused, setIsPaused] = useState(false);
 
-
-  const paginate = (newDir: number) => {
+  const paginate = useCallback((newDir: number) => {
     setDirection(newDir);
     if (newDir === 0) return;
     setCurrent((prev) =>
@@ -44,7 +44,14 @@ export function Testimonials() {
         ? (prev + 1) % testimonials.length
         : (prev - 1 + testimonials.length) % testimonials.length,
     );
-  };
+  }, []);
+
+  // Auto-advance every 6 seconds when not hovered
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => paginate(1), 6000);
+    return () => clearInterval(interval);
+   }, [isPaused, paginate]);
 
   const t = testimonials[current];
 
@@ -67,8 +74,11 @@ export function Testimonials() {
         </motion.div>
 
         {/* Testimonial Card */}
-        <div className="max-w-3xl mx-auto">
-          <div className="relative rounded-2xl border border-border bg-card/30 p-8 sm:p-10 min-h-[280px] flex flex-col justify-between">
+        <div className="max-w-3xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="relative rounded-2xl border border-border bg-card/30 p-8 sm:p-10 min-h-[280px] flex flex-col justify-between hover:border-primary/15 transition-colors duration-300">
             {/* Quote icon */}
             <Quote
               size={32}
@@ -131,7 +141,11 @@ export function Testimonials() {
               </button>
 
               {/* Dots */}
-              <div className="flex gap-1.5">
+              <div className="flex gap-1.5" role="tablist">
+                {/* Auto-advance progress ring */}
+                <div className="mr-1 flex items-center">
+                  <div className={`w-1.5 h-1.5 rounded-full ${isPaused ? 'bg-muted-foreground/20' : 'bg-primary animate-pulse'}`} />
+                </div>
                 {testimonials.map((_, i) => (
                   <button
                     key={i}

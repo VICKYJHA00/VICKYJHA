@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
@@ -73,7 +73,7 @@ function FAQItem({
 
 export function FAQ() {
   return (
-    <section className="py-28 px-6 bg-secondary/20">
+    <section id="faq" className="py-28 px-6 bg-secondary/20">
       <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 12 }}

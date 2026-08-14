@@ -49,8 +49,11 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: gi * 0.1, duration: 0.5 }}
-              className="rounded-2xl border border-border bg-card/50 p-6 hover:border-border/80 transition-colors"
+              className="rounded-2xl border border-border bg-card/50 p-6 hover:border-primary/20 transition-all duration-300 group/skill relative overflow-hidden"
             >
+              {/* Hover shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-transparent opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="relative">
               <div className="flex items-center gap-3 mb-6">
                 <span className="text-base">{categoryIcons[group.category]}</span>
                 <h3 className="text-base font-semibold">{group.category}</h3>
@@ -85,6 +88,7 @@ export function Skills() {
                     </div>
                   </div>
                 ))}
+              </div>
               </div>
             </motion.div>
           ))}

@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/data/projects';
+import type { Project } from '@/data/projects';
 import { Github, ArrowUpRight } from 'lucide-react';
+import { ProjectModal } from './ProjectModal';
 
 const featuredNumbers = ['01', '02'];
 
@@ -11,6 +13,7 @@ const allTags = ['All', ...Array.from(new Set(projects.map((p) => p.tag)))];
 
 export function Projects() {
   const [activeTag, setActiveTag] = useState('All');
+  const [selected, setSelected] = useState<Project | null>(null);
   const featured = projects.filter((p) => p.featured);
   const other = projects.filter((p) => !p.featured);
 
@@ -84,7 +87,8 @@ export function Projects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/20 transition-all duration-300"
+                  className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/20 transition-all duration-300 cursor-pointer relative"
+                  onClick={() => setSelected(project)}
                 >
                   <div className="grid lg:grid-cols-2">
                     {/* Image */}
@@ -103,6 +107,11 @@ export function Projects() {
 
                     {/* Content */}
                     <div className="p-6 sm:p-8 flex flex-col justify-center space-y-4">
+                      {/* Expand icon hint */}
+                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <ArrowUpRight size={18} className="text-primary" />
+                      </div>
+
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-md">
                           {project.tag}
@@ -143,6 +152,7 @@ export function Projects() {
                             target="_blank"
                             rel="noreferrer"
                             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <Github size={15} />
                             Source
@@ -154,6 +164,7 @@ export function Projects() {
                             target="_blank"
                             rel="noreferrer"
                             className="inline-flex items-center gap-2 text-sm text-primary hover:underline underline-offset-4"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             Live demo
                             <ArrowUpRight size={14} />
@@ -190,7 +201,8 @@ export function Projects() {
                     duration: 0.5,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/20 transition-all duration-300 flex flex-col"
+                  className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/20 transition-all duration-300 flex flex-col cursor-pointer relative"
+                  onClick={() => setSelected(project)}
                 >
                   <div className="relative aspect-video overflow-hidden">
                     <img
@@ -201,6 +213,10 @@ export function Projects() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                     <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {/* Expand icon hint */}
+                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ArrowUpRight size={16} className="text-primary" />
+                    </div>
                   </div>
                   <div className="p-5 flex flex-col flex-1">
                     <div className="flex items-center justify-between mb-2">
@@ -214,6 +230,7 @@ export function Projects() {
                           rel="noreferrer"
                           className="text-muted-foreground hover:text-foreground transition-colors"
                           aria-label={`${project.name} GitHub`}
+                          onClick={(e) => e.stopPropagation()}
                         >
                           <Github size={14} />
                         </a>
@@ -247,6 +264,9 @@ export function Projects() {
             <p className="text-muted-foreground text-sm">No projects match &quot;{activeTag}&quot;.</p>
           </motion.div>
         )}
+
+        {/* Project Detail Modal */}
+        <ProjectModal project={selected} onClose={() => setSelected(null)} />
       </div>
     </section>
   );

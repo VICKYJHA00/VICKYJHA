@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/portfolio/Navbar';
 import { Hero } from '@/components/portfolio/Hero';
+import { FeaturedOn } from '@/components/portfolio/FeaturedOn';
 import { Now } from '@/components/portfolio/Now';
 import { About } from '@/components/portfolio/About';
 import { Skills } from '@/components/portfolio/Skills';
@@ -9,6 +10,7 @@ import { Projects } from '@/components/portfolio/Projects';
 import { Timeline } from '@/components/portfolio/Timeline';
 import { Services } from '@/components/portfolio/Services';
 import { Writing } from '@/components/portfolio/Writing';
+import { GitHubActivity } from '@/components/portfolio/GitHubActivity';
 import { Testimonials } from '@/components/portfolio/Testimonials';
 import { Resume } from '@/components/portfolio/Resume';
 import { FAQ } from '@/components/portfolio/FAQ';
@@ -23,6 +25,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <FeaturedOn />
         <Now />
         <About />
         <div className='section-divider' />
@@ -32,6 +35,7 @@ export default function Home() {
         <Timeline />
         <Services />
         <Writing />
+        <GitHubActivity />
         <Testimonials />
         <Resume />
         <FAQ />

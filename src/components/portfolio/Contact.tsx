@@ -60,7 +60,7 @@ export function Contact() {
           <div className="lg:col-span-2 space-y-4">
             <a
               href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 transition-colors group"
+              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-300 group"
             >
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Mail size={18} />
@@ -75,7 +75,7 @@ export function Contact() {
               href={CONTACT.github}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 transition-colors group"
+              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-300 group"
             >
               <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors">
                 <Github size={18} />
@@ -90,7 +90,7 @@ export function Contact() {
               href={CONTACT.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 transition-colors group"
+              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-300 group"
             >
               <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors">
                 <Linkedin size={18} />

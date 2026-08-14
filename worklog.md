@@ -319,3 +319,145 @@ Task: Bug fixes, styling improvements, new features, and comprehensive QA
 4. Add animated counter effect for the About stats section
 5. Consider adding a "Featured on" / logo cloud section for social proof
 6. Add Open Graph image for better social sharing
+
+---
+Task ID: 3-a
+Agent: Keyboard & FAQ Fix Agent
+Task: Wire up T keyboard shortcut for theme toggle, add FAQ id, remove unused imports
+
+Work Log:
+- Added global keyboard event listener in ThemeProvider.tsx via inner ThemeShortcut component
+- Added id='faq' to FAQ section element
+- Removed unused Plus/Minus imports from FAQ.tsx
+
+Stage Summary:
+- Theme toggle now works with T key (skips when input/textarea focused)
+- FAQ section is now addressable via #faq
+- Clean imports in FAQ.tsx
+
+---
+Task ID: 3-b
+Agent: Project Modal Agent
+Task: Add project detail modal/drawer with full descriptions
+
+Work Log:
+- Enhanced projects.ts with longDescription, challenges, highlights, role fields for all 6 projects
+- Created ProjectModal.tsx with slide-up animation, backdrop, responsive layout
+- Modified Projects.tsx to make all cards clickable, opening the modal
+- Added ArrowUpRight expand hint icon on card hover
+- Added e.stopPropagation() on GitHub/demo links inside cards to prevent modal open
+- Used Unicode escapes (\u2019, \u2014) for apostrophes and em dashes in data strings
+
+Stage Summary:
+- All 6 projects have detailed descriptions for the modal
+- Modal features: backdrop blur, slide-up animation, Escape key close, body scroll lock
+- Desktop: centered card (max-w-2xl). Mobile: bottom sheet with rounded-t-3xl top corners
+- Cards show expand hint (ArrowUpRight icon) on hover
+- ESLint: 0 errors, 0 warnings. Server: 200 status
+
+---
+Task ID: 3-c
+Agent: FeaturedOn Agent
+Task: Add 'Featured On' logo cloud section
+
+Work Log:
+- Created FeaturedOn.tsx with text-based brand logos (6 brands)
+- Added to page.tsx between Hero and Now sections
+
+Stage Summary:
+- New 'As seen on' section with 6 brand names: Google Developer Student Clubs, Dev.to, Medium, Hashnode, Product Hunt, HackerNoon
+- Subtle fade-in animations with stagger (delay: i * 0.05) using framer-motion
+- Responsive flex layout with wrap on mobile, centered
+- border-t divider above, py-16 sizing, muted-foreground/30 text styling
+- ESLint: 0 errors, 0 warnings
+
+---
+Task ID: 3-d
+Agent: GitHub Activity Agent
+Task: Add GitHub-style contribution graph visualization section
+Work Log:
+- Created GitHubActivity.tsx with seeded random activity data
+- Generated 26-week contribution grid with 5 activity levels using orange/primary color
+- Added month labels and legend
+- Added 3 stats below grid (contributions, longest streak, current streak)
+- Added to page.tsx between Writing and Testimonials
+- Added `.scrollbar-hide` utility class to globals.css for mobile overflow
+Stage Summary:
+- New visual section showing fictional but realistic GitHub contribution data
+- Orange-themed heatmap (not green) consistent with site design
+- Responsive: horizontal scroll on mobile with hidden scrollbar
+- Placed between Writing and Testimonials sections
+- ESLint: 0 errors from this task
+
+---
+Task ID: 3-e
+Agent: Main
+Task: Styling polish, testimonial auto-advance, CSS enhancements, comprehensive QA
+
+## Current Project Status / Assessment
+- Portfolio site fully functional on desktop (1920x1080) and mobile (375x812)
+- All 16 sections rendering correctly with zero JS errors
+- ESLint passes clean (zero errors, zero warnings)
+- Server: 200 status code
+- All interactive elements functional: nav links, mobile menu, tag filtering, testimonial carousel (with auto-advance), FAQ accordion, contact form, back-to-top, theme toggle, project modals, keyboard shortcut (T)
+
+## Completed This Round
+
+### New Features
+- **Project Detail Modal**: Clickable project cards open a slide-up modal/drawer with full project details (role, long description, challenges, key highlights, tech stack, links). All 6 projects have enriched data. Desktop: centered card. Mobile: bottom sheet. Close via backdrop click or Escape key.
+- **As Seen On Section**: Text-based brand logos (Google DSC, Dev.to, Medium, Hashnode, Product Hunt, HackerNoon) placed between Hero and Now. Subtle staggered fade-in animations.
+- **GitHub Activity Visualization**: 26-week contribution heatmap using orange/primary color. Seeded random data with weekday weighting. Month labels, day labels, legend (Less to More). Stats row: 1,247 contributions, 23-day longest streak, 5-day current streak. Responsive horizontal scroll on mobile.
+- **Keyboard Shortcut (T key)**: Global listener for theme toggle. Skips when input/textarea is focused. Footer hint is now functional.
+- **Testimonial Auto-Advance**: Carousel auto-cycles every 6 seconds. Pauses on hover. Animated pulse indicator dot shows auto-play status.
+
+### Styling Improvements
+- **Skills cards**: Added hover shine effect (subtle primary gradient overlay on hover), hover border effect with group/skill
+- **About marquee**: Fixed edge fade positioning (added relative to parent), added hover effect on individual tech tags
+- **Contact info cards**: Enhanced hover with shadow-sm shadow-primary/5 and transition-all duration-300
+- **Testimonial card**: Added hover:border-primary/15 transition
+- **CSS enhancements**: Added .scrollbar-hide utility, custom focus-visible rings, modal-specific thin scrollbar, content-visibility: auto for images
+
+### Bug Fixes
+- **Testimonials.tsx**: Fixed react-hooks/immutability lint error - moved paginate before useEffect and wrapped with useCallback
+- **FAQ.tsx**: Added id=faq attribute, removed unused Plus/Minus imports
+- **About.tsx**: Fixed marquee edge fade positioning with relative parent
+
+### Files Created
+- src/components/portfolio/ProjectModal.tsx
+- src/components/portfolio/FeaturedOn.tsx
+- src/components/portfolio/GitHubActivity.tsx
+
+### Files Modified
+- src/data/projects.ts (longDescription, challenges, highlights, role for all 6 projects)
+- src/app/page.tsx (added FeaturedOn, GitHubActivity imports and placement)
+- src/app/globals.css (scrollbar-hide, focus-visible, modal scrollbar, content-visibility)
+- src/components/portfolio/Projects.tsx (clickable cards, modal integration, expand icons)
+- src/components/portfolio/Testimonials.tsx (auto-advance, useCallback fix, hover effect, pause indicator)
+- src/components/portfolio/Skills.tsx (hover shine, group/skill)
+- src/components/portfolio/About.tsx (marquee relative, tag hover)
+- src/components/portfolio/Contact.tsx (card hover shadows)
+- src/components/portfolio/FAQ.tsx (id, import cleanup)
+- src/components/portfolio/ThemeProvider.tsx (keyboard shortcut)
+
+## Verification Results
+- agent-browser desktop (1920x1080): All 16 sections render, 0 JS errors, 200 status
+- agent-browser mobile (iPhone 14, 375x812): All 16 sections render, 0 JS errors, 200 status
+- Project modal: Opens correctly on click, shows all detail fields, closes on backdrop/Escape
+- Theme toggle: Works via button and T keyboard shortcut
+- Testimonials: Auto-advance working, pauses on hover
+- ESLint: 0 errors, 0 warnings
+
+## Unresolved / Risks
+1. LOW: Resume PDF not present at /resume/Vicky_Resume.pdf
+2. LOW: Portrait image could be optimized to WebP format
+3. LOW: Writing section articles link to # (placeholder URLs)
+4. LOW: Project modal scrollbar could be smoother on some browsers
+
+## Priority Recommendations for Next Phase
+1. Add Open Graph meta image for better social sharing
+2. Replace writing section placeholder links with actual blog content or markdown-based posts
+3. Add a real resume PDF to public/resume/
+4. Optimize portrait image to WebP
+5. Add section entrance animations with staggered children
+6. Consider adding a contact form backend API route
+7. Add a 404 page with matching design

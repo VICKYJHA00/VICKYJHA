@@ -148,6 +148,15 @@ html {
   background: #a1a1aa;
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 ::selection {
   background: rgba(249, 115, 22, 0.25);
 }
@@ -220,4 +229,37 @@ html {
 .section-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 50%, var(--border) 80%, transparent);
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom focus ring for interactive elements */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Modal scrollbar */
+[aria-modal="true"]::-webkit-scrollbar {
+  width: 4px;
+}
+[aria-modal="true"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+[aria-modal="true"]::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* Smooth image loading */
+img {
+  content-visibility: auto;
 }

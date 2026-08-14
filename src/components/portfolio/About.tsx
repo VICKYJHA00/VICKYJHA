@@ -141,7 +141,7 @@ export function About() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-50px' }}
-          className="mt-16 overflow-hidden"
+          className="mt-16 overflow-hidden relative"
         >
           <div
             ref={marqueeRef}
@@ -150,7 +150,7 @@ export function About() {
             {doubledItems.map((tech, i) => (
               <span
                 key={`${tech}-${i}`}
-                className="shrink-0 px-3 py-1.5 text-[11px] rounded-lg border border-border/50 bg-card/30 text-muted-foreground/70 whitespace-nowrap"
+                className="shrink-0 px-3 py-1.5 text-[11px] rounded-lg border border-border/50 bg-card/30 text-muted-foreground/70 whitespace-nowrap hover:border-primary/30 hover:text-foreground/70 transition-colors"
               >
                 {tech}
               </span>
