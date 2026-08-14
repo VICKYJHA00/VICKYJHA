@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { projects } from '@/data/projects';
-import { Github, ArrowUpRight } from 'lucide-react';
+import { Github, ArrowUpRight, ExternalLink } from 'lucide-react';
+
+const featuredNumbers = ['01', '02'];
 
 export function Projects() {
   const featured = projects.filter((p) => p.featured);
@@ -19,7 +21,7 @@ export function Projects() {
         >
           <p className="text-sm text-primary font-medium mb-3">Projects</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Things I've built
+            Things I&apos;ve built
           </h2>
           <p className="text-muted-foreground mt-3 max-w-lg">
             A mix of production work, side projects, and open source. Each one taught me
@@ -36,7 +38,7 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/30 transition-colors"
+              className="group rounded-2xl border border-border bg-card/30 overflow-hidden hover:border-primary/20 transition-all duration-300"
             >
               <div className="grid lg:grid-cols-2">
                 {/* Image */}
@@ -44,10 +46,14 @@ export function Projects() {
                   <img
                     src={project.image}
                     alt={project.imageAlt}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-700"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-background/60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-background/70" />
+                  {/* Featured number */}
+                  <div className="absolute top-4 left-4 text-5xl font-black text-foreground/5 select-none lg:text-7xl">
+                    {featuredNumbers[index]}
+                  </div>
                 </div>
 
                 {/* Content */}
@@ -66,7 +72,7 @@ export function Projects() {
                     ))}
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-bold group-hover:text-primary transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-bold group-hover:text-primary transition-colors duration-300">
                     {project.name}
                   </h3>
 
@@ -78,14 +84,14 @@ export function Projects() {
                     {project.stack.map((s) => (
                       <span
                         key={s}
-                        className="text-xs text-muted-foreground border border-border px-2.5 py-1 rounded-md"
+                        className="text-xs text-muted-foreground border border-border/60 px-2.5 py-1 rounded-md hover:border-primary/30 hover:text-foreground/80 transition-colors"
                       >
                         {s}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-3 pt-2">
+                  <div className="flex items-center gap-4 pt-2">
                     {project.github && (
                       <a
                         href={project.github}
@@ -102,7 +108,7 @@ export function Projects() {
                         href={project.demo}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                        className="inline-flex items-center gap-2 text-sm text-primary hover:underline underline-offset-4"
                       >
                         Live demo
                         <ArrowUpRight size={14} />
@@ -117,7 +123,7 @@ export function Projects() {
 
         {/* Other Projects Grid */}
         {other.length > 0 && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 pt-10 border-t border-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10 pt-10 border-t border-border">
             {other.map((project, index) => (
               <motion.article
                 key={project.name}
@@ -129,15 +135,18 @@ export function Projects() {
                   duration: 0.5,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/30 transition-colors flex flex-col"
+                className="group rounded-xl border border-border bg-card/20 overflow-hidden hover:border-primary/20 transition-all duration-300 flex flex-col"
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.imageAlt}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-700 brightness-[0.8]"
                     loading="lazy"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-center justify-between mb-2">
@@ -156,20 +165,15 @@ export function Projects() {
                       </a>
                     )}
                   </div>
-                  <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
+                  <h3 className="text-base font-semibold group-hover:text-primary transition-colors duration-300">
                     {project.name}
                   </h3>
                   <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2 flex-1">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-border/50">
+                  <div className="flex flex-wrap gap-x-3 gap-y-1 mt-4 pt-4 border-t border-border/50 text-[11px] text-muted-foreground">
                     {project.stack.map((s) => (
-                      <span
-                        key={s}
-                        className="text-[11px] text-muted-foreground"
-                      >
-                        {s}
-                      </span>
+                      <span key={s}>{s}</span>
                     ))}
                   </div>
                 </div>

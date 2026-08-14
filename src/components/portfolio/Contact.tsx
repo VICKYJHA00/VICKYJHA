@@ -1,8 +1,8 @@
-'client';
+'use client';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, Check } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, Check, MapPin, Clock } from 'lucide-react';
 import { CONTACT } from '@/data/contact';
 
 export function Contact() {
@@ -37,17 +37,17 @@ export function Contact() {
         >
           <p className="text-sm text-primary font-medium mb-3">Contact</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Let's talk
+            Let&apos;s talk
           </h2>
           <p className="text-muted-foreground mt-3 max-w-lg">
-            I'm open to backend engineering roles, freelance work, or just interesting
+            I&apos;m open to backend engineering roles, freelance work, or just interesting
             conversations about systems design. Drop me a line.
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Info panel */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4">
             <a
               href={`mailto:${CONTACT.email}`}
               className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/30 hover:border-primary/30 transition-colors group"
@@ -90,6 +90,25 @@ export function Contact() {
                 <p className="text-sm font-medium">vickyjha00</p>
               </div>
             </a>
+
+            {/* Availability + Location cards */}
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <div className="rounded-xl border border-border bg-card/20 p-4">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <Clock size={13} className="text-green-400" />
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Status</span>
+                </div>
+                <p className="text-sm font-medium text-green-400">Available</p>
+              </div>
+              <div className="rounded-xl border border-border bg-card/20 p-4">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <MapPin size={13} className="text-muted-foreground" />
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Location</span>
+                </div>
+                <p className="text-sm font-medium">India</p>
+                <p className="text-[10px] text-muted-foreground">Open to remote</p>
+              </div>
+            </div>
           </div>
 
           {/* Form */}
@@ -132,7 +151,7 @@ export function Contact() {
                       placeholder="Your name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
                     />
                   </div>
                   <div className="space-y-2">
@@ -146,7 +165,7 @@ export function Contact() {
                       placeholder="you@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all"
                     />
                   </div>
                 </div>
@@ -161,12 +180,12 @@ export function Contact() {
                     placeholder="What's on your mind?"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none"
+                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all resize-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10"
                 >
                   <Send size={14} />
                   Send message

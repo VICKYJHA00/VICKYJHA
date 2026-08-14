@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -17,13 +17,22 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('#home');
+  const [progress, setProgress] = useState(0);
+
+  const handleScroll = useCallback(() => {
+    const y = window.scrollY;
+    setScrolled(y > 20);
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      setProgress(Math.min((y / docHeight) * 100, 100));
+    }
+  }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -38,14 +47,14 @@ export function Navbar() {
     return () => obs.disconnect();
   }, []);
 
+  const headerClass = scrolled
+    ? 'fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border'
+    : 'fixed top-0 inset-x-0 z-50';
+
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/80 backdrop-blur-xl border-b border-border'
-          : 'bg-transparent'
-      }`}
-    >
+    <header className={headerClass}>
+      <div className="scroll-progress" style={{ width: `${progress}%` }} />
+
       <nav className="max-w-6xl mx-auto h-16 flex items-center justify-between px-6">
         <a
           href="#home"

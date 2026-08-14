@@ -7,12 +7,14 @@ const services = [
   {
     icon: Database,
     title: 'Backend Development',
+    num: '01',
     description:
       'REST and GraphQL APIs with Spring Boot or Node.js. I care about response times, error handling, and documentation that people actually read.',
   },
   {
     icon: BrainCircuit,
     title: 'AI Integration',
+    num: '02',
     description:
       'Adding intelligence to products with LLMs, embeddings, and RAG pipelines. Not just wrapping OpenAI — building actual useful AI features.',
     highlight: true,
@@ -20,6 +22,7 @@ const services = [
   {
     icon: Rocket,
     title: 'Full-Stack MVPs',
+    num: '03',
     description:
       'When you need something working end-to-end fast. Next.js frontend, solid backend, deployed and ready for users.',
   },
@@ -51,12 +54,17 @@ export function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                className={`rounded-2xl border p-6 sm:p-8 transition-colors group hover:border-primary/30 ${
+                className={`rounded-2xl border p-6 sm:p-8 transition-all duration-300 group hover:border-primary/20 relative overflow-hidden ${
                   s.highlight
-                    ? 'border-primary/30 bg-primary/5'
+                    ? 'border-primary/20 bg-primary/[0.03]'
                     : 'border-border bg-card/20'
                 }`}
               >
+                {/* Background number */}
+                <span className="absolute -top-2 -right-1 text-7xl font-black text-foreground/[0.02] select-none">
+                  {s.num}
+                </span>
+
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <Icon size={20} />
                 </div>
