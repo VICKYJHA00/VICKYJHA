@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useMemo } from 'react';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 import { skillGroups } from '@/data/skills';
 import { SectionHeading } from './SectionHeading';
 
@@ -91,7 +92,7 @@ export function Skills() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, ease: EASE_OUT_SMOOTH }}
           >
             <svg
               viewBox="0 0 240 240"
@@ -123,7 +124,7 @@ export function Skills() {
                 stroke="var(--color-primary)"
                 strokeWidth={2}
                 strokeLinejoin="round"
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1, ease: EASE_OUT_SMOOTH }}
               />
               <motion.polygon
                 points={inView ? dataPoints : centerPoints}
@@ -133,7 +134,7 @@ export function Skills() {
                 strokeWidth={6}
                 strokeLinejoin="round"
                 filter="blur(6px)"
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1, ease: EASE_OUT_SMOOTH }}
               />
 
               {[0, 1, 2, 3].map((i) => {
@@ -149,7 +150,7 @@ export function Skills() {
                     r={4}
                     fill="var(--color-primary)"
                     animate={inView ? { cx, cy } : { cx: CENTER, cy: CENTER }}
-                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1, ease: EASE_OUT_SMOOTH }}
                   />
                 );
               })}
@@ -182,7 +183,7 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: gi * 0.1, duration: 0.5 }}
-              className="rounded-2xl border border-border bg-card/50 p-6 hover:border-primary/20 transition-all duration-300 group/skill relative overflow-hidden animated-border"
+              className="rounded-2xl border border-border bg-card/50 p-6 hover:border-primary/20 transition-all duration-300 group/skill relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-transparent opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500 pointer-events-none" />
               <div className="relative">
@@ -211,11 +212,11 @@ export function Skills() {
                           transition={{
                             duration: 0.8,
                             delay: gi * 0.1 + si * 0.05 + 0.2,
-                            ease: [0.22, 1, 0.36, 1],
+                            ease: EASE_OUT_SMOOTH,
                           }}
                           className={`h-full rounded-full bg-gradient-to-r ${
                             categoryColors[group.category] ?? 'from-orange-500 to-amber-400'
-                          } opacity-90 shimmer`} />
+                          } opacity-90`} />
                       </div>
                     </div>
                   ))}

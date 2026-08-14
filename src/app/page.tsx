@@ -29,7 +29,7 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 800);
+    const timer = setTimeout(() => setLoaded(true), 600);
     return () => clearTimeout(timer);
   }, []);
 
@@ -40,7 +40,7 @@ export default function Home() {
           key="skeleton"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.25 }}
         >
           <PageSkeleton />
         </motion.div>
@@ -49,7 +49,7 @@ export default function Home() {
           key="content"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4 }}
         >
           <div className="min-h-screen flex flex-col">
             {/* Skip to content link for accessibility */}

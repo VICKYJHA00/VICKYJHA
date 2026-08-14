@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 import { Quote, ChevronLeft, ChevronRight, Star, CheckCircle2 } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 
@@ -84,7 +85,7 @@ export function Testimonials() {
                 initial={{ opacity: 0, x: direction >= 0 ? 40 : -40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: direction >= 0 ? -40 : 40 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.35, ease: EASE_OUT_SMOOTH }}
                 className="flex-1"
               >
                 {/* Stars */}
@@ -140,10 +141,6 @@ export function Testimonials() {
 
               {/* Dots */}
               <div className="flex gap-1.5" role="tablist">
-                {/* Auto-advance progress ring */}
-                <div className="mr-1 flex items-center">
-                  <div className={`w-1.5 h-1.5 rounded-full ${isPaused ? 'bg-muted-foreground/20' : 'bg-primary animate-pulse'}`} />
-                </div>
                 {testimonials.map((_, i) => (
                   <button
                     key={i}

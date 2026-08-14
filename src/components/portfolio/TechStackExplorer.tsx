@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 import { SectionHeading } from './SectionHeading';
 
 interface TechItem {
@@ -60,7 +61,7 @@ function ProficiencyRing({ value, color, size = 44 }: { value: number; color: st
           strokeDasharray={circumference}
           initial={{ strokeDashoffset: circumference }}
           animate={inView ? { strokeDashoffset: offset } : { strokeDashoffset: circumference }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.2, ease: EASE_OUT_SMOOTH }}
         />
       </svg>
       <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold tabular-nums text-foreground">
@@ -116,7 +117,7 @@ export function TechStackExplorer() {
                 transition={{ duration: 0.3, delay: i * 0.03 }}
                 onMouseEnter={() => setHoveredItem(tech)}
                 onMouseLeave={() => setHoveredItem(null)}
-                className="group relative rounded-xl border border-border/60 bg-card/30 p-4 hover:border-primary/25 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-default"
+                className="group relative rounded-xl border border-border/60 bg-card/30 p-4 hover:border-primary/25 transition-all duration-300 cursor-default card-lift"
               >
                 <div className="flex items-start gap-3">
                   <span className="text-xl mt-0.5" role="img" aria-hidden>{tech.icon}</span>
@@ -147,7 +148,7 @@ export function TechStackExplorer() {
                               className={`h-full rounded-full bg-gradient-to-r ${tech.color}`}
                               initial={{ width: 0 }}
                               animate={{ width: `${tech.proficiency}%` }}
-                              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                              transition={{ duration: 0.6, ease: EASE_OUT_SMOOTH }}
                             />
                           </div>
                           <span className="text-[10px] text-muted-foreground tabular-nums">{tech.proficiency}%</span>

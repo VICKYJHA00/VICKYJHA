@@ -1221,3 +1221,94 @@ Task: Comprehensive styling improvements, new features (Tech Stack Explorer, Pag
 6. Consider adding an ambient sound toggle for the music player
 7. Add more timeline entries or dynamic content
 8. Add a dark/light mode specific OG image variant
+
+---
+Task ID: 2
+Agent: Main
+Task: Polish upgrade — varun.page-inspired visual & interaction refinement
+
+## Current Project Status
+- All 16 sections render correctly on desktop (1920x1080) and mobile (iPhone 14)
+- Zero runtime JS errors in both viewports
+- Zero lint errors (`bun run lint` passes clean)
+- Dark and light themes both verified via agent-browser
+- Dev server running stable on port 3000
+
+## What Changed
+
+### New Files Created
+- `src/lib/animations.ts` — Shared animation system with:
+  - Consistent easing curves (EASE_OUT_EXPO, EASE_OUT_SMOOTH)
+  - Spring config (SPRING_SNAP)
+  - Reusable variants (fadeInUp, fadeInScale, fadeInLeft, fadeIn)
+  - Stagger container variants
+  - Page entrance animation sequence
+  - Viewport config constants
+
+### Visual Design Upgrades
+| Area | Before | After |
+|------|--------|-------|
+| **Hero background** | 3 animated gradient blobs (20s/15s/10s loops) + mouse parallax | Single subtle radial glow + fine grid pattern (static) |
+| **Hero entrance** | 800ms skeleton + simple fade | 600ms skeleton + staggered entrance (badge → heading → tagline → CTAs → badges → scroll) |
+| **Hero tagline** | Cursor blink animation | Clean crossfade without cursor |
+| **Hero buttons** | `active:scale-[0.98]` inline | Shared `btn-press` + `link-arrow` CSS classes |
+| **Navbar entrance** | No entrance animation | Subtle slide-down fade-in on mount |
+| **Navbar CTA** | Basic hover | `btn-press` + hover shadow |
+| **SectionHeading** | Ping-animated dot before label | Clean static orange bar |
+| **Project star SVGs** | Broken/garbled path data | Proper 16x16 star SVG icon |
+| **Project featured cards** | `animated-border` (rotating gradient border) | Removed; clean `shine-effect` + subtle lift |
+| **Project grid cards** | `shine-effect` | `card-lift` (consistent translateY + shadow) |
+| **About photo border** | `animate-spin-slow` rotating gradient ring | Simple border → primary on hover |
+| **Marquee items** | `text-muted-foreground/70` | `text-muted-foreground/50` (more subdued) |
+| **Skills cards** | `animated-border` + shimmer bars | Clean cards, solid gradient bars |
+| **Timeline** | Floating decorative blobs + hover chevron | Removed both; cleaner timeline |
+| **Services cards** | 3D tilt effect + `animate-pulse-glow` + `shine-effect` | `card-lift` only (clean, professional) |
+| **Testimonials** | Auto-advance pulse dot | Removed |
+| **Resume card** | `animated-border` + `glass-card` | Clean border card |
+| **Contact form** | Two decorative gradient glow orbs + `glass-card` | Clean border card, `btn-press` on submit |
+| **Footer links** | Plain hover color | `hover-underline` animated underline |
+| **Writing view-all** | ArrowRight icon + underline-offset | `hover-underline` only |
+
+### CSS System Upgrades
+- Removed: `section-label::before`, `glow-primary`, `stagger-children`, `animate-spin-slow`, `animate-float-subtle`, `animate-float-subtle-delayed`, `pulse-glow`, `animated-border` (kept JS-compatible bits)
+- Added: `fine-grid` (subtle background grid), `hover-underline` (animated link underline), `link-arrow` (external link arrow animation), `btn-press` (tactile press feedback)
+- Refined: Scrollbar thinner (5px), grain overlay delayed entrance, scroll progress simplified, selection color toned down
+- All animations respect `prefers-reduced-motion`
+
+### Animation Philosophy Applied
+- **Removed**: Constant motion (blobs, spinning borders, pulse glows, floating elements)
+- **Kept**: Scroll reveals, hover transitions, entrance sequences
+- **Added**: Consistent easing via shared system, micro-interactions (underline, arrow, press)
+- **Result**: "Everything feels alive" not "Everything is moving"
+
+### Technical Improvements
+- Fixed: Navbar lint error (`react-hooks/set-state-in-effect`) using `useSyncExternalStore`
+- Fixed: Broken star SVG paths in Projects component
+- Centralized: All easing curves in `src/lib/animations.ts` (replaced 20+ inline arrays)
+- Performance: Removed expensive continuous animations (3 blob motion divs, rotating borders)
+
+## Verification Results
+- Agent-browser desktop (1920x1080): All sections render, no JS errors
+- Agent-browser mobile (iPhone 14): All sections render, mobile menu works, no JS errors
+- Light theme: Verified, no errors
+- Project modal: Opens and closes correctly
+- Navigation: Active section tracking works, mobile menu animation smooth
+- `bun run lint`: 0 errors, 0 warnings
+
+## What Still Exists (Not Changed)
+- All content (name, projects, skills, timeline, testimonials, FAQ)
+- All data files (projects.ts, skills.ts, timeline.ts, contact.ts)
+- All functionality (contact form API, newsletter subscribe API, command palette, theme toggle, mobile bottom nav, back-to-top)
+- Project modal system
+- GitHub activity heatmap
+- Now section with music player
+- All routing and links
+
+## Recommendations for Next Phase
+1. **OG meta image**: Generate a real og-image.png (currently 404)
+2. **Writing links**: The article URLs all point to `#` — add real blog links when available
+3. **Resume PDF**: The `/resume/Vicky_Resume.pdf` returns 404 — add the actual file
+4. **Avatar image**: Consider WebP optimization for vicky-portrait.jpg
+5. **Contact form backend**: Currently returns success without sending — wire up real email delivery
+6. **404 page**: The not-found.tsx exists but could be polished
+7. **Further micro-interactions**: Consider magnetic cursor effect on CTA buttons, text reveal animations on section headings

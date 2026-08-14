@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 import { SectionHeading } from './SectionHeading';
 
 function generateActivityData() {
@@ -93,7 +94,7 @@ export function GitHubActivity() {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, ease: EASE_OUT_SMOOTH }}
       className="py-16 bg-secondary/10"
     >
       <div className="max-w-6xl mx-auto px-6">

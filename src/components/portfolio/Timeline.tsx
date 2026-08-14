@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { timeline } from '@/data/timeline';
-import { GraduationCap, Briefcase, Award, Github, Users, Code2, ChevronRight } from 'lucide-react';
+import { GraduationCap, Briefcase, Award, Github, Users, Code2 } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 
 const tagConfig: Record<string, { color: string; icon: typeof Briefcase; textColor: string; tagBg: string }> = {
   Certification: { color: 'border-amber-500/30 bg-amber-500/5', icon: Award, textColor: 'text-amber-400', tagBg: 'bg-amber-500/10 text-amber-400' },
@@ -19,9 +20,6 @@ const defaultConfig = { color: 'border-border bg-secondary', icon: Briefcase, te
 export function Timeline() {
   return (
     <section id="experience" className="py-28 px-6 bg-secondary/20 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-20 -right-32 w-64 h-64 bg-primary/[0.02] rounded-full blur-3xl pointer-events-none animate-float-subtle" aria-hidden />
-      <div className="absolute bottom-20 -left-32 w-48 h-48 bg-amber-500/[0.02] rounded-full blur-3xl pointer-events-none animate-float-subtle-delayed" aria-hidden />
       <div className="max-w-3xl mx-auto">
         <SectionHeading
           label="Experience"
@@ -37,7 +35,7 @@ export function Timeline() {
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1.2, ease: EASE_OUT_SMOOTH }}
               style={{ height: '100%' }}
             />
           </div>
@@ -79,10 +77,7 @@ export function Timeline() {
                     <p className="text-sm text-muted-foreground leading-relaxed mt-2">
                       {item.description}
                     </p>
-                    <ChevronRight
-                      size={16}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/0 group-hover:text-primary/50 transition-all duration-300 opacity-0 group-hover:opacity-100"
-                    />
+
                   </motion.div>
                 </motion.div>
               );

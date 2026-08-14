@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 import { SectionHeading } from './SectionHeading';
 
 const faqs = [
@@ -60,7 +61,7 @@ function FAQItem({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.3, ease: EASE_OUT_SMOOTH }}
           >
             <div className="pb-5">
               <p className="text-sm text-muted-foreground leading-relaxed">{a}</p>

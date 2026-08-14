@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 import { SectionHeading } from './SectionHeading';
 
 function CountUp({
@@ -64,13 +65,11 @@ export function About() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, ease: EASE_OUT_SMOOTH }}
             className="group lg:col-span-2 flex justify-center"
           >
             <div className="relative group-hover:scale-[1.02] transition-transform duration-700">
-              {/* Animated gradient border ring */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/40 via-transparent to-primary/20 p-[1px] animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border border-border bg-background">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-border group-hover:border-primary transition-colors duration-500 bg-background">
                 <Image
                   src="/vicky-portrait.jpg"
                   alt="Vicky"
@@ -96,7 +95,7 @@ export function About() {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.5 }}
+              transition={{ delay: 0.1, duration: 0.5, ease: EASE_OUT_SMOOTH }}
               className="space-y-4 text-muted-foreground leading-relaxed"
             >
               <p>
@@ -116,7 +115,7 @@ export function About() {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              transition={{ delay: 0.2, duration: 0.5, ease: EASE_OUT_SMOOTH }}
               className="flex flex-wrap gap-2 pt-2"
             >
               {['Spring Boot', 'Java 21', 'PostgreSQL', 'Docker', 'Linux', 'Git'].map((tech) => (
@@ -145,7 +144,7 @@ export function About() {
             {doubledItems.map((tech, i) => (
               <span
                 key={`${tech}-${i}`}
-                className="shrink-0 px-3 py-1.5 text-[11px] rounded-lg border border-border/50 bg-card/30 text-muted-foreground/70 whitespace-nowrap hover:border-primary/30 hover:text-foreground/70 transition-colors"
+                className="shrink-0 px-3 py-1.5 text-[11px] rounded-lg border border-border/50 bg-card/30 text-muted-foreground/50 whitespace-nowrap hover:border-primary/30 hover:text-foreground/70 transition-colors"
               >
                 {tech}
               </span>
@@ -167,7 +166,7 @@ export function About() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
+              transition={{ delay: i * 0.1, duration: 0.5, ease: EASE_OUT_SMOOTH }}
               className="text-center"
             >
               <div className="text-3xl sm:text-4xl font-bold text-foreground">

@@ -1,19 +1,20 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useSyncExternalStore } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Search, Github, Linkedin, Mail } from 'lucide-react';
 import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
 import { openCommandPalette } from '@/components/portfolio/CommandPalette';
 import { CONTACT } from '@/data/contact';
+import { EASE_OUT_SMOOTH } from '@/lib/animations';
 
 const links = [
-  { href: '#home', label: 'Home', icon: '01' },
-  { href: '#about', label: 'About', icon: '02' },
-  { href: '#skills', label: 'Skills', icon: '03' },
-  { href: '#projects', label: 'Projects', icon: '04' },
-  { href: '#experience', label: 'Experience', icon: '05' },
-  { href: '#contact', label: 'Contact', icon: '06' },
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 const socialLinks = [
@@ -31,6 +32,11 @@ export function Navbar() {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     return docHeight > 0 ? Math.min((window.scrollY / docHeight) * 100, 100) : 0;
   });
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -59,7 +65,6 @@ export function Navbar() {
     return () => obs.disconnect();
   }, []);
 
-  // Close mobile menu on Escape
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && open) setOpen(false);
@@ -68,7 +73,6 @@ export function Navbar() {
     return () => window.removeEventListener('keydown', handleKey);
   }, [open]);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
@@ -78,30 +82,37 @@ export function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  const headerClass = scrolled
-    ? 'fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border'
-    : 'fixed top-0 inset-x-0 z-50';
-
   const closeMobile = () => setOpen(false);
 
   return (
-    <header className={headerClass}>
+    <header
+      className={
+        scrolled
+          ? 'fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/80'
+          : 'fixed top-0 inset-x-0 z-50'
+      }
+    >
       <div className="scroll-progress" style={{ width: `${progress}%`, opacity: progress > 0 ? 1 : 0 }} />
 
-      <nav className="max-w-6xl mx-auto h-16 flex items-center justify-between px-6">
+      <motion.nav
+        initial={{ opacity: 0, y: -8 }}
+        animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
+        transition={{ duration: 0.5, ease: EASE_OUT_SMOOTH }}
+        className="max-w-6xl mx-auto h-16 flex items-center justify-between px-6"
+      >
         <a
           href="#home"
-          className="text-lg font-semibold tracking-tight text-foreground hover:text-primary transition-colors"
+          className="text-lg font-semibold tracking-tight text-foreground hover:text-primary transition-colors duration-200 btn-press"
         >
           vicky<span className="text-primary">.</span>dev
         </a>
 
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden md:flex items-center gap-0.5">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className={`relative px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                className={`relative px-3 py-1.5 rounded-lg text-sm transition-colors duration-200 ${
                   active === l.href
                     ? 'text-primary font-medium'
                     : 'text-muted-foreground hover:text-foreground'
@@ -112,7 +123,7 @@ export function Navbar() {
                   <motion.span
                     layoutId="nav-pill"
                     className="absolute inset-0 -z-10 rounded-lg bg-secondary border-l-2 border-l-primary shadow-sm shadow-primary/10"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
               </a>
@@ -120,38 +131,37 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+            className="hidden md:inline-flex btn-press items-center px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:shadow-lg hover:shadow-primary/15 transition-shadow duration-300"
           >
             Get in touch
           </a>
           <button
             onClick={openCommandPalette}
-            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border bg-secondary/50 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            className="hidden lg:flex btn-press items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border/60 bg-secondary/30 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/60 hover:border-border transition-all duration-200"
             aria-label="Open command palette"
           >
             <Search size={12} />
             <span>Search</span>
-            <kbd className="ml-1 px-1 py-0.5 rounded bg-background border border-border text-[10px] font-mono">⌘K</kbd>
+            <kbd className="ml-1 px-1 py-0.5 rounded bg-background border border-border text-[10px] font-mono text-muted-foreground/60">⌘K</kbd>
           </button>
           <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden text-foreground p-1.5 relative z-[60]"
+            className="md:hidden text-foreground p-1.5 relative z-[60] btn-press"
             aria-label="Menu"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Full-screen mobile menu overlay */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -161,7 +171,6 @@ export function Navbar() {
               onClick={closeMobile}
             />
 
-            {/* Menu content */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -169,50 +178,48 @@ export function Navbar() {
               transition={{ duration: 0.2, delay: 0.05 }}
               className="fixed inset-0 z-[56] flex flex-col items-center justify-center px-8 md:hidden pointer-events-none"
             >
-              <nav className="flex flex-col gap-2 pointer-events-auto w-full max-w-xs">
+              <nav className="flex flex-col gap-1 pointer-events-auto w-full max-w-xs">
                 {links.map((l, i) => (
                   <motion.a
                     key={l.href}
                     href={l.href}
                     onClick={closeMobile}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
+                    exit={{ opacity: 0, x: -8 }}
                     transition={{
-                      delay: 0.08 + i * 0.04,
+                      delay: 0.06 + i * 0.04,
                       duration: 0.3,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: EASE_OUT_SMOOTH,
                     }}
-                    className={`group/item flex items-center gap-4 px-4 py-3 rounded-xl text-lg transition-colors ${
+                    className={`flex items-center gap-4 px-4 py-3 rounded-xl text-lg transition-colors duration-200 ${
                       active === l.href
                         ? 'text-primary bg-primary/5'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/30'
                     }`}
                   >
                     <span className={`text-xs font-mono tabular-nums transition-colors ${
-                      active === l.href ? 'text-primary/60' : 'text-muted-foreground/30 group-hover/item:text-muted-foreground/50'
+                      active === l.href ? 'text-primary/50' : 'text-muted-foreground/25'
                     }`}>
-                      {l.icon}
+                      {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="font-medium">{l.label}</span>
                   </motion.a>
                 ))}
 
-                {/* CTA button */}
                 <motion.a
                   href="#contact"
                   onClick={closeMobile}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
+                  exit={{ opacity: 0, y: 4 }}
                   transition={{ delay: 0.35, duration: 0.3 }}
-                  className="mt-4 flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-primary-foreground text-base font-medium"
+                  className="mt-4 flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-primary-foreground text-base font-medium btn-press"
                 >
                   Get in touch
                 </motion.a>
               </nav>
 
-              {/* Social links at bottom */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -228,22 +235,11 @@ export function Navbar() {
                     rel={s.href.startsWith('mailto') ? undefined : 'noreferrer'}
                     onClick={closeMobile}
                     aria-label={s.label}
-                    className="text-muted-foreground/50 hover:text-foreground transition-colors"
+                    className="text-muted-foreground/40 hover:text-foreground transition-colors duration-200"
                   >
                     <s.icon size={18} />
                   </a>
                 ))}
-              </motion.div>
-
-              {/* Keyboard hints */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 0.5, duration: 0.3 }}
-                className="absolute bottom-6 text-[10px] text-muted-foreground/30 pointer-events-none"
-              >
-                Press <kbd className="px-1 py-0.5 rounded border border-border/40 bg-secondary/50 text-[9px]">T</kbd> to toggle theme
               </motion.div>
             </motion.div>
           </>

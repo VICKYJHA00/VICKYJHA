@@ -4,7 +4,7 @@ export function PageSkeleton() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar skeleton */}
-      <div className="h-16 border-b border-border flex items-center justify-between px-6">
+      <div className="h-16 flex items-center justify-between px-6">
         <div className="h-5 w-20 bg-secondary rounded animate-pulse" />
         <div className="flex gap-4">
           <div className="h-5 w-24 bg-secondary rounded animate-pulse" />

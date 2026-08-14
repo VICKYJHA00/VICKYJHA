@@ -108,7 +108,7 @@ export function Footer() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 hover-underline"
             >
               {'icon' in l && l.icon ? <l.icon size={12} /> : null}
               {l.label}

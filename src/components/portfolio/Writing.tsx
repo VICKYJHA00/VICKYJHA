@@ -98,7 +98,7 @@ export function Writing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl border border-border bg-card/20 overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-shadow duration-300 glass-card backdrop-blur-sm"
+          className="rounded-2xl border border-border bg-card/20 overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-shadow duration-300 glass-card backdrop-blur-sm btn-press"
         >
           <AnimatePresence mode="popLayout">
             {filteredArticles.map((article) => (
@@ -165,10 +165,9 @@ export function Writing() {
         <div className="text-center mt-6">
           <a
             href="#"
-            className="text-sm text-primary hover:underline underline-offset-4 inline-flex items-center gap-1.5"
+            className="text-sm text-primary hover-underline"
           >
             View all articles
-            <ArrowRight size={14} />
           </a>
         </div>
       </div>
