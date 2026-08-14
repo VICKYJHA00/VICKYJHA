@@ -11,8 +11,16 @@ const taglines = [
   'I build APIs that handle millions of requests and don\'t wake me up at 3 AM.',
 ];
 
+const techBadges = [
+  { name: 'Spring Boot', icon: '☕' },
+  { name: 'PostgreSQL', icon: '🐘' },
+  { name: 'React', icon: '⚛' },
+  { name: 'AI/ML', icon: '🧠' },
+];
+
 export function Hero() {
   const [taglineIndex, setTaglineIndex] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,28 +28,91 @@ export function Hero() {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const handleMouse = (e: MouseEvent) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 30,
+        y: (e.clientY / window.innerHeight - 0.5) * 30,
+      });
+    };
+    window.addEventListener('mousemove', handleMouse, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouse);
+  }, []);
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
     >
-      {/* Subtle radial gradient background */}
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(249,115,22,0.08) 0%, transparent 60%)',
-        }}
-      />
+      {/* Animated gradient blobs */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Primary blob - large, slow */}
+        <motion.div
+          animate={{
+            x: [0, 40, -20, 0],
+            y: [0, -30, 20, 0],
+            scale: [1, 1.1, 0.95, 1],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          style={{
+            transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)`,
+          }}
+          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-[0.07]"
+          aria-hidden
+        >
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-primary via-orange-400 to-amber-500 blur-3xl" />
+        </motion.div>
 
-      {/* Secondary ambient glow */}
-      <div
-        className="absolute top-1/3 -left-32 w-96 h-96 rounded-full opacity-[0.04] -z-10"
-        style={{
-          background: 'radial-gradient(circle, #f97316, transparent 70%)',
-          filter: 'blur(80px)',
-        }}
-      />
+        {/* Secondary blob - medium, offset timing */}
+        <motion.div
+          animate={{
+            x: [0, -30, 20, 0],
+            y: [0, 20, -40, 0],
+            scale: [1, 0.9, 1.05, 1],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+          style={{
+            transform: `translate(${mousePos.x * -0.3}px, ${mousePos.y * -0.3}px)`,
+          }}
+          className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full opacity-[0.05]"
+          aria-hidden
+        >
+          <div className="w-full h-full rounded-full bg-gradient-to-tr from-amber-500 via-primary to-rose-500 blur-3xl" />
+        </motion.div>
+
+        {/* Tertiary blob - small, fast */}
+        <motion.div
+          animate={{
+            x: [0, 20, -20, 0],
+            y: [0, -20, 20, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+          className="absolute top-1/3 left-1/4 w-[300px] h-[300px] rounded-full opacity-[0.04]"
+          aria-hidden
+        >
+          <div className="w-full h-full rounded-full bg-gradient-to-bl from-cyan-400 to-primary blur-3xl" />
+        </motion.div>
+
+        {/* Radial gradient base */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 60%)',
+          }}
+        />
+
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
+      </div>
 
       <div className="max-w-3xl mx-auto text-center">
         <motion.div
@@ -50,11 +121,12 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="space-y-6"
         >
+          {/* Status badge */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-1.5 text-xs text-muted-foreground"
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.15, duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/60 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground shadow-sm"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -63,6 +135,7 @@ export function Hero() {
             Open to opportunities
           </motion.div>
 
+          {/* Main heading */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +143,15 @@ export function Hero() {
             className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]"
           >
             Hey, I&apos;m{' '}
-            <span className="text-primary">Vicky</span>
+            <span className="relative">
+              <span className="text-primary">Vicky</span>
+              <motion.span
+                className="absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-primary/60 to-transparent rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </span>
             <span className="text-muted-foreground">.</span>
             <br />
             <span className="text-muted-foreground text-4xl sm:text-5xl lg:text-6xl font-semibold">
@@ -78,6 +159,7 @@ export function Hero() {
             </span>
           </motion.h1>
 
+          {/* Rotating tagline */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,6 +184,7 @@ export function Hero() {
             </AnimatePresence>
           </motion.div>
 
+          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,24 +202,31 @@ export function Hero() {
               href={CONTACT.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-border bg-secondary/50 px-6 py-3 rounded-xl text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/20 active:scale-[0.98] transition-all duration-200"
+              className="group/gh inline-flex items-center gap-2 border border-border bg-card/50 backdrop-blur-sm px-6 py-3 rounded-xl text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/20 active:scale-[0.98] transition-all duration-200"
             >
-              <Github size={16} />
+              <Github size={16} className="group-hover/gh:text-primary transition-colors" />
               GitHub
             </a>
           </motion.div>
 
+          {/* Tech badges */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="flex items-center justify-center gap-3 sm:gap-5 pt-10 text-xs text-muted-foreground/60 flex-wrap"
+            className="flex items-center justify-center gap-3 sm:gap-4 pt-10 flex-wrap"
           >
-            {['Spring Boot', 'PostgreSQL', 'React', 'AI/ML'].map((tech, i) => (
-              <span key={tech} className="flex items-center gap-3 hover:text-muted-foreground transition-colors duration-200">
-                <span>{tech}</span>
-                {i < 3 && <span className="w-1 h-1 rounded-full bg-border" />}
-              </span>
+            {techBadges.map((tech, i) => (
+              <motion.span
+                key={tech.name}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 + i * 0.08, duration: 0.4 }}
+                className="group/tech inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/50 bg-card/30 text-xs text-muted-foreground/70 hover:border-primary/30 hover:text-foreground/80 hover:bg-card/60 transition-all duration-200"
+              >
+                <span className="text-sm">{tech.icon}</span>
+                <span>{tech.name}</span>
+              </motion.span>
             ))}
           </motion.div>
         </motion.div>

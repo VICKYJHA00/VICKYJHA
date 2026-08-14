@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Database, BrainCircuit, Rocket, ArrowRight } from 'lucide-react';
+import { SectionHeading } from './SectionHeading';
 
 const services = [
   {
@@ -49,17 +50,10 @@ export function Services() {
   return (
     <section className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14"
-        >
-          <p className="text-sm text-primary font-medium mb-3">What I do</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            How I can help
-          </h2>
-        </motion.div>
+        <SectionHeading
+          label="What I do"
+          title="How I can help"
+        />
 
         <div className="grid md:grid-cols-3 gap-6">
           {services.map((s, i) => {

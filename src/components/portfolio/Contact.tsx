@@ -5,15 +5,25 @@ import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, Loader2, MapPin, Clock, Copy, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { CONTACT } from '@/data/contact';
+import { SectionHeading } from './SectionHeading';
+
+const SUBJECT_OPTIONS = [
+  'General Inquiry',
+  'Freelance / Contract Work',
+  'Job Opportunity',
+  'Open Source Collaboration',
+  'Speaking / Mentoring',
+  'Other',
+] as const;
 
 export function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', subject: '' as string });
   const [emailCopied, setEmailCopied] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    if (!formData.name || !formData.email || !formData.message || !formData.subject) return;
 
     setLoading(true);
     try {
@@ -26,7 +36,7 @@ export function Contact() {
 
       if (res.ok && data.success) {
         toast.success(data.message);
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', message: '', subject: '' });
       } else {
         toast.error(data.message || 'Something went wrong. Please try again.');
       }
@@ -42,17 +52,18 @@ export function Contact() {
       {/* Decorative orange gradient glow */}
       <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-orange-500/10 blur-[100px] pointer-events-none" />
       <div className="max-w-6xl mx-auto relative">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14"
-        >
-          <p className="text-sm text-primary font-medium mb-3">Contact</p>
-          <div className="flex items-baseline gap-3 flex-wrap">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Let&apos;s talk
-            </h2>
+        <div className="mb-14">
+          <SectionHeading
+            label="Contact"
+            title="Let&apos;s talk"
+            description="I&apos;m open to backend engineering roles, freelance work, or just interesting conversations about systems design. Drop me a line."
+            className="mb-0"
+          />
+          <div className="flex items-center gap-3 flex-wrap -mt-3">
+            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/60 border border-border/50 rounded-full px-2.5 py-1">
+              <Clock size={12} />
+              Usually responds within 24h
+            </span>
             <a
               href={`mailto:${CONTACT.email}`}
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -60,11 +71,7 @@ export function Contact() {
               Prefer email?
             </a>
           </div>
-          <p className="text-muted-foreground mt-3 max-w-lg">
-            I&apos;m open to backend engineering roles, freelance work, or just interesting
-            conversations about systems design. Drop me a line.
-          </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Info panel */}
@@ -156,6 +163,29 @@ export function Contact() {
               onSubmit={handleSubmit}
               className="space-y-5 rounded-2xl border border-border bg-card/20 p-6 sm:p-8"
             >
+              {/* Subject selector */}
+              <div className="space-y-2">
+                <label htmlFor="subject" className="text-sm font-medium">
+                  Subject
+                </label>
+                <select
+                  id="subject"
+                  required
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className="w-full rounded-lg border border-border bg-secondary/50 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 focus:bg-secondary/70 transition-all duration-200 appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>
+                    Select a topic…
+                  </option>
+                  {SUBJECT_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="grid sm:grid-cols-2 gap-5">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">

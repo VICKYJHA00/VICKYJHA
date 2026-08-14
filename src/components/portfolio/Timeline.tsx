@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { timeline } from '@/data/timeline';
 import { GraduationCap, Briefcase, Award, Github, Users, Code2 } from 'lucide-react';
+import { SectionHeading } from './SectionHeading';
 
 const tagConfig: Record<string, { color: string; icon: typeof Briefcase; textColor: string; tagBg: string }> = {
   Certification: { color: 'border-amber-500/30 bg-amber-500/5', icon: Award, textColor: 'text-amber-400', tagBg: 'bg-amber-500/10 text-amber-400' },
@@ -19,20 +20,11 @@ export function Timeline() {
   return (
     <section id="experience" className="py-28 px-6 bg-secondary/20">
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14"
-        >
-          <p className="text-sm text-primary font-medium mb-3">Experience</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Where I&apos;ve been
-          </h2>
-          <p className="text-muted-foreground mt-3">
-            The short version of my journey so far.
-          </p>
-        </motion.div>
+        <SectionHeading
+          label="Experience"
+          title="Where I&apos;ve been"
+          description="The short version of my journey so far."
+        />
 
         <div className="relative">
           {/* Vertical line — animated */}

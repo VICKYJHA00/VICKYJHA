@@ -6,6 +6,7 @@ import { projects } from '@/data/projects';
 import type { Project } from '@/data/projects';
 import { Github, ArrowUpRight } from 'lucide-react';
 import { ProjectModal } from './ProjectModal';
+import { SectionHeading } from './SectionHeading';
 
 const featuredNumbers = ['01', '02'];
 
@@ -31,21 +32,11 @@ export function Projects() {
   return (
     <section id="projects" className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-10"
-        >
-          <p className="text-sm text-primary font-medium mb-3">Projects</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Things I&apos;ve built
-          </h2>
-          <p className="text-muted-foreground mt-3 max-w-lg">
-            A mix of production work, side projects, and open source. Each one taught me
-            something new.
-          </p>
-        </motion.div>
+        <SectionHeading
+          label="Projects"
+          title="Things I&apos;ve built"
+          description="A mix of production work, side projects, and open source. Each one taught me something new."
+        />
 
         {/* Tag filter pills */}
         <motion.div

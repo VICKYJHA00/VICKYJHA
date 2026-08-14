@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { SectionHeading } from './SectionHeading';
 
 function generateActivityData() {
   const weeks = 26;
@@ -96,12 +97,11 @@ export function GitHubActivity() {
       className="py-16 bg-secondary/10"
     >
       <div className="max-w-6xl mx-auto px-6">
-        <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-2">
-          GitHub Activity
-        </p>
-        <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8">
-          I ship code regularly
-        </h2>
+        <SectionHeading
+          label="GitHub Activity"
+          title="I ship code regularly"
+          className="mb-8"
+        />
 
         {/* Contribution Grid */}
         <div className="overflow-x-auto scrollbar-hide">

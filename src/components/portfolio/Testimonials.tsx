@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Quote, ChevronLeft, ChevronRight, Star, CheckCircle2 } from 'lucide-react';
+import { SectionHeading } from './SectionHeading';
 
 const testimonials = [
   {
@@ -58,20 +59,11 @@ export function Testimonials() {
   return (
     <section className="py-28 px-6 bg-secondary/20">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14"
-        >
-          <p className="text-sm text-primary font-medium mb-3">Testimonials</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            What people say
-          </h2>
-          <p className="text-muted-foreground mt-3 max-w-lg">
-            From coworkers, collaborators, and clients I\'ve had the pleasure of working with.
-          </p>
-        </motion.div>
+        <SectionHeading
+          label="Testimonials"
+          title="What people say"
+          description="From coworkers, collaborators, and clients I\'ve had the pleasure of working with."
+        />
 
         {/* Testimonial Card */}
         <div className="max-w-3xl mx-auto"
@@ -106,21 +98,27 @@ export function Testimonials() {
                   ))}
                 </div>
 
-                {/* Quote text */}
-                <blockquote className="text-base sm:text-lg text-foreground/90 leading-relaxed italic">
+                {/* Quote text with left border accent */}
+                <blockquote className="text-base sm:text-lg text-foreground/90 leading-relaxed italic border-l-2 border-l-primary/20 pl-4">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
 
                 {/* Attribution */}
                 <div className="flex items-center gap-3 mt-8">
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                    style={{
-                      background: `${t.color}15`,
-                      color: t.color,
-                    }}
-                  >
-                    {t.avatar}
+                  <div className="relative shrink-0">
+                    <div
+                      className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold border-2"
+                      style={{
+                        background: `${t.color}15`,
+                        color: t.color,
+                        borderColor: `${t.color}4D`, // 30% opacity of the hex color
+                      }}
+                    >
+                      {t.avatar}
+                    </div>
+                    <span className="absolute -bottom-0.5 -right-0.5 bg-background rounded-full flex items-center justify-center">
+                      <CheckCircle2 size={12} className="text-green-500" />
+                    </span>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-foreground">{t.name}</p>

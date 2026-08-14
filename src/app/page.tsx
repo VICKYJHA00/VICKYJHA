@@ -18,6 +18,7 @@ import { Resume } from '@/components/portfolio/Resume';
 import { FAQ } from '@/components/portfolio/FAQ';
 import { Contact } from '@/components/portfolio/Contact';
 import { Footer } from '@/components/portfolio/Footer';
+import { MobileBottomNav } from '@/components/portfolio/MobileBottomNav';
 import { BackToTop } from '@/components/portfolio/BackToTop';
 import { CommandPalette } from '@/components/portfolio/CommandPalette';
 import { PageSkeleton } from '@/components/portfolio/PageSkeleton';
@@ -71,6 +72,7 @@ export default function Home() {
               <Contact />
             </main>
             <Footer />
+            <MobileBottomNav />
             <BackToTop />
             <CommandPalette />
           </div>

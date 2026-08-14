@@ -2,17 +2,24 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, Github, Linkedin, Mail } from 'lucide-react';
 import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
 import { openCommandPalette } from '@/components/portfolio/CommandPalette';
+import { CONTACT } from '@/data/contact';
 
 const links = [
-  { href: '#home', label: 'Home' },
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#home', label: 'Home', icon: '01' },
+  { href: '#about', label: 'About', icon: '02' },
+  { href: '#skills', label: 'Skills', icon: '03' },
+  { href: '#projects', label: 'Projects', icon: '04' },
+  { href: '#experience', label: 'Experience', icon: '05' },
+  { href: '#contact', label: 'Contact', icon: '06' },
+];
+
+const socialLinks = [
+  { href: CONTACT.github, icon: Github, label: 'GitHub' },
+  { href: CONTACT.linkedin, icon: Linkedin, label: 'LinkedIn' },
+  { href: `mailto:${CONTACT.email}`, icon: Mail, label: 'Email' },
 ];
 
 export function Navbar() {
@@ -52,9 +59,30 @@ export function Navbar() {
     return () => obs.disconnect();
   }, []);
 
+  // Close mobile menu on Escape
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && open) setOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [open]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
   const headerClass = scrolled
     ? 'fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border'
     : 'fixed top-0 inset-x-0 z-50';
+
+  const closeMobile = () => setOpen(false);
 
   return (
     <header className={headerClass}>
@@ -111,7 +139,7 @@ export function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden text-foreground p-1.5"
+            className="md:hidden text-foreground p-1.5 relative z-[60]"
             aria-label="Menu"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -119,41 +147,106 @@ export function Navbar() {
         </div>
       </nav>
 
+      {/* Full-screen mobile menu overlay */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl overflow-hidden"
-          >
-            <ul className="flex flex-col p-4 gap-1">
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[55] bg-background/95 backdrop-blur-2xl md:hidden"
+              onClick={closeMobile}
+            />
+
+            {/* Menu content */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, delay: 0.05 }}
+              className="fixed inset-0 z-[56] flex flex-col items-center justify-center px-8 md:hidden pointer-events-none"
+            >
+              <nav className="flex flex-col gap-2 pointer-events-auto w-full max-w-xs">
+                {links.map((l, i) => (
+                  <motion.a
+                    key={l.href}
                     href={l.href}
-                    onClick={() => setOpen(false)}
-                    className={`block px-4 py-2.5 rounded-lg text-sm transition-colors ${
+                    onClick={closeMobile}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    transition={{
+                      delay: 0.08 + i * 0.04,
+                      duration: 0.3,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className={`group/item flex items-center gap-4 px-4 py-3 rounded-xl text-lg transition-colors ${
                       active === l.href
-                        ? 'text-foreground font-medium bg-secondary'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                        ? 'text-primary bg-primary/5'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
                     }`}
                   >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-              <li className="pt-2">
-                <a
+                    <span className={`text-xs font-mono tabular-nums transition-colors ${
+                      active === l.href ? 'text-primary/60' : 'text-muted-foreground/30 group-hover/item:text-muted-foreground/50'
+                    }`}>
+                      {l.icon}
+                    </span>
+                    <span className="font-medium">{l.label}</span>
+                  </motion.a>
+                ))}
+
+                {/* CTA button */}
+                <motion.a
                   href="#contact"
-                  onClick={() => setOpen(false)}
-                  className="block px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium text-center"
+                  onClick={closeMobile}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  transition={{ delay: 0.35, duration: 0.3 }}
+                  className="mt-4 flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-primary-foreground text-base font-medium"
                 >
                   Get in touch
-                </a>
-              </li>
-            </ul>
-          </motion.div>
+                </motion.a>
+              </nav>
+
+              {/* Social links at bottom */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.45, duration: 0.3 }}
+                className="absolute bottom-12 flex items-center gap-5 pointer-events-auto"
+              >
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target={s.href.startsWith('mailto') ? undefined : '_blank'}
+                    rel={s.href.startsWith('mailto') ? undefined : 'noreferrer'}
+                    onClick={closeMobile}
+                    aria-label={s.label}
+                    className="text-muted-foreground/50 hover:text-foreground transition-colors"
+                  >
+                    <s.icon size={18} />
+                  </a>
+                ))}
+              </motion.div>
+
+              {/* Keyboard hints */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.5, duration: 0.3 }}
+                className="absolute bottom-6 text-[10px] text-muted-foreground/30 pointer-events-none"
+              >
+                Press <kbd className="px-1 py-0.5 rounded border border-border/40 bg-secondary/50 text-[9px]">T</kbd> to toggle theme
+              </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { SectionHeading } from './SectionHeading';
 
 function CountUp({
   value,
@@ -85,17 +86,11 @@ export function About() {
 
           {/* Bio */}
           <div className="lg:col-span-3 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="text-sm text-primary font-medium mb-3">About me</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Backend engineer who actually cares about the code running in production.
-              </h2>
-            </motion.div>
+            <SectionHeading
+              label="About me"
+              title="Backend engineer who actually cares about the code running in production."
+              className="!mb-6"
+            />
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}

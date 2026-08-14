@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { SectionHeading } from './SectionHeading';
 
 const faqs = [
   {
@@ -75,20 +76,11 @@ export function FAQ() {
   return (
     <section id="faq" className="py-28 px-6 bg-secondary/20">
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14"
-        >
-          <p className="text-sm text-primary font-medium mb-3">FAQ</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Common questions
-          </h2>
-          <p className="text-muted-foreground mt-3">
-            Things I get asked a lot. If yours isn\'t here, just ask.
-          </p>
-        </motion.div>
+        <SectionHeading
+          label="FAQ"
+          title="Common questions"
+          description="Things I get asked a lot. If yours isn\'t here, just ask."
+        />
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

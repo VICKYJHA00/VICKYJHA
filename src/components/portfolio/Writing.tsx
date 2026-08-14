@@ -1,7 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, ArrowRight } from 'lucide-react';
+import { SectionHeading } from './SectionHeading';
 
 const writings = [
   {
@@ -45,23 +47,50 @@ const tagColors: Record<string, string> = {
   DevOps: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
 };
 
+const allCategories = ['All', ...Array.from(new Set(writings.map((w) => w.tag)))];
+
+function getCategoryCount(category: string): number {
+  if (category === 'All') return writings.length;
+  return writings.filter((w) => w.tag === category).length;
+}
+
 export function Writing() {
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const filteredArticles =
+    activeCategory === 'All'
+      ? writings
+      : writings.filter((w) => w.tag === activeCategory);
+
   return (
     <section id="writing" className="py-28 px-6">
       <div className="max-w-3xl mx-auto">
+        <SectionHeading
+          label="Writing"
+          title="Thoughts &amp; learnings"
+          description="Notes on things I&apos;ve figured out while building."
+        />
+
+        {/* Category filter tabs */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-14"
+          className="flex flex-wrap gap-2 mb-10"
         >
-          <p className="text-sm text-primary font-medium mb-3">Writing</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Thoughts &amp; learnings
-          </h2>
-          <p className="text-muted-foreground mt-3">
-            Notes on things I&apos;ve figured out while building.
-          </p>
+          {allCategories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium border border-transparent transition-all duration-200 ${
+                activeCategory === category
+                  ? 'bg-primary/10 text-primary border-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+              }`}
+            >
+              {category} ({getCategoryCount(category)})
+            </button>
+          ))}
         </motion.div>
 
         <motion.div
@@ -71,46 +100,65 @@ export function Writing() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="rounded-2xl border border-border bg-card/20 overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-shadow duration-300"
         >
-          {writings.map((article, i) => (
-            <a
-              key={article.title}
-              href={article.url}
-              className={`flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-6 py-5 hover:bg-secondary/30 transition-colors group ${
-                i < writings.length - 1 ? 'border-b border-border' : ''
-              }`}
-            >
-              {/* Tag badge */}
-              <span
-                className={`inline-flex items-center shrink-0 px-2.5 py-1 rounded-md text-xs font-medium border ${
-                  tagColors[article.tag] ?? 'bg-secondary text-muted-foreground border-border'
-                }`}
+          <AnimatePresence mode="popLayout">
+            {filteredArticles.map((article) => (
+              <motion.a
+                key={article.title}
+                href={article.url}
+                layout
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-6 py-5 hover:bg-secondary/30 transition-colors group border-b border-border last:border-b-0"
               >
-                {article.tag}
-              </span>
-
-              {/* Title + description */}
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold leading-snug group-hover:text-primary transition-colors">
-                  {article.title}
-                </p>
-                <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
-                  {article.description}
-                </p>
-              </div>
-
-              {/* Date + read time */}
-              <div className="flex sm:flex-col items-center sm:items-end gap-2 sm:gap-0 shrink-0 text-xs text-muted-foreground">
-                <span>{article.date}</span>
-                <span className="flex items-center gap-1">
-                  <Clock size={12} />
-                  {article.readTime}
+                {/* Tag badge */}
+                <span
+                  className={`inline-flex items-center shrink-0 px-2.5 py-1 rounded-md text-xs font-medium border ${
+                    tagColors[article.tag] ?? 'bg-secondary text-muted-foreground border-border'
+                  }`}
+                >
+                  {article.tag}
                 </span>
-              </div>
 
-              {/* Hover arrow */}
-              <ArrowRight size={14} className="shrink-0 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all text-primary" />
-            </a>
-          ))}
+                {/* Title + description */}
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold leading-snug group-hover:text-primary transition-colors">
+                    {article.title}
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
+                    {article.description}
+                  </p>
+                </div>
+
+                {/* Date + read time */}
+                <div className="flex sm:flex-col items-center sm:items-end gap-2 sm:gap-0 shrink-0 text-xs text-muted-foreground">
+                  <span>{article.date}</span>
+                  <span className="flex items-center gap-1">
+                    <Clock size={12} />
+                    {article.readTime}
+                  </span>
+                </div>
+
+                {/* Hover arrow */}
+                <ArrowRight
+                  size={14}
+                  className="shrink-0 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all text-primary"
+                />
+              </motion.a>
+            ))}
+          </AnimatePresence>
+
+          {/* Empty state */}
+          {filteredArticles.length === 0 && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="py-12 text-center text-sm text-muted-foreground"
+            >
+              No articles in this category yet.
+            </motion.p>
+          )}
         </motion.div>
       </div>
     </section>

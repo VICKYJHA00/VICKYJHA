@@ -1,6 +1,8 @@
 'use client';
 
-import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react';
+import { useState, FormEvent } from 'react';
+import { Github, Linkedin, Mail, Heart, ArrowUp, Loader2, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
 import { CONTACT } from '@/data/contact';
 
 const footerLinks = [
@@ -11,10 +13,91 @@ const footerLinks = [
   { href: '#home', label: 'Top', icon: ArrowUp },
 ];
 
+function isValidEmail(email: string): boolean {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
 export function Footer() {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const trimmed = email.trim();
+    if (!trimmed || !isValidEmail(trimmed)) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmed }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        toast.error(data.message || 'Something went wrong.');
+        return;
+      }
+
+      setSubscribed(true);
+      toast.success('You\'re subscribed!');
+    } catch {
+      toast.error('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <footer className="border-t border-border py-12 px-6">
+    <footer className="border-t border-border py-12 px-6 pb-16 md:pb-12">
       <div className="max-w-6xl mx-auto">
+        {/* Newsletter Subscribe */}
+        <div className="max-w-md mx-auto text-center mb-10">
+          <p className="text-sm text-muted-foreground mb-1">
+            Stay in the loop
+          </p>
+          <p className="text-xs text-muted-foreground/70 mb-4">
+            Get notified when I write something new. No spam, ever.
+          </p>
+          <form onSubmit={handleSubmit} className="flex items-center gap-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (subscribed) setSubscribed(false);
+              }}
+              placeholder="you@example.com"
+              disabled={loading}
+              required
+              aria-label="Email address"
+              className="border border-border rounded-lg bg-secondary/50 px-3 py-2 text-sm flex-1 min-w-0 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 disabled:opacity-50 transition-colors"
+            />
+            <button
+              type="submit"
+              disabled={loading || subscribed}
+              className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium shrink-0 hover:bg-primary/90 focus:outline-none focus:ring-1 focus:ring-primary/50 disabled:opacity-60 transition-all flex items-center gap-1.5"
+            >
+              {loading ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : subscribed ? (
+                <CheckCircle2 size={14} />
+              ) : null}
+              {subscribed ? 'Subscribed!' : 'Subscribe'}
+            </button>
+          </form>
+        </div>
+
+        {/* Separator */}
+        <div className="border-b border-border mb-8" />
+
         {/* Quick nav */}
         <div className="flex flex-wrap justify-center gap-6 mb-8">
           {footerLinks.map((l) => (
