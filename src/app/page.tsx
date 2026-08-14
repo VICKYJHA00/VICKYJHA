@@ -8,6 +8,7 @@ import { Skills } from '@/components/portfolio/Skills';
 import { Projects } from '@/components/portfolio/Projects';
 import { Timeline } from '@/components/portfolio/Timeline';
 import { Services } from '@/components/portfolio/Services';
+import { Writing } from '@/components/portfolio/Writing';
 import { Testimonials } from '@/components/portfolio/Testimonials';
 import { Resume } from '@/components/portfolio/Resume';
 import { FAQ } from '@/components/portfolio/FAQ';
@@ -24,13 +25,17 @@ export default function Home() {
         <Hero />
         <Now />
         <About />
+        <div className='section-divider' />
         <Skills />
         <Projects />
+        <div className='section-divider' />
         <Timeline />
         <Services />
+        <Writing />
         <Testimonials />
         <Resume />
         <FAQ />
+        <div className='section-divider' />
         <Contact />
       </main>
       <Footer />

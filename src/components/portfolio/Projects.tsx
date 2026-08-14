@@ -66,7 +66,7 @@ export function Projects() {
           ))}
         </motion.div>
 
-        {/* Featured Projects */
+        {/* Featured Projects */}
         <AnimatePresence mode="wait">
           {showFeatured && (
             <motion.div
@@ -168,7 +168,7 @@ export function Projects() {
           )}
         </AnimatePresence>
 
-        {/* Other Projects Grid */
+        {/* Other Projects Grid */}
         <AnimatePresence mode="wait">
           {showOther && (
             <motion.div
@@ -237,7 +237,7 @@ export function Projects() {
           )}
         </AnimatePresence>
 
-        {/* Empty state */
+        {/* Empty state */}
         {!showFeatured && !showOther && (
           <motion.div
             initial={{ opacity: 0 }}

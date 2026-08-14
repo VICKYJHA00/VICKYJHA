@@ -3,6 +3,40 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.light {
+  --background: #fafaf9;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  --primary: #ea580c;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #ef4444;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #ea580c;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #18181b;
+  --sidebar-primary: #ea580c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #ea580c;
+  --chart-1: #ea580c;
+  --chart-2: #0891b2;
+  --chart-3: #7c3aed;
+  --chart-4: #059669;
+  --chart-5: #e11d48;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -107,9 +141,15 @@ html {
   background: #3f3f46;
 }
 
+.light ::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+}
+
 ::selection {
   background: rgba(249, 115, 22, 0.25);
-  color: #fafaf9;
 }
 
 /* Subtle grain texture overlay */
@@ -118,10 +158,24 @@ html {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.03;
+  opacity: 0;
+  animation: grain-fade 1s ease forwards;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
+}
+.light .grain-overlay {
+  opacity: 0;
+  animation: grain-fade-light 1s ease forwards;
+}
+
+@keyframes grain-fade {
+  from { opacity: 0; }
+  to { opacity: 0.03; }
+}
+@keyframes grain-fade-light {
+  from { opacity: 0; }
+  to { opacity: 0.015; }
 }
 
 /* Scroll progress bar */

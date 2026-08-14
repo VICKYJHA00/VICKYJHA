@@ -1,10 +1,25 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, Github } from 'lucide-react';
 import { CONTACT } from '@/data/contact';
 
+const taglines = [
+  'Backend engineer with a thing for Spring Boot, distributed systems, and making AI tools actually useful.',
+  'Currently finishing my CS degree and looking for the right team to join.',
+  'I build APIs that handle millions of requests and don\'t wake me up at 3 AM.',
+];
+
 export function Hero() {
+  const [taglineIndex, setTaglineIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTaglineIndex((prev) => (prev + 1) % taglines.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <section
       id="home"
@@ -63,16 +78,29 @@ export function Hero() {
             </span>
           </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.5 }}
-            className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed"
           >
-            Backend engineer with a thing for Spring Boot, distributed systems, and
-            making AI tools actually useful. Currently finishing my CS degree and
-            looking for the right team to join.
-          </motion.p>
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={taglineIndex}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed"
+              >
+                {taglines[taglineIndex]}
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                  className="inline-block w-0.5 h-5 bg-primary ml-1 align-middle rounded-sm"
+                />
+              </motion.p>
+            </AnimatePresence>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}

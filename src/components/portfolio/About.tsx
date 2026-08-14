@@ -64,9 +64,9 @@ export function About() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 flex justify-center"
+            className="group lg:col-span-2 flex justify-center"
           >
-            <div className="relative">
+            <div className="relative group-hover:scale-[1.02] transition-transform duration-700">
               {/* Animated gradient border ring */}
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/40 via-transparent to-primary/20 p-[1px] animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border border-border bg-background">
@@ -80,9 +80,10 @@ export function About() {
                 />
               </div>
             </div>
+            <p className="text-center text-xs text-muted-foreground mt-3">That&apos;s me 👋</p>
           </motion.div>
 
-          {/* Bio */
+          {/* Bio */}
           <div className="lg:col-span-3 space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -135,7 +136,7 @@ export function About() {
           </div>
         </div>
 
-        {/* Tech ticker marquee */
+        {/* Tech ticker marquee */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -155,12 +156,12 @@ export function About() {
               </span>
             ))}
           </div>
-          {/* Edge fades */
+          {/* Edge fades */}
           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none" />
         </motion.div>
 
-        {/* Stats */
+        {/* Stats */}
         <div
           ref={ref}
           className="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-border"

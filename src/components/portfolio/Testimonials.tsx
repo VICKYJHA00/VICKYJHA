@@ -66,10 +66,10 @@ export function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Testimonial Card */
+        {/* Testimonial Card */}
         <div className="max-w-3xl mx-auto">
           <div className="relative rounded-2xl border border-border bg-card/30 p-8 sm:p-10 min-h-[280px] flex flex-col justify-between">
-            {/* Quote icon */
+            {/* Quote icon */}
             <Quote
               size={32}
               className="text-primary/10 absolute top-6 right-6"
@@ -85,7 +85,7 @@ export function Testimonials() {
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="flex-1"
               >
-                {/* Stars */
+                {/* Stars */}
                 <div className="flex gap-1 mb-6">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star
@@ -96,12 +96,12 @@ export function Testimonials() {
                   ))}
                 </div>
 
-                {/* Quote text */
+                {/* Quote text */}
                 <blockquote className="text-base sm:text-lg text-foreground/90 leading-relaxed italic">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
 
-                {/* Attribution */
+                {/* Attribution */}
                 <div className="flex items-center gap-3 mt-8">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
@@ -120,7 +120,7 @@ export function Testimonials() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Navigation */
+            {/* Navigation */}
             <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
               <button
                 onClick={() => paginate(-1)}
@@ -130,7 +130,7 @@ export function Testimonials() {
                 <ChevronLeft size={16} />
               </button>
 
-              {/* Dots */
+              {/* Dots */}
               <div className="flex gap-1.5">
                 {testimonials.map((_, i) => (
                   <button

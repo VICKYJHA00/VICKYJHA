@@ -63,7 +63,7 @@ export function Services() {
                     : 'border-border bg-card/20'
                 }`}
               >
-                {/* Watermark number */
+                {/* Watermark number */}
                 <span className="absolute -top-3 -right-2 text-7xl font-black text-foreground/[0.02] select-none pointer-events-none">
                   {s.num}
                 </span>

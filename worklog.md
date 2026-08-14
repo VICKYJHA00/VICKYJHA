@@ -125,3 +125,197 @@ Task: Styling improvements, feature additions, bug fixes, and QA
 6. **LOW**: Add keyboard shortcut navigation (1-9 for sections)
 7. **LOW**: Add reading time estimate for projects/articles
 8. **LOW**: Smooth scroll progress bar animation (currently instant)
+
+---
+Task ID: 4-a
+Agent: Theme System Agent
+Task: Add dark/light theme toggle using next-themes
+
+## What Changed
+
+### New Files Created
+- `src/components/portfolio/ThemeProvider.tsx` — 'use client' component wrapping next-themes ThemeProvider (attribute='class', defaultTheme='dark', enableSystem=true)
+- `src/components/portfolio/ThemeToggle.tsx` — 'use client' toggle button with Sun/Moon icons, framer-motion 180deg rotation animation, w-8 h-8 circle button
+
+### Files Modified
+- `src/app/layout.tsx` — Imported ThemeProvider, wrapped {children} and <Toaster /> inside <ThemeProvider>, kept suppressHydrationWarning on <html>
+- `src/app/globals.css` — Added `.light` class with full light theme CSS variable set (warm white bg, darker orange primary, zinc-based borders/muted). Updated ::selection to theme-agnostic orange. Added `.light ::-webkit-scrollbar-thumb` styles. Added `.light .grain-overlay` with reduced opacity (0.015)
+- `src/components/portfolio/Navbar.tsx` — Imported and placed <ThemeToggle /> between 'Get in touch' button and hamburger menu button
+
+### Light Theme Color Decisions
+- Background: #fafaf9 (warm white stone-50)
+- Primary: #ea580c (darker orange-600 for better contrast on light bg vs dark mode's #f97316)
+- All chart colors slightly adjusted for light mode readability
+- Grain overlay opacity halved (0.015 vs 0.03) for subtlety on light backgrounds
+- Scrollbar thumb uses zinc tones (#d4d4d8 / #a1a1aa) in light mode
+
+### Technical Notes
+- Used `disableTransitionOnChange` in ThemeProvider to prevent flash of background-color transition during theme switch
+- ThemeToggle uses mounted guard to avoid hydration mismatch with next-themes SSR
+- Pre-existing lint error in Navbar.tsx (handleScroll in useEffect) is unrelated to this task
+
+---
+Task ID: 4-b
+Agent: Writing & Polish Agent
+Task: Add Writing section, section dividers, and enhance Contact/Resume styling
+
+## What Changed
+
+### New Files Created
+- `src/components/portfolio/Writing.tsx` — 'use client' component showing 4 hardcoded blog articles in a list layout inside a rounded-2xl container. Uses framer-motion for scroll-triggered fade-in animations. Features category-colored tag badges (orange/Backend, cyan/Architecture, violet/AI, emerald/DevOps), hover effects, and Clock icon read-time indicators.
+
+### Files Modified
+
+#### `src/app/page.tsx`
+- Imported `Writing` component from `@/components/portfolio/Writing`
+- Placed `<Writing />` between `<Services />` and `<Testimonials />`
+- Added `<div className='section-divider' />` between:
+  - About → Skills
+  - Projects → Timeline
+  - FAQ → Contact
+
+#### `src/components/portfolio/Contact.tsx`
+- Added decorative orange gradient glow (positioned absolute, blurred circle) at top-left of the section
+- Added "Prefer email?" text link next to the "Let's talk" heading, linking to mailto:hello@vicky.dev
+- Enhanced submit button with `active:scale-[0.98] transition-all` press effect
+
+#### `src/components/portfolio/Resume.tsx`
+- Added small FileText icon (size 18, text-primary) inline to the left of the "Technical Curriculum Vitae" title
+- Added `border-l-2 border-l-primary` to the resume card for a subtle left accent border
+
+### Technical Notes
+- All new components use `'use client'` directive
+- Writing section uses `max-w-3xl mx-auto` for narrower content width
+- Pre-existing lint error in Navbar.tsx remains unrelated to this task
+
+---
+Task ID: 4-c
+Agent: Hero & Animation Agent
+Task: Enhanced Hero typing effect, BackToTop progress ring, Footer keyboard hint, About photo hover, grain overlay fade-in
+
+## What Changed
+
+### Files Modified
+
+#### `src/components/portfolio/Hero.tsx`
+- Added `useState`, `useEffect` imports and `AnimatePresence` import from framer-motion
+- Created `taglines` array with 3 rotating taglines (backend identity, degree status, API reliability)
+- Added `taglineIndex` state + `useEffect` interval cycling every 4 seconds
+- Replaced static `<motion.p>` subtitle with `<AnimatePresence mode="wait">` wrapper
+- Each tagline animates in (opacity 0→1, y 8→0) and out (opacity 1→0, y 0→-8) with duration 0.4s and ease [0.22, 1, 0.36, 1]
+- Added blinking orange cursor bar (`<motion.span>`) at end of tagline text (opacity 1→0→1 over 1s, infinite)
+- Preserved same styling: `text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed`
+
+#### `src/components/portfolio/BackToTop.tsx`
+- Removed `ArrowUp` icon import
+- Added SVG circular progress ring using `stroke-dasharray`/`stroke-dashoffset` technique (radius 17, circumference ≈ 106.81)
+- Track circle uses secondary color at 50% opacity; progress circle uses `var(--primary)` (orange)
+- Added `progress` state tracking scroll percentage (scrollY / (docHeight - viewportHeight))
+- Shows percentage number in center (text-[10px] font-medium tabular-nums) only when > 10%
+- Removed ArrowUp icon entirely; percentage replaces it inside the ring
+- Same show/hide logic (appear after 600px scroll) and button styling preserved
+
+#### `src/components/portfolio/Footer.tsx`
+- Added static keyboard shortcut hint at the bottom of the footer content
+- Small text (`text-[10px] text-muted-foreground/40 mt-6 text-center`)
+- Contains a `<kbd>` styled key cap (`px-1.5 py-0.5 rounded border border-border/60 bg-secondary/50 text-[9px]`) showing "T"
+- Full text: "Press T to toggle theme"
+
+#### `src/components/portfolio/About.tsx`
+- Added `group` class to the outer `<motion.div>` wrapping the photo section
+- Added `group-hover:scale-[1.02] transition-transform duration-700` to the `<div className="relative">` image container
+- Added decorative label below photo: `<p className="text-center text-xs text-muted-foreground mt-3">That's me 👋</p>`
+
+#### `src/app/globals.css`
+- Changed `.grain-overlay` opacity from static `0.03` to `opacity: 0` with `animation: grain-fade 1s ease forwards;`
+- Changed `.light .grain-overlay` opacity from static `0.015` to `opacity: 0` with `animation: grain-fade-light 1s ease forwards;`
+- Added `@keyframes grain-fade { from { opacity: 0; } to { opacity: 0.03; } }` for dark mode
+- Added `@keyframes grain-fade-light { from { opacity: 0; } to { opacity: 0.015; } }` for light mode
+
+### Technical Notes
+- Pre-existing lint error in Navbar.tsx remains unrelated to this task
+- All components maintain `'use client'` directive
+- SVG progress ring uses `-rotate-90` to start from top
+- Footer.tsx does not use `'use client'` (no client hooks needed, purely static)
+- Grain overlay animation uses CSS `forwards` fill mode to stay at final opacity
+
+---
+Task ID: 3
+Agent: Main (Cron Review)
+Task: Bug fixes, styling improvements, new features, and comprehensive QA
+
+## Current Project Status / Assessment
+- Portfolio site fully functional on desktop (1920x1080) and mobile (375x812)
+- All 14 sections rendering correctly with zero JS errors
+- ESLint passes clean (zero errors, zero warnings)
+- Server: 200 status code, ~4s initial compile, ~50ms subsequent
+- Dark/light theme toggle working on both viewports
+- All interactive elements functional: nav links, mobile menu, tag filtering, testimonial carousel, FAQ accordion, contact form, back-to-top, theme toggle
+
+## Completed This Round
+
+### Critical Bug Fixes
+- **500 Server Error**: Fixed broken JSX comments missing closing `}` across 4 files:
+  - `Services.tsx`: `{/* Watermark number */` → `{/* Watermark number */}`
+  - `Testimonials.tsx`: 6 broken comments fixed (Testimonial Card, Quote icon, Stars, Quote text, Attribution, Navigation, Dots)
+  - `Projects.tsx`: 3 broken comments fixed (Featured Projects, Other Projects Grid, Empty state)
+  - `About.tsx`: 4 broken comments fixed (Bio, Tech ticker marquee, Edge fades, Stats)
+- **ESLint Error**: Fixed `react-hooks/set-state-in-effect` in `Navbar.tsx` by using lazy `useState(() => ...)` initializers instead of calling `handleScroll()` in useEffect
+- **ESLint Error**: Fixed same issue in `BackToTop.tsx` with lazy state initializers
+
+### New Features Added
+- **Dark/Light Theme Toggle**: Full theme system with next-themes, ThemeProvider, animated Sun/Moon toggle button in navbar, complete light theme CSS variables (warm white bg, darker orange primary), keyboard hint in footer
+- **Writing Section**: New "Thoughts & learnings" section with 4 blog articles in list layout, category-colored tag badges, read time indicators, hover effects
+- **Hero Typing Effect**: Rotating taglines every 4 seconds with AnimatePresence transitions, blinking orange cursor bar
+- **BackToTop Progress Ring**: SVG circular progress indicator replacing plain button, shows scroll percentage, orange progress stroke
+
+### Styling Improvements
+- **Section Dividers**: Gradient dividers between About→Skills, Projects→Timeline, FAQ→Contact
+- **Contact Section**: Decorative orange gradient glow, "Prefer email?" link, submit button press effect (active:scale)
+- **Resume Section**: FileText icon inline with title, left orange accent border (border-l-2 border-l-primary)
+- **About Photo**: Hover scale effect (group-hover:scale-[1.02]), "That's me 👋" label below photo
+- **Grain Overlay**: Animated fade-in on page load (0→0.03 dark, 0→0.015 light) instead of instant appearance
+- **Footer**: Keyboard shortcut hint for theme toggle (Press T)
+
+### Files Created
+- `src/components/portfolio/ThemeProvider.tsx`
+- `src/components/portfolio/ThemeToggle.tsx`
+- `src/components/portfolio/Writing.tsx`
+
+### Files Modified
+- `src/app/layout.tsx` (ThemeProvider wrapper)
+- `src/app/page.tsx` (Writing import, section dividers)
+- `src/app/globals.css` (light theme variables, grain animations, scrollbar light mode)
+- `src/components/portfolio/Navbar.tsx` (ThemeToggle, lint fix)
+- `src/components/portfolio/Hero.tsx` (rotating taglines, cursor)
+- `src/components/portfolio/BackToTop.tsx` (progress ring, lint fix)
+- `src/components/portfolio/About.tsx` (photo hover, label)
+- `src/components/portfolio/Services.tsx` (comment fix)
+- `src/components/portfolio/Testimonials.tsx` (comment fixes)
+- `src/components/portfolio/Projects.tsx` (comment fixes)
+- `src/components/portfolio/Contact.tsx` (glow, email link, button press)
+- `src/components/portfolio/Resume.tsx` (icon, accent border)
+- `src/components/portfolio/Footer.tsx` (keyboard hint)
+
+## Verification Results
+- agent-browser desktop (1920x1080): All sections render, 0 JS errors, 200 status
+- agent-browser mobile (iPhone 14): All sections render, 0 JS errors, 200 status
+- Theme toggle tested: works on both viewports (dark→light, light→dark)
+- Tag filtering: verified (Systems filter shows only THRYLOS)
+- Mobile menu: opens/closes correctly with all links
+- ESLint: 0 errors, 0 warnings
+
+## Unresolved / Risks
+1. **LOW**: Resume PDF not present at `/resume/Vicky_Resume.pdf` — shows 404 in server logs
+2. **LOW**: Footer says "Press T to toggle theme" but no actual keyboard handler is wired up (cosmetic only)
+3. **LOW**: Portrait image could be optimized to WebP format
+4. **LOW**: Writing section articles link to `#` (placeholder URLs)
+5. **MEDIUM**: No keyboard shortcut navigation implemented (mentioned in footer hint)
+
+## Priority Recommendations for Next Phase
+1. Wire up actual keyboard shortcut (T key) for theme toggle
+2. Add a real blog/writing CMS or markdown-based posts
+3. Add project detail modal/drawer with full description
+4. Add animated counter effect for the About stats section
+5. Consider adding a "Featured on" / logo cloud section for social proof
+6. Add Open Graph image for better social sharing

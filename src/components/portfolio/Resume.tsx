@@ -12,7 +12,7 @@ export function Resume() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-border bg-card/30 p-8 sm:p-10 flex flex-col sm:flex-row items-center gap-8 group hover:border-primary/20 transition-all duration-300 relative overflow-hidden"
+          className="rounded-2xl border border-border border-l-2 border-l-primary bg-card/30 p-8 sm:p-10 flex flex-col sm:flex-row items-center gap-8 group hover:border-primary/20 transition-all duration-300 relative overflow-hidden"
         >
           {/* Hover accent glow */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -22,7 +22,8 @@ export function Resume() {
           </div>
 
           <div className="flex-1 text-center sm:text-left">
-            <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-300 flex items-center gap-2">
+              <FileText size={18} className="text-primary shrink-0" />
               Technical Curriculum Vitae
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">

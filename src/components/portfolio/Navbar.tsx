@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
 
 const links = [
   { href: '#home', label: 'Home' },
@@ -15,9 +16,13 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 20);
   const [active, setActive] = useState('#home');
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(() => {
+    if (typeof window === 'undefined') return 0;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    return docHeight > 0 ? Math.min((window.scrollY / docHeight) * 100, 100) : 0;
+  });
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -29,7 +34,6 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
@@ -94,6 +98,7 @@ export function Navbar() {
           >
             Get in touch
           </a>
+          <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden text-foreground p-1.5"

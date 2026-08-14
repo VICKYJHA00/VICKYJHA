@@ -27,8 +27,10 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-28 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="contact" className="py-28 px-6 relative overflow-hidden">
+      {/* Decorative orange gradient glow */}
+      <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-orange-500/10 blur-[100px] pointer-events-none" />
+      <div className="max-w-6xl mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -36,9 +38,17 @@ export function Contact() {
           className="mb-14"
         >
           <p className="text-sm text-primary font-medium mb-3">Contact</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Let&apos;s talk
-          </h2>
+          <div className="flex items-baseline gap-3 flex-wrap">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+              Let&apos;s talk
+            </h2>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Prefer email?
+            </a>
+          </div>
           <p className="text-muted-foreground mt-3 max-w-lg">
             I&apos;m open to backend engineering roles, freelance work, or just interesting
             conversations about systems design. Drop me a line.
@@ -185,7 +195,7 @@ export function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10"
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 active:scale-[0.98] transition-all shadow-lg shadow-primary/10"
                 >
                   <Send size={14} />
                   Send message

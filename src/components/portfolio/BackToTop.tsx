@@ -1,15 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const RADIUS = 17;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
 export function BackToTop() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => typeof window !== 'undefined' && window.scrollY > 600);
+  const [progress, setProgress] = useState(() => {
+    if (typeof window === 'undefined') return 0;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    return docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0;
+  });
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 600);
-    onScroll();
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+      setVisible(scrollY > 600);
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docHeight > 0 ? Math.min(scrollY / docHeight, 1) : 0);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -17,6 +28,9 @@ export function BackToTop() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const pct = Math.round(progress * 100);
+  const dashOffset = CIRCUMFERENCE * (1 - progress);
 
   return (
     <AnimatePresence>
@@ -29,7 +43,37 @@ export function BackToTop() {
           className="fixed bottom-8 right-8 z-40 w-10 h-10 rounded-full bg-secondary/80 backdrop-blur-sm border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-secondary transition-colors"
           aria-label="Back to top"
         >
-          <ArrowUp size={16} />
+          <svg
+            className="absolute inset-0 w-full h-full -rotate-90"
+            viewBox="0 0 40 40"
+          >
+            {/* Track */}
+            <circle
+              cx="20"
+              cy="20"
+              r={RADIUS}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-secondary"
+              opacity="0.5"
+            />
+            {/* Progress */}
+            <circle
+              cx="20"
+              cy="20"
+              r={RADIUS}
+              fill="none"
+              stroke="var(--primary)"
+              strokeWidth="2"
+              strokeDasharray={CIRCUMFERENCE}
+              strokeDashoffset={dashOffset}
+              strokeLinecap="round"
+            />
+          </svg>
+          <span className="relative z-10 text-[10px] font-medium tabular-nums">
+            {pct > 10 ? pct : ''}
+          </span>
         </motion.button>
       )}
     </AnimatePresence>
