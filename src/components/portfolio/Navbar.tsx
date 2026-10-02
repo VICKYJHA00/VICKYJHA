@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback, useSyncExternalStore } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Search, Github, Linkedin, Mail } from 'lucide-react';
-import { ThemeToggle } from '@/components/portfolio/ThemeToggle';
 import { openCommandPalette } from '@/components/portfolio/CommandPalette';
 import { CONTACT } from '@/data/contact';
 import { EASE_OUT_SMOOTH } from '@/lib/animations';
@@ -12,9 +11,8 @@ const links = [
   { href: '#home', label: 'Home' },
   { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
+  { href: '#tech-stack', label: 'Tools' },
   { href: '#projects', label: 'Projects' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact', label: 'Contact' },
 ];
 
 const socialLinks = [
@@ -132,12 +130,6 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2.5">
-          <a
-            href="#contact"
-            className="hidden md:inline-flex btn-press items-center px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:shadow-lg hover:shadow-primary/15 transition-shadow duration-300"
-          >
-            Get in touch
-          </a>
           <button
             onClick={openCommandPalette}
             className="hidden lg:flex btn-press items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border/60 bg-secondary/30 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/60 hover:border-border transition-all duration-200"
@@ -147,7 +139,6 @@ export function Navbar() {
             <span>Search</span>
             <kbd className="ml-1 px-1 py-0.5 rounded bg-background border border-border text-[10px] font-mono text-muted-foreground/60">⌘K</kbd>
           </button>
-          <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden text-foreground p-1.5 relative z-[60] btn-press"
@@ -207,17 +198,6 @@ export function Navbar() {
                   </motion.a>
                 ))}
 
-                <motion.a
-                  href="#contact"
-                  onClick={closeMobile}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 4 }}
-                  transition={{ delay: 0.35, duration: 0.3 }}
-                  className="mt-4 flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-primary-foreground text-base font-medium btn-press"
-                >
-                  Get in touch
-                </motion.a>
               </nav>
 
               <motion.div

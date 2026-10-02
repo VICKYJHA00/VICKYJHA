@@ -1,20 +1,31 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { House, User, Code2, Briefcase, Mail } from 'lucide-react';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { House, User, Code2, Briefcase, Search } from 'lucide-react';
+import { openCommandPalette } from '@/components/portfolio/CommandPalette';
 
 const navItems = [
   { id: 'home', icon: House, label: 'Home' },
   { id: 'about', icon: User, label: 'About' },
   { id: 'projects', icon: Code2, label: 'Projects' },
+  { id: 'search', icon: Search, label: 'Search', action: 'search' },
   { id: 'experience', icon: Briefcase, label: 'Experience' },
-  { id: 'contact', icon: Mail, label: 'Contact' },
 ];
 
 export function MobileBottomNav() {
   const [active, setActive] = useState('#home');
+  const { scrollYProgress } = useScroll();
+  const navY = useTransform(scrollYProgress, [0, 0.2], [28, 0]);
+  const navOpacity = useTransform(scrollYProgress, [0, 0.2], [0.7, 1]);
+  const smoothY = useSpring(navY, { stiffness: 200, damping: 24, mass: 0.5 });
 
-  const scrollTo = useCallback((id: string) => {
+  const scrollTo = useCallback((id: string, action?: string) => {
+    if (action === 'search') {
+      openCommandPalette();
+      return;
+    }
+
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -41,22 +52,25 @@ export function MobileBottomNav() {
   }, []);
 
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 h-14 bg-background/80 backdrop-blur-xl border-t border-border">
-      <ul className="flex items-center justify-around h-full px-2" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+    <motion.nav
+      style={{ y: smoothY, opacity: navOpacity }}
+      className="md:hidden fixed inset-x-0 bottom-0 z-40 h-16 border-t border-border/80 bg-background/75 backdrop-blur-2xl"
+    >
+      <ul className="flex h-full items-center justify-around px-2" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
         {navItems.map((item) => {
           const isActive = active === `#${item.id}`;
           const Icon = item.icon;
           return (
-            <li key={item.id} className="relative flex-1 flex justify-center">
+            <li key={item.id} className="relative flex-1">
               <button
-                onClick={() => scrollTo(item.id)}
-                className={`relative flex flex-col items-center justify-center w-full h-full transition-colors duration-200 ${
+                onClick={() => scrollTo(item.id, item.action)}
+                className={`relative flex h-full w-full flex-col items-center justify-center transition-colors duration-200 ${
                   isActive ? 'text-primary' : 'text-muted-foreground/50'
                 }`}
                 aria-label={item.label}
               >
                 {isActive && (
-                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-[3px] h-[3px] rounded-full bg-primary" />
+                  <span className="absolute -top-1 left-1/2 h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-primary" />
                 )}
                 <Icon size={18} />
               </button>
@@ -64,6 +78,6 @@ export function MobileBottomNav() {
           );
         })}
       </ul>
-    </nav>
+    </motion.nav>
   );
 }

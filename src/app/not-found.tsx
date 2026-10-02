@@ -1,22 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { Home, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function NotFound() {
-  useEffect(() => {
-    document.documentElement.classList.remove('dark');
-    document.documentElement.classList.remove('light');
-    const stored = localStorage.getItem('theme');
-    if (stored === 'dark' || stored === 'light') {
-      document.documentElement.classList.add(stored);
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-background">
       <motion.div

@@ -82,22 +82,22 @@ export function TechStackExplorer() {
 
   return (
     <section id="tech-stack" className="py-28 px-6">
-      <div className="max-w-6xl mx-auto" ref={containerRef}>
+      <div className="max-w-6xl mx-auto rounded-[2rem] border border-border/80 bg-[#09090b]/95 p-6 sm:p-8 lg:p-10 shadow-[0_30px_80px_rgba(0,0,0,0.2)]" ref={containerRef}>
         <SectionHeading
           label="Tech Stack"
           title="Tools I use daily"
           description="Hover over any technology to see more details. Filter by category to narrow things down."
         />
 
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="mb-10 flex flex-wrap gap-2">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 border border-transparent ${
+              className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/15 border-primary'
-                  : 'bg-secondary/60 text-muted-foreground hover:text-foreground hover:bg-secondary hover:border-border'
+                  ? 'border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/15'
+                  : 'border-border bg-secondary/50 text-muted-foreground hover:border-border hover:bg-secondary hover:text-foreground'
               }`}
             >
               {cat}
@@ -105,28 +105,28 @@ export function TechStackExplorer() {
           ))}
         </div>
 
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        <motion.div layout className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <AnimatePresence mode="popLayout">
             {filtered.map((tech, i) => (
               <motion.div
                 key={tech.name}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 10 }}
                 transition={{ duration: 0.3, delay: i * 0.03 }}
                 onMouseEnter={() => setHoveredItem(tech)}
                 onMouseLeave={() => setHoveredItem(null)}
-                className="group relative rounded-xl border border-border/60 bg-card/30 p-4 hover:border-primary/25 transition-all duration-300 cursor-default card-lift"
+                className="group relative overflow-hidden rounded-[1.5rem] border border-border bg-[#111113]/80 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_20px_40px_rgba(0,0,0,0.18)]"
               >
-                <div className="flex items-start gap-3">
-                  <span className="text-xl mt-0.5" role="img" aria-hidden>{tech.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-2">
-                      <h4 className="text-sm font-semibold truncate">{tech.name}</h4>
-                      <span className="text-[10px] text-muted-foreground/60 shrink-0">{tech.yearsUsed}y</span>
+                <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${tech.color}`} />
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-0.5 text-xl" role="img" aria-hidden>{tech.icon}</span>
+                    <div className="min-w-0">
+                      <h4 className="truncate text-sm font-semibold text-foreground">{tech.name}</h4>
+                      <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{tech.category}</p>
                     </div>
-                    <p className="text-xs text-muted-foreground/70 mt-0.5">{tech.category}</p>
                   </div>
                   <ProficiencyRing value={tech.proficiency} color={tech.color} size={38} />
                 </div>
@@ -140,10 +140,10 @@ export function TechStackExplorer() {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="mt-3 pt-3 border-t border-border/40">
-                        <p className="text-xs text-muted-foreground leading-relaxed">{tech.description}</p>
-                        <div className="mt-2 flex items-center gap-2">
-                          <div className="flex-1 h-1 rounded-full bg-secondary overflow-hidden">
+                      <div className="mt-4 border-t border-border/50 pt-3">
+                        <p className="text-xs leading-relaxed text-muted-foreground">{tech.description}</p>
+                        <div className="mt-3 flex items-center gap-2">
+                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-secondary">
                             <motion.div
                               className={`h-full rounded-full bg-gradient-to-r ${tech.color}`}
                               initial={{ width: 0 }}
@@ -151,7 +151,7 @@ export function TechStackExplorer() {
                               transition={{ duration: 0.6, ease: EASE_OUT_SMOOTH }}
                             />
                           </div>
-                          <span className="text-[10px] text-muted-foreground tabular-nums">{tech.proficiency}%</span>
+                          <span className="text-[10px] tabular-nums text-muted-foreground">{tech.proficiency}%</span>
                         </div>
                       </div>
                     </motion.div>

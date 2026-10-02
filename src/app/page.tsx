@@ -2,28 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Navbar } from '@/components/portfolio/Navbar';
 import { Hero } from '@/components/portfolio/Hero';
-import { FeaturedOn } from '@/components/portfolio/FeaturedOn';
-import { Now } from '@/components/portfolio/Now';
 import { About } from '@/components/portfolio/About';
 import { Skills } from '@/components/portfolio/Skills';
 import { TechStackExplorer } from '@/components/portfolio/TechStackExplorer';
 import { Projects } from '@/components/portfolio/Projects';
-import { Timeline } from '@/components/portfolio/Timeline';
-import { Services } from '@/components/portfolio/Services';
-import { Writing } from '@/components/portfolio/Writing';
-import { GitHubActivity } from '@/components/portfolio/GitHubActivity';
-import { Testimonials } from '@/components/portfolio/Testimonials';
-import { Resume } from '@/components/portfolio/Resume';
-import { FAQ } from '@/components/portfolio/FAQ';
-import { Contact } from '@/components/portfolio/Contact';
-import { Footer } from '@/components/portfolio/Footer';
-import { MobileBottomNav } from '@/components/portfolio/MobileBottomNav';
-import { BackToTop } from '@/components/portfolio/BackToTop';
 import { CommandPalette } from '@/components/portfolio/CommandPalette';
 import { PageSkeleton } from '@/components/portfolio/PageSkeleton';
-import { PageMeta } from '@/components/portfolio/PageMeta';
+import { FloatingDock } from '@/components/ui/floating-dock';
+import { MobileBottomNav } from '@/components/portfolio/MobileBottomNav';
+import CloudShader from '@/components/CloudShader';
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -60,32 +48,26 @@ export default function Home() {
               Skip to content
             </a>
             <div className="grain-overlay" />
-            <Navbar />
-            <main id="main-content" className="flex-1">
+            <div className="pointer-events-none fixed inset-0 -z-20">
+              <CloudShader
+                speed={0.7}
+                count={6}
+                cloudColor="#eef4ff"
+                skyTopColor="#0b1b2a"
+                skyBottomColor="#28517d"
+                className="h-full w-full opacity-95"
+              />
+            </div>
+            <main id="main-content" className="relative z-10 flex-1">
               <Hero />
-              <FeaturedOn />
-              <Now />
               <About />
-              <div className='section-divider' />
               <Skills />
               <TechStackExplorer />
               <Projects />
-              <div className='section-divider' />
-              <Timeline />
-              <Services />
-              <Writing />
-              <GitHubActivity />
-              <Testimonials />
-              <Resume />
-              <FAQ />
-              <div className='section-divider' />
-              <Contact />
             </main>
-            <PageMeta />
-            <Footer />
-            <MobileBottomNav />
-            <BackToTop />
             <CommandPalette />
+            <FloatingDock />
+            <MobileBottomNav />
           </div>
         </motion.div>
       )}

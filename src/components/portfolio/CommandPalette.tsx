@@ -8,16 +8,12 @@ import {
   BarChart3,
   FolderOpen,
   Briefcase,
-  Mail,
   PenLine,
   HelpCircle,
-  Sun,
-  Moon,
   Copy,
   Check,
   Github,
 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 
 let openCommandPaletteRef: (() => void) | null = null;
 
@@ -35,14 +31,11 @@ type CommandItem = {
 };
 
 const NAV_ITEMS: Omit<CommandItem, 'action'>[] = [
+  { id: 'home', label: 'Home', section: 'navigation', icon: <User size={16} /> },
   { id: 'about', label: 'About', section: 'navigation', icon: <User size={16} /> },
   { id: 'skills', label: 'Skills', section: 'navigation', icon: <BarChart3 size={16} /> },
-  { id: 'tech-stack', label: 'Tech Stack Explorer', section: 'navigation', icon: <BarChart3 size={16} />, hint: 'detailed' },
+  { id: 'tech-stack', label: 'Tools', section: 'navigation', icon: <FolderOpen size={16} /> },
   { id: 'projects', label: 'Projects', section: 'navigation', icon: <FolderOpen size={16} /> },
-  { id: 'experience', label: 'Experience', section: 'navigation', icon: <Briefcase size={16} /> },
-  { id: 'contact', label: 'Contact', section: 'navigation', icon: <Mail size={16} /> },
-  { id: 'writing', label: 'Writing', section: 'navigation', icon: <PenLine size={16} /> },
-  { id: 'faq', label: 'FAQ', section: 'navigation', icon: <HelpCircle size={16} /> },
 ];
 
 export function CommandPalette() {
@@ -51,7 +44,6 @@ export function CommandPalette() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [copied, setCopied] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { theme, setTheme } = useTheme();
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -86,17 +78,6 @@ export function CommandPalette() {
         close();
       },
     })),
-    {
-      id: 'toggle-theme',
-      label: 'Toggle Theme',
-      section: 'actions',
-      icon: theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />,
-      hint: 'T',
-      action: () => {
-        setTheme(theme === 'dark' ? 'light' : 'dark');
-        close();
-      },
-    },
     {
       id: 'copy-email',
       label: copied ? 'Copied!' : 'Copy Email',
