@@ -184,24 +184,24 @@ export function CommandPalette() {
 
           {/* Palette */}
           <motion.div
-            className="relative max-w-lg w-full mx-4 rounded-2xl border border-border bg-background shadow-2xl overflow-hidden glass-card backdrop-blur-xl"
+            className="relative mx-4 w-full max-w-lg overflow-hidden rounded-[30px] border border-white/10 bg-[#212121] shadow-[15px_15px_30px_rgba(25,25,25,0.9),-15px_-15px_30px_rgba(60,60,60,0.9)]"
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
           >
             {/* Search input */}
-            <div className="flex items-center gap-3 px-4 border-b border-border">
-              <Search size={16} className="text-muted-foreground shrink-0" />
+            <div className="flex items-center gap-3 border-b border-white/10 px-4">
+              <Search size={16} className="shrink-0 text-white" />
               <input
                 ref={inputRef}
                 type="text"
                 placeholder="Search sections, actions..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="flex-1 bg-transparent py-3.5 text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                className="flex-1 bg-transparent py-3.5 text-sm font-bold text-white placeholder:text-white/60 outline-none"
               />
-              <kbd className="px-1.5 py-0.5 rounded bg-secondary text-[10px] font-mono text-muted-foreground border border-border">
+              <kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-white">
                 ESC
               </kbd>
             </div>
@@ -209,14 +209,14 @@ export function CommandPalette() {
             {/* Results */}
             <div ref={listRef} className="max-h-72 overflow-y-auto py-2">
               {filtered.length === 0 && (
-                <p className="text-sm text-muted-foreground text-center py-8">
+                <p className="py-8 text-center text-sm font-bold text-white">
                   No results found.
                 </p>
               )}
 
               {navItems.length > 0 && (
                 <div className="px-2 py-1.5">
-                  <p className="text-[11px] font-medium text-muted-foreground/70 uppercase tracking-wider px-2">
+                  <p className="px-2 text-[11px] font-bold uppercase tracking-wider text-white/80">
                     Navigation
                   </p>
                   {navItems.map((item) => {
@@ -229,13 +229,13 @@ export function CommandPalette() {
                         data-active={isActive}
                         onClick={item.action}
                         onMouseEnter={() => setActiveIndex(idx)}
-                        className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-sm transition-colors text-left cursor-pointer ${
+                        className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-left text-sm font-bold transition-colors cursor-pointer ${
                           isActive
-                            ? 'bg-secondary text-foreground'
-                            : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-white/10 text-white'
+                            : 'text-white/80 hover:text-white'
                         }`}
                       >
-                        <span className={isActive ? 'text-primary' : ''}>{item.icon}</span>
+                        <span className={isActive ? 'text-white' : 'text-white/80'}>{item.icon}</span>
                         <span>{item.label}</span>
                       </button>
                     );
@@ -245,7 +245,7 @@ export function CommandPalette() {
 
               {actionItems.length > 0 && (
                 <div className="px-2 py-1.5">
-                  <p className="text-[11px] font-medium text-muted-foreground/70 uppercase tracking-wider px-2">
+                  <p className="px-2 text-[11px] font-bold uppercase tracking-wider text-white/80">
                     Actions
                   </p>
                   {actionItems.map((item) => {
@@ -258,16 +258,16 @@ export function CommandPalette() {
                         data-active={isActive}
                         onClick={item.action}
                         onMouseEnter={() => setActiveIndex(idx)}
-                        className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-sm transition-colors text-left cursor-pointer ${
+                        className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-left text-sm font-bold transition-colors cursor-pointer ${
                           isActive
-                            ? 'bg-secondary text-foreground'
-                            : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-white/10 text-white'
+                            : 'text-white/80 hover:text-white'
                         }`}
                       >
-                        <span className={isActive ? 'text-primary' : ''}>{item.icon}</span>
+                        <span className={isActive ? 'text-white' : 'text-white/80'}>{item.icon}</span>
                         <span className="flex-1">{item.label}</span>
                         {item.hint && (
-                          <kbd className="px-1.5 py-0.5 rounded bg-secondary text-[10px] font-mono text-muted-foreground border border-border">
+                          <kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-white">
                             {item.hint}
                           </kbd>
                         )}
@@ -279,17 +279,17 @@ export function CommandPalette() {
             </div>
 
             {/* Footer hint */}
-            <div className="flex items-center gap-4 px-4 py-2.5 border-t border-border text-[11px] text-muted-foreground">
+            <div className="flex items-center gap-4 border-t border-white/10 px-4 py-2.5 text-[11px] font-bold text-white/80">
               <span className="flex items-center gap-1">
-                <kbd className="px-1 py-0.5 rounded bg-secondary border border-border font-mono">↑↓</kbd>
+                <kbd className="rounded border border-white/10 bg-white/5 px-1 py-0.5 font-mono text-white">↑↓</kbd>
                 navigate
               </span>
               <span className="flex items-center gap-1">
-                <kbd className="px-1 py-0.5 rounded bg-secondary border border-border font-mono">↵</kbd>
+                <kbd className="rounded border border-white/10 bg-white/5 px-1 py-0.5 font-mono text-white">↵</kbd>
                 select
               </span>
               <span className="flex items-center gap-1">
-                <kbd className="px-1 py-0.5 rounded bg-secondary border border-border font-mono">esc</kbd>
+                <kbd className="rounded border border-white/10 bg-white/5 px-1 py-0.5 font-mono text-white">esc</kbd>
                 close
               </span>
             </div>

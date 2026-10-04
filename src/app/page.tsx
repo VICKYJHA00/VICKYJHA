@@ -58,7 +58,7 @@ export default function Home() {
                 className="h-full w-full opacity-95"
               />
             </div>
-            <main id="main-content" className="relative z-10 flex-1">
+            <main id="main-content" className="relative z-10 flex-1 pb-24 md:pb-0">
               <Hero />
               <About />
               <Skills />

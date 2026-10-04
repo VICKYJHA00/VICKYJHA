@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { House, User, Code2, Briefcase, Search } from 'lucide-react';
 import { openCommandPalette } from '@/components/portfolio/CommandPalette';
 
@@ -15,10 +15,6 @@ const navItems = [
 
 export function MobileBottomNav() {
   const [active, setActive] = useState('#home');
-  const { scrollYProgress } = useScroll();
-  const navY = useTransform(scrollYProgress, [0, 0.2], [28, 0]);
-  const navOpacity = useTransform(scrollYProgress, [0, 0.2], [0.7, 1]);
-  const smoothY = useSpring(navY, { stiffness: 200, damping: 24, mass: 0.5 });
 
   const scrollTo = useCallback((id: string, action?: string) => {
     if (action === 'search') {
@@ -53,7 +49,9 @@ export function MobileBottomNav() {
 
   return (
     <motion.nav
-      style={{ y: smoothY, opacity: navOpacity }}
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       className="md:hidden fixed inset-x-0 bottom-0 z-40 h-16 border-t border-border/80 bg-background/75 backdrop-blur-2xl"
     >
       <ul className="flex h-full items-center justify-around px-2" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>

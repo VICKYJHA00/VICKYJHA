@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Search, Trophy } from 'lucide-react';
 
 import { openCommandPalette } from '@/components/portfolio/CommandPalette';
@@ -18,17 +18,9 @@ const dockItems = [
 ];
 
 export function FloatingDock() {
-  const { scrollYProgress } = useScroll();
-  const dockY = useTransform(scrollYProgress, [0, 0.22], [34, -8]);
-  const dockOpacity = useTransform(scrollYProgress, [0, 0.15], [0.55, 1]);
-  const dockScale = useTransform(scrollYProgress, [0, 0.22], [0.92, 1]);
-  const smoothY = useSpring(dockY, { stiffness: 220, damping: 20, mass: 0.45 });
-  const smoothScale = useSpring(dockScale, { stiffness: 220, damping: 24, mass: 0.4 });
-
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-7 z-50 hidden justify-center px-4 md:flex">
       <motion.nav
-        style={{ y: smoothY, opacity: dockOpacity, scale: smoothScale }}
         initial={{ opacity: 0, y: 22 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
